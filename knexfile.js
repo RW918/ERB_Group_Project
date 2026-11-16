@@ -25,10 +25,10 @@ export default {
   migrations: {
     directory: "./migrations",
     tableName: "knex_migrations",
-    extension: "mjs",
+    extension: "ts",
   },
   seeds: {
     directory: "./seeds",
-    extension: "mjs",
+    extension: "ts",
   },
 };

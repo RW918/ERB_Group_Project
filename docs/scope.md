@@ -52,13 +52,14 @@ Functionality (40) and the two document items (40) are the largest blocks after 
 
 | Artifact | State | Needs |
 |---|---|---|
-| P1 wireframe | `draft/JobTrack_Wireframe_P1.png` v3 | v4: `/admin/users`, company as text input |
-| P2 ERD | `draft/JobTrack_ERD_P2.png` v2 | v3: permission column(s); ORM footnote corrected to Drizzle |
+| P1 wireframe | `draft/JobTrack_Wireframe_P1.png` v3 | v4: `/admin/users`, company as text input, and the four posting-detail fields |
+| P2 ERD | `draft/JobTrack_ERD_P2.png` v2 (stale) | regenerate from `draft/erd.sql` if submitting the original image; `draft/JobTrack_ERD_P3.png` is current |
 | P3 board | not seen | create to the project template |
-| Git | 1 author, 1 branch, 0 merges | branches + merged PRs from the first teammate commit |
+| Git | 3 people (you + 2 teammates); lanes in `docs/lanes.md` | branches + merged PRs from the baseline; rubric A pays only for real merges |
 
 ## Known debts
 
-- `boostrap@2.0.0` is an empty typo package; real Bootstrap 5 is not installed.
-- README still names BetterAuth and Knex without TypeScript; decisions are Passport + Knex + TS.
-- `knex` stays; nothing needs removing.
+- **Wireframe v3 is behind the schema**: it has no `/admin/users`, no free-text company, and no posting URL / location / salary / deadline fields. Rubric D pays full marks only for a wireframe kept in step.
+- No live database yet: `DATABASE_URL` is unset, so `npm run migrate` and `npm run seed` have not been exercised against Postgres.
+- No CI workflow yet; only the local pre-commit hook.
+- ADR still owed for the Drizzle → Knex + TS decision (hand-written domain types vs schema-inferred).

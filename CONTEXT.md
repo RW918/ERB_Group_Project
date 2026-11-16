@@ -26,6 +26,14 @@ _Avoid_: stage, state, progress, phase
 The date of the next interview for an application. Empty when no interview is scheduled; independent of status.
 _Avoid_: meeting, appointment
 
+**Posting URL**:
+The address of the original job advertisement for an application. Each user keeps their own; postings are not a shared entity.
+_Avoid_: link, reference, source
+
+**Deadline**:
+The date by which an application must be submitted. Independent of the interview date and of status.
+_Avoid_: due date, expiry, closing date
+
 ### Access
 
 **User**:

@@ -38,6 +38,10 @@ erDiagram
         varchar status "applied | interviewing | offer | rejected"
         date interview_date "nullable"
         text note "nullable"
+        text posting_url "nullable — original job advert"
+        varchar(100) location "nullable — city or remote"
+        varchar(100) salary "nullable — free text, as advertised"
+        date deadline "nullable — submission deadline"
         timestamptz created_at
     }
 ```
@@ -52,6 +56,9 @@ erDiagram
   the list query filters on `user_id`.
 - **Companies are shared.** `name` is unique, so adding an application finds or
   creates its company instead of inserting a duplicate.
+- **Posting details live on the application**, not in a separate Posting entity.
+  A personal tracker has no need to share one posting row across users; each user
+  keeps their own copy of the advert's URL, location, salary and deadline.
 - **Indexes** on `applications.user_id`, `.company_id`, and `.status` back the
   filtered list and the `GROUP BY status` statistics.
 - **Seed rule:** `admin` gets both permissions, `user` gets neither, and exactly

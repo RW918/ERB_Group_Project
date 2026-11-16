@@ -34,6 +34,10 @@ CREATE TABLE applications (
                  CHECK (status IN ('applied', 'interviewing', 'offer', 'rejected')),
   interview_date DATE,
   note           TEXT,
+  posting_url    TEXT NULL,                                 -- original job advert
+  location       VARCHAR(100) NULL,                         -- city / remote
+  salary         VARCHAR(100) NULL,                         -- free text, as advertised
+  deadline       DATE NULL,                                 -- submission deadline
   created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

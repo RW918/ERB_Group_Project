@@ -52,6 +52,9 @@ Seeded by `npm run seed`:
 | `alice` | `user123` | user — owns the sample applications |
 | `bob` | `user123` | user — empty list, proves the ownership filter |
 
+Passwords come from `DEMO_ADMIN_PASSWORD` / `DEMO_USER_PASSWORD` in `.env` when set;
+the values above are local fallbacks. Change them before exposing the app.
+
 ## Where things live
 
 - `draft/erd.sql` — executable schema, source of truth for the ERD and migrations

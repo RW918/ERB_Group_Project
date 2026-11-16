@@ -31,6 +31,10 @@ export interface Application {
   status: Status;
   interview_date: Date | null;
   note: string | null;
+  posting_url: string | null;
+  location: string | null;
+  salary: string | null;
+  deadline: Date | null;
   created_at: Date;
 }
 
