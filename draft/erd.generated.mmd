@@ -1,0 +1,44 @@
+erDiagram
+    %% table name: roles
+    %% table comment: 
+    roles {
+        SERIAL id PK ""
+        VARCHAR(20) name  ""
+        BOOLEAN can_view_all_applications  ""
+        BOOLEAN can_manage_users  ""
+    }
+
+    %% table name: users
+    %% table comment: 
+    users {
+        SERIAL id PK ""
+        VARCHAR(50) username  ""
+        TEXT password_hash  ""
+        INTEGER role_id FK ""
+        TIMESTAMPTZ created_at  ""
+    }
+
+    %% table name: companies
+    %% table comment: 
+    companies {
+        SERIAL id PK ""
+        VARCHAR(100) name  ""
+        TIMESTAMPTZ created_at  ""
+    }
+
+    %% table name: applications
+    %% table comment: 
+    applications {
+        SERIAL id PK ""
+        INTEGER user_id FK ""
+        INTEGER company_id FK ""
+        VARCHAR(100) position  ""
+        VARCHAR(20) status  ""
+        DATE interview_date  ""
+        TEXT note  ""
+        TIMESTAMPTZ created_at  ""
+    }
+
+    roles ||--o{ users : "has_many: users, belongs_to: role"
+    users ||--o{ applications : "has_many: applications, belongs_to: user"
+    companies ||--o{ applications : "has_many: applications, belongs_to: company"
