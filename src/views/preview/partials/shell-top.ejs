@@ -1,0 +1,47 @@
+<%- include('../../partials/head', { title: title }) %>
+<%- include('icons') %>
+
+<aside class="sidebar">
+  <a class="brand" href="/preview/dashboard">
+    <span class="brand-mark"><svg class="ic"><use href="#i-briefcase" /></svg></span>
+    <span>
+      <span class="brand-name">JobTrack</span><br />
+      <span class="brand-sub">求职投递追踪</span>
+    </span>
+  </a>
+
+  <div class="nav-section">工作台</div>
+
+  <a class="nav-item <%= active === 'dashboard' ? 'is-active' : '' %>" href="/preview/dashboard">
+    <svg class="ic"><use href="#i-grid" /></svg>
+    投递看板
+  </a>
+  <a class="nav-item <%= active === 'admin' ? 'is-active' : '' %>" href="/preview/admin">
+    <svg class="ic"><use href="#i-users" /></svg>
+    用户与权限
+    <span class="nav-badge">Admin</span>
+  </a>
+
+  <div class="sidebar-foot">
+    <div class="side-user">
+      <span class="avatar"><%= user.initial %></span>
+      <span>
+        <span class="side-user-name"><%= user.name %></span><br />
+        <span class="side-user-role"><%= user.roleLabel %></span>
+      </span>
+      <a class="icon-btn" href="/preview/login" title="登出" aria-label="登出" style="margin-left:auto">
+        <svg class="ic"><use href="#i-logout" /></svg>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<div class="shell">
+  <div class="page">
+    <div class="mobile-head d-lg-none">
+      <a class="brand" href="/preview/dashboard">
+        <span class="brand-mark"><svg class="ic"><use href="#i-briefcase" /></svg></span>
+        <span class="brand-name">JobTrack</span>
+      </a>
+      <span class="avatar"><%= user.initial %></span>
+    </div>

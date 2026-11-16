@@ -1,0 +1,21 @@
+  </div>
+</div>
+
+<% if (typeof tabbar === 'undefined' || tabbar) { %>
+<nav class="tabbar d-lg-none">
+  <a class="tab <%= active === 'dashboard' ? 'is-active' : '' %>" href="/preview/dashboard">
+    <svg class="ic"><use href="#i-grid" /></svg>
+    <span>看板</span>
+  </a>
+  <a class="tab" href="/preview/dashboard?modal=1" aria-label="新增投递">
+    <span class="tab-fab"><svg class="ic"><use href="#i-plus" /></svg></span>
+  </a>
+  <a class="tab <%= active === 'admin' ? 'is-active' : '' %>" href="/preview/admin">
+    <svg class="ic"><use href="#i-user" /></svg>
+    <span>我的</span>
+  </a>
+</nav>
+<% } %>
+
+</body>
+</html>

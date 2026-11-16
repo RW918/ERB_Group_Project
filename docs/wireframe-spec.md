@@ -1,13 +1,34 @@
 # Wireframe v4 spec
 
-What P1 must show. Tool-agnostic on purpose — draw it in Figma, Penpot, or
-whatever the group agrees on, then export PNG (or PDF) into `draft/`.
+> **Penpot 项目链接：** _待填 — 建好项目后把分享链接贴在这里_
+
+What P1 must show. **Chosen tool: Penpot** (open source, cloud, three-person
+collaboration). Draw in Penpot, export PNG (or PDF) into `draft/`.
 Previous version: `draft/JobTrack_Wireframe_P1.png` (v3).
+
+## Penpot setup
+
+- Project name: `JobTrack P1 v4`
+- One board per screen size, named exactly as below so exports are unambiguous:
+  - `01 Login — Desktop` (1440×900)
+  - `02 Dashboard — Desktop` (1440×900)
+  - `03 Dashboard — Mobile` (390×844)
+  - `04 Admin Users — Desktop` (1440×900)
+  - `05 Admin Users — Mobile` (390×844)
+  - `06 Login — Mobile` (390×844)
+  - `07 Application Detail — Desktop` (1440×900)
+  - `08 Application Detail — Mobile` (390×844)
+- Every desktop screen has a mobile counterpart — the mobile board is a re-flow
+  of the same components, not a reduced feature set. Decoration-only elements
+  (the login brand panel, wide stat band) may differ.
+- Use Penpot's flex/grid layout on the card grid and stacked cards so the
+  desktop 3-column and mobile 1-column variants are visibly one design system.
+- Export each board at 2× PNG, or export a single combined PNG/PDF for submission.
 
 The list is a **card grid on every screen size**: desktop 2–3 columns, mobile
 one column. No data table, no responsive column hiding.
 
-## Screen 1 — `/login`
+## Screen 1 — `/login` (board `01`, mobile `06`)
 
 | Element | Notes |
 |---|---|
@@ -21,12 +42,17 @@ one column. No data table, no responsive column hiding.
 
 States to draw: default, error, and "already logged in → redirect to `/`".
 
-## Screen 2 — `/` (dashboard)
+## Screen 2 — `/` (dashboard, board `02`, mobile `03`)
 
 **Top bar** — brand `JobTrack`, current username, `[登出]`.
 
-**Stats row** — four cards: `总投递 {n}`, `面试中 {n}`, `Offer {n}`, `已拒绝 {n}`.
-Desktop 4 across, mobile 2×2.
+**Status filters** — one chip per status, each carrying its count:
+`全部 {n}` `已投递 {n}` `面试机会 {n}` `Offer {n}` `已拒绝 {n}`. Desktop in one
+row under the top bar; mobile in a horizontally scrollable row.
+
+> Spec change: the original four-card stats row was dropped. It repeated the
+> same counts the filter chips already show, so the chips are the single place
+> the numbers live and the card grid moves up one band.
 
 **Add / edit form** (one card):
 
@@ -52,7 +78,7 @@ pre-filled, titled `编辑投递`. Note on the card: `admin 可见全组数据`.
 ┌──────────────────────────────────┐
 │ Example Ltd                      │  ← company
 │ Junior Developer ↗               │  ← position, links to posting_url
-│ [面试中]                          │  ← status badge
+│ [面试机会]                        │  ← status badge (component instance)
 │ 香港 · HKD 20k-25k · 截止 12/15    │  ← location · salary · deadline (muted)
 │ 面试日 2026-11-30                 │
 │ 备注：Second round with platform  │
@@ -66,7 +92,7 @@ pre-filled, titled `编辑投递`. Note on the card: `admin 可见全组数据`.
   a small username label.
 - Delete is AJAX: no full page reload after confirming.
 
-## Screen 3 — `/admin/users` (admin only)
+## Screen 3 — `/admin/users` (admin only, board `04`, mobile `05`)
 
 Top bar same as `/`. One card containing a row per user:
 
@@ -85,9 +111,25 @@ Mobile: each user becomes a stacked block, toggles full width.
 Unauthenticated visit → redirect to `/login`; non-admin visit → a clear
 `没有权限` state. This screen is the visible proof of "grant" in rubric F.
 
+## Screen 4 — `/applications/:id` (board `07`, mobile `08`)
+
+The card grid truncates long notes and has nowhere to put the original advert,
+so opening a card lands on a detail view of the same record.
+
+| Block | Contents |
+|---|---|
+| Header | `← 返回看板`, company (24px), position, status badge |
+| 投递信息 | 地点 · 薪资 · 截止日期 · 面试日 · 投递日 · 来源, two columns |
+| 备注 | full text, no truncation |
+| Actions | `编辑投递` (primary), `查看原始职位 ↗` (outline), `删除记录` (danger ghost) |
+| 记录信息 | 投递人, 创建时间, 最近更新 |
+
+Mobile stacks the same blocks and moves the three actions into a bottom bar
+(`编辑投递` + `删除`). Editing reuses the dashboard form in edit mode.
+
 ## Export checklist
 
-- [ ] Desktop and mobile frames shown for every screen
+- [ ] Desktop and mobile frames shown for every screen (8 boards)
 - [ ] Both roles shown where they differ (user vs admin list)
 - [ ] Error / empty / permission-denied states included
 - [ ] File named `draft/JobTrack_Wireframe_P1_v4.png`, v3 kept for history

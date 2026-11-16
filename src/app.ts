@@ -3,6 +3,7 @@ import session from "express-session";
 import passport from "passport";
 import type { NextFunction, Request, Response } from "express";
 import { config } from "./config.js";
+import { previewRouter } from "./routes/preview.js";
 
 export const app = express();
 
@@ -31,6 +32,8 @@ app.get("/health", (_req, res) => {
 app.get("/", (_req, res) => {
   res.render("hello");
 });
+
+app.use("/preview", previewRouter);
 
 // Lane 1 mounts here:  app.use("/", authRouter); app.use("/admin", adminRouter);
 // Lane 2 mounts here:  app.use("/applications", applicationsRouter);
