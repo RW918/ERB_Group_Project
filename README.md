@@ -53,7 +53,8 @@ Seeded by `npm run seed`:
 
 ## Where things live
 
-- `draft/erd.sql` — schema, single source of truth for the ERD and migrations
+- `draft/erd.sql` — executable schema, source of truth for the ERD and migrations
+- `docs/erd.md` — readable ERD (Mermaid), rendered by GitHub
 - `draft/` — the two graded artifacts (P1 wireframe, P2 ERD)
 - `migrations/`, `seeds/` — ESM `.mjs`, loaded by Knex via `import()`
 - `src/` — application code
