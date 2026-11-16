@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+set -e
+
+# 1. Never let credentials into the repo (we all use DATABASE_URL).
+if git diff --cached --name-only | grep -E '(^|/)\.env$'; then
+  echo "pre-commit: .env is staged — never commit credentials" >&2
+  exit 1
+fi
+
+# 2. Never commit something that doesn't compile (rubric B, twice).
+npm run build
