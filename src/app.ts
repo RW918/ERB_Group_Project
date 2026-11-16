@@ -24,7 +24,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/healthz", (_req, res) => {
+app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
 
