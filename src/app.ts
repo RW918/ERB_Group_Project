@@ -28,6 +28,10 @@ app.get("/healthz", (_req, res) => {
   res.json({ ok: true });
 });
 
+app.get("/", (_req, res) => {
+  res.render("hello");
+});
+
 // Lane 1 mounts here:  app.use("/", authRouter); app.use("/admin", adminRouter);
 // Lane 2 mounts here:  app.use("/applications", applicationsRouter);
 
