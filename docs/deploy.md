@@ -3,6 +3,9 @@
 **Chosen: Render (web service, free) + Neon (Postgres, free).** No credit card,
 GitHub-connected deploys, and the app can run its own migrations on boot.
 
+Live: <https://jobtrack.yuen-network.top> (custom domain, Cloudflare TLS in
+front of the Render service).
+
 Railway would be one step shorter but its free credit expires before the demo
 window; Vercel/Netlify fight Express sessions and long-lived connections.
 

@@ -42,9 +42,10 @@ npm run dev               # http://localhost:3000
 
 ## Deploy
 
-**Render (web service, free) + Neon (Postgres, free)** — `render.yaml` is
-committed, so Render can create the service from the blueprint. The start
-command runs `migrate` and `seed` before boot; both are idempotent.
+**Live: <https://jobtrack.yuen-network.top>** — Render (free web service) +
+Neon (Postgres). `render.yaml` is committed, so Render can create the service
+from the blueprint. The start command runs `migrate` and `seed` before boot;
+both are idempotent.
 
 Step-by-step, environment variables and the free-tier caveats:
 [`docs/deploy.md`](docs/deploy.md).
