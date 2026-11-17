@@ -6,9 +6,10 @@ user's applications and manage who holds which role.
 
 ## Design
 
-Eight boards cover every screen at two breakpoints (1440×900 desktop, 390×844
-mobile), plus a component library. The Penpot file is the editable source; the
-PNGs in `draft/design/penpot/` are 1× exports.
+Twelve boards cover every screen at two breakpoints (1440×900 desktop, 390×844
+mobile) plus the two dialogs, each at both sizes; a thirteenth frame documents
+the component library. The Penpot file is the editable source; the PNGs in
+`draft/design/penpot/` are 1× exports.
 
 ![JobTrack — all boards](draft/design/penpot/00-overview.png)
 

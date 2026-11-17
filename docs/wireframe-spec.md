@@ -1,6 +1,6 @@
 # Wireframe v4 spec
 
-> **Penpot 项目链接：** _待填 — 建好项目后把分享链接贴在这里_
+> **Penpot 项目链接：** <https://design.penpot.app/?screen=viewer&file-id=b4b906dd-9024-819c-8008-f4673c7ac5e7&page-id=b4b906dd-9024-819c-8008-f4673c7ac5e8&section=interactions&index=0>
 
 What P1 must show. **Chosen tool: Penpot** (open source, cloud, three-person
 collaboration). Draw in Penpot, export PNG (or PDF) into `draft/`.
@@ -18,6 +18,11 @@ Previous version: `draft/JobTrack_Wireframe_P1.png` (v3).
   - `06 Login — Mobile` (390×844)
   - `07 Application Detail — Desktop` (1440×900)
   - `08 Application Detail — Mobile` (390×844)
+  - `09 Add Application — Modal — Desktop` (1440×900)
+  - `10 Add Application — Modal — Mobile` (390×844)
+  - `11 Delete Confirm — Modal — Desktop` (1440×900)
+  - `12 Delete Confirm — Modal — Mobile` (390×844)
+  - `13 Component Library` (880×520)
 - Every desktop screen has a mobile counterpart — the mobile board is a re-flow
   of the same components, not a reduced feature set. Decoration-only elements
   (the login brand panel, wide stat band) may differ.
@@ -127,9 +132,24 @@ so opening a card lands on a detail view of the same record.
 Mobile stacks the same blocks and moves the three actions into a bottom bar
 (`编辑投递` + `删除`). Editing reuses the dashboard form in edit mode.
 
+## Modals (boards `09`–`12`)
+
+Two dialogs, each drawn at both breakpoints on top of the screen that opens it,
+with a 45% ink scrim:
+
+| Modal | Trigger | Desktop | Mobile |
+|---|---|---|---|
+| New / edit application | `新增投递` on the dashboard, pencil on a card | `09` | `10` |
+| Delete confirm | `删除记录` on the detail page | `11` | `12` |
+
+Desktop uses a centred card — 720×660 for the form, 420×210 for the confirm.
+Mobile uses a bottom sheet for the form and a centred card for the confirm.
+Form fields match the data model: company, position, status, interview date,
+location, deadline, salary, posting URL, note; company and position are required.
+
 ## Export checklist
 
-- [ ] Desktop and mobile frames shown for every screen (8 boards)
+- [ ] Desktop and mobile frames shown for every screen (12 boards + library)
 - [ ] Both roles shown where they differ (user vs admin list)
 - [ ] Error / empty / permission-denied states included
 - [ ] File named `draft/JobTrack_Wireframe_P1_v4.png`, v3 kept for history
