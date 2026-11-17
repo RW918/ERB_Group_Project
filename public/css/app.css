@@ -1745,9 +1745,9 @@ h1.page-title {
 .idx-inner { max-width: 960px; margin: 0 auto; }
 .idx-head { display: flex; align-items: center; gap: 12px; }
 .idx-mark {
-  width: 40px; height: 40px; border-radius: 10px; background: var(--brand);
-  color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 18px;
+  width: 40px; height: 40px; display: block; flex: 0 0 40px;
 }
+.idx-mark svg { display: block; width: 40px; height: 40px; }
 .idx-title { font-size: 26px; font-weight: 700; color: var(--ink); margin: 0; letter-spacing: -0.01em; }
 .idx-sub { color: var(--muted); font-size: 14px; line-height: 1.7; margin: 10px 0 32px; max-width: 640px; }
 .idx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }

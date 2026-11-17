@@ -181,18 +181,23 @@ Badges are real components and every badge on every screen is an instance:
 | `badge-rejected-v2` | `已拒绝` |
 
 The `Components` page holds ten more masters, each built from the same tokens
-(`10px` radius, `44px` control height, `13px` label):
+(`10px` radius, `44px` control height, `13px` label). The three icon buttons
+are a real interactive variant set with `Variant` and `State` properties:
+`Normal`, `Hover`, and `Disabled`.
 
 | Component | Used for |
 |---|---|
-| `btn-primary` / `btn-secondary` / `btn-danger` | 新增投递 / 返回看板 / 删除记录 |
+| `button-with-icon-variants` | Primary / Save / Danger buttons; `Variant` × `State` (`Normal` / `Hover` / `Disabled`) |
 | `chip-filter-active` / `chip-filter-idle` | status filter chips with counts |
 | `field-text` / `field-select` | form fields (label + control + placeholder) |
 | `switch-toggle` | admin permission toggles |
 | `nav-item-active` | sidebar row in its active state |
 | `modal-shell` | dialog frame: card, title, divider, footer |
+| `drawer-shell` | mobile bottom sheet with grabber, rounded top and footer |
+| `app-icon` | shared briefcase + progress-check brand mark |
 
-That is 14 components in the file library. Component boards on the `Components`
+That is 14 component sets in the file library, including 9 icon-button variants.
+Component boards on the `Components`
 page are marked "hide in view mode", so the viewer only shows screens and the
 two dialogs.
 
@@ -212,6 +217,16 @@ Wired with `shape.addInteraction('click', { type: 'navigate-to', destination })`
 | 02 / 04 | sidebar logout icon | 01 Login — Desktop |
 | 03 Dashboard — Mobile | `我的` tab (icon, label) | 05 Admin Users — Mobile |
 | 05 Admin Users — Mobile | `← 返回` | 03 Dashboard — Mobile |
+| 02 Dashboard — Desktop | `新增投递` | 09 Add Application — Modal — Desktop |
+| 09 Add Application — Desktop | close / cancel / save | 02 Dashboard — Desktop |
+| 03 Dashboard — Mobile | FAB `+` | 10 Add Application — Modal — Mobile |
+| 10 Add Application — Mobile | close / cancel / save | 03 Dashboard — Mobile |
+| 02 Dashboard — Desktop | first application card | 07 Application Detail — Desktop |
+| 03 Dashboard — Mobile | first application card | 08 Application Detail — Mobile |
+| 07 Application Detail — Desktop | `删除记录` | 11 Delete Confirm — Modal — Desktop |
+| 11 Delete Confirm — Desktop | cancel / confirm | 07 Application Detail — Desktop |
+| 08 Application Detail — Mobile | `删除` | 12 Delete Confirm — Modal — Mobile |
+| 12 Delete Confirm — Mobile | cancel / confirm | 08 Application Detail — Mobile |
 
 To add more, select a shape in Penpot and drag its interaction handle to the
 target board, or use the `execute_code` MCP tool with `addInteraction`.
