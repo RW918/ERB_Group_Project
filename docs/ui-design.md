@@ -197,7 +197,7 @@ are a real interactive variant set with `Variant` and `State` properties:
 | `drawer-shell` | mobile bottom sheet with grabber, rounded top and footer |
 | `app-icon` | shared briefcase + progress-check brand mark |
 
-That is 14 component sets in the file library, including 9 icon-button variants.
+That is 33 component sets in the file library: 19 icon components, 3 icon-button variant sets (9 states), and the badges, chips, fields, shells and app icon.
 Component boards on the `Components`
 page are marked "hide in view mode", so the viewer only shows screens and the
 two dialogs.
