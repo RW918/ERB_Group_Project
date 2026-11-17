@@ -28,7 +28,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/health", (_req, res) => {
-  res.json({ ok: true });
+  res.json({
+    ok: true,
+    // Render injects the deployed commit; null locally.
+    commit: process.env.RENDER_GIT_COMMIT?.slice(0, 7) ?? null,
+  });
 });
 
 app.get("/", (_req, res) => {
