@@ -37,23 +37,65 @@ Counts live in the status filter chips (`全部 / 已投递 / 面试机会 / Off
 已拒绝`). The earlier KPI row repeated the same numbers, so it was removed
 rather than shown twice.
 
-## Exported frames
+## Boards
 
 Every frame carries a `PNG · 1x` export entry, so a board can be selected and
 exported straight from the Penpot right-hand panel. The checked-in copies in
-`draft/design/penpot/` were produced that way — no resampling, no cropping:
+`draft/design/penpot/` were produced that way — no resampling, no cropping.
 
-| Frame | File |
-|---|---|
-| 01 Login — Desktop | `01-login-desktop.png` (1440×900) |
-| 02 Dashboard — Desktop | `02-dashboard-desktop.png` (1440×900) |
-| 03 Dashboard — Mobile | `03-dashboard-mobile.png` (390×844) |
-| 04 Admin Users — Desktop | `04-admin-users-desktop.png` (1440×900) |
-| 05 Admin Users — Mobile | `05-admin-users-mobile.png` (390×844) |
-| 06 Login — Mobile | `06-login-mobile.png` (390×844) |
-| 07 Application Detail — Desktop | `07-application-detail-desktop.png` (1440×900) |
-| 08 Application Detail — Mobile | `08-application-detail-mobile.png` (390×844) |
-| 01 Component Library | `09-component-library.png` (882×522) |
+### 01 · Login — Desktop
+
+![01 Login — Desktop](../draft/design/penpot/01-login-desktop.png)
+
+`01-login-desktop.png` · 1440×900
+
+### 02 · Dashboard — Desktop
+
+![02 Dashboard — Desktop](../draft/design/penpot/02-dashboard-desktop.png)
+
+`02-dashboard-desktop.png` · 1440×900
+
+### 03 · Dashboard — Mobile
+
+![03 Dashboard — Mobile](../draft/design/penpot/03-dashboard-mobile.png)
+
+`03-dashboard-mobile.png` · 390×844
+
+### 04 · Admin Users — Desktop
+
+![04 Admin Users — Desktop](../draft/design/penpot/04-admin-users-desktop.png)
+
+`04-admin-users-desktop.png` · 1440×900
+
+### 05 · Admin Users — Mobile
+
+![05 Admin Users — Mobile](../draft/design/penpot/05-admin-users-mobile.png)
+
+`05-admin-users-mobile.png` · 390×844
+
+### 06 · Login — Mobile
+
+![06 Login — Mobile](../draft/design/penpot/06-login-mobile.png)
+
+`06-login-mobile.png` · 390×844
+
+### 07 · Application Detail — Desktop
+
+![07 Application Detail — Desktop](../draft/design/penpot/07-application-detail-desktop.png)
+
+`07-application-detail-desktop.png` · 1440×900
+
+### 08 · Application Detail — Mobile
+
+![08 Application Detail — Mobile](../draft/design/penpot/08-application-detail-mobile.png)
+
+`08-application-detail-mobile.png` · 390×844
+
+### 09 · Component Library
+
+![01 Component Library](../draft/design/penpot/09-component-library.png)
+
+`09-component-library.png` · 882×522
 
 `00-overview.png` (1388×1978) is a composite of the nine exports above — desktop
 2×2, mobile row, library — with Latin-only labels so it renders without a CJK

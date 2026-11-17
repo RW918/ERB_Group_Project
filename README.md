@@ -4,6 +4,18 @@ A job-application tracker. Each user keeps their own applications through a
 submission → interview → offer/rejected pipeline; a privileged role can see every
 user's applications and manage who holds which role.
 
+## Design
+
+Eight boards cover every screen at two breakpoints (1440×900 desktop, 390×844
+mobile), plus a component library. The Penpot file is the editable source; the
+PNGs in `draft/design/penpot/` are 1× exports.
+
+![JobTrack — all boards](draft/design/penpot/00-overview.png)
+
+- `docs/ui-design.md` — board-by-board walkthrough, tokens, components, prototype links
+- `docs/wireframe-spec.md` — the written spec each board follows
+- `draft/design/penpot/` — one PNG per board
+
 ## Stack
 
 | Layer | Choice |
