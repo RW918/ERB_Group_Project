@@ -3,6 +3,11 @@
 The executable source is [`draft/erd.sql`](../draft/erd.sql); this file is the
 readable version. GitHub renders the block below as a diagram.
 
+![JobTrack ERD](../draft/JobTrack_ERD_P3.png)
+
+*`draft/JobTrack_ERD_P3.png` — rendered from `draft/erd.sql` by `npm run erd`
+(4 tables, 3 relations).*
+
 ```mermaid
 erDiagram
     ROLES ||--o{ USERS : "assigned to"
