@@ -202,6 +202,11 @@ Component boards on the `Components`
 page are marked "hide in view mode", so the viewer only shows screens and the
 two dialogs.
 
+Icons come from **Lucide** (`lucide-static`, a dev dependency): every icon in the
+file is a component built from the package's 24×24 SVG at `1.75px` stroke, so the
+design and the markup can be traced back to the same source instead of
+hand-drawn paths.
+
 `public/css/app.css` holds the matching tokens and component styling, so the
 design maps 1:1 onto the implementation.
 
