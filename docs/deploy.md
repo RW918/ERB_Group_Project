@@ -23,6 +23,14 @@ window; Vercel/Netlify fight Express sessions and long-lived connections.
 
 ## 2. Render (app)
 
+> **Free instance type, not Starter.** On the create screen the instance type
+> defaults to *Starter ($7/month)*. Switch it to **Free** — Hobby workspaces get
+> 750 instance hours a month, no credit card. If the dropdown shows no Free row,
+> the workspace is on a paid plan or the account is unverified.
+>
+> **Do not create a Render Postgres.** Render's free database is deleted after
+> 30 days. The database is Neon; `render.yaml` only creates the web service.
+
 1. <https://dashboard.render.com> → **New → Blueprint** → pick this repo.
    Render reads `render.yaml` and asks for the `sync: false` values.
 2. Fill in:
@@ -66,6 +74,24 @@ safely: `migrate:latest` is a no-op once applied, seeds skip existing rows.
   first query after a quiet period is slightly slower.
 - `DATABASE_URL` wins over the `PG*` variables in `knexfile.js`, and takes the
   SSL branch (`rejectUnauthorized: false`) — required by Neon.
+
+## No card at all: Hugging Face Spaces
+
+If Render will not offer the free instance, Spaces runs the repo as a Docker
+container without payment details. A `Dockerfile` is committed for exactly this.
+
+1. <https://huggingface.co/new-space> → **SDK: Docker** → blank template →
+   visibility **Public**.
+2. Repo → **Settings → Variables and secrets** → add `DATABASE_URL` (Neon),
+   `SESSION_SECRET` (any random hex).
+3. Push this repo to the Space (`git remote add space https://huggingface.co/spaces/USER/NAME`, `git push space main`),
+   or point the Space at GitHub in its settings.
+4. Build takes a few minutes; the app listens on `PORT=7860`, which Spaces maps
+   to `https://USER-NAME.hf.space`.
+
+Free CPU Spaces sleep after ~48 h of inactivity (much more forgiving than
+Render's 15 minutes), 16 GB RAM, no card. The URL is less pretty and the build
+log is the only place to see errors — acceptable for a course demo.
 
 ## Alternative: Railway
 
