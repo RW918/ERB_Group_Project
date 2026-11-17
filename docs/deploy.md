@@ -74,6 +74,23 @@ repository secret `RENDER_DEPLOY_HOOK` and drop the `if: false` guard in the
 workflow's `deploy` job. Disable Render's own auto-deploy at the same time so a
 push does not deploy twice.
 
+## 5. Branches and environments
+
+Render does not create branches — it deploys the branch you point it at (here
+`main`). Anything merged into `main` ships; feature branches do not.
+
+| What | Where |
+|---|---|
+| Production | Render service on `main` |
+| Development | local `npm run dev` (tsx watch) |
+| Dev database | a Neon **branch** of the same project (free) |
+| PR previews | paid Render feature — not on the free plan |
+
+Two agents/teammates working in parallel: branch, PR, merge to `main`. If you
+want a staging URL anyway, create a second **Free** web service on `dev` with
+`DATABASE_URL` pointing at the Neon dev branch — both services share the 750
+hour/month allowance, which is fine while they sleep.
+
 ## Notes and limits
 
 - **Free instances sleep** after 15 minutes idle; the next request takes
