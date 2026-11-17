@@ -27,13 +27,20 @@ jobs:
       #   run: npm test
 
   deploy:
-    # Render already auto-deploys every push to main when the service is
-    # connected to this repo. This job only runs if you prefer deploys to go
-    # through Actions instead: add the service's deploy hook as the
-    # RENDER_DEPLOY_HOOK repository secret and delete the `if` below.
-    if: false
+    # Optional path: deploy via Render's Deploy Hook instead of Render's own
+    # GitHub webhook. Add the hook URL as the RENDER_DEPLOY_HOOK repository
+    # secret and this job fires on every push to main. Without the secret the
+    # step no-ops, so the workflow is safe either way.
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Render deploy
-        run: curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "RENDER_DEPLOY_HOOK not set — skipping deploy (Render auto-deploy handles it)"
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK"

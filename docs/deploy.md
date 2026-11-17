@@ -73,9 +73,10 @@ pushes and PRs as a gate; it does not deploy.
 
 If you would rather deploy from Actions (for approvals, or to deploy only when
 CI passes), copy the service's **Deploy Hook** (Settings → Deploy Hook) into the
-repository secret `RENDER_DEPLOY_HOOK` and drop the `if: false` guard in the
-workflow's `deploy` job. Disable Render's own auto-deploy at the same time so a
-push does not deploy twice.
+repository secret `RENDER_DEPLOY_HOOK`. The `deploy` job in
+`.github/workflows/ci.yml` then fires on every push to `main`; with no secret it
+prints a notice and skips, so CI never fails for a missing hook. Turn Render's
+own **Auto-Deploy** to `Off` at the same time, otherwise a push deploys twice.
 
 ## 5. Branches and environments
 
