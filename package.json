@@ -18,7 +18,7 @@
     "seed:make": "node --import tsx ./node_modules/knex/bin/cli.js seed:make",
     "vendor": "mkdir -p public/vendor && cp node_modules/bootstrap/dist/css/bootstrap.min.css node_modules/bootstrap/dist/js/bootstrap.bundle.min.js public/vendor/",
     "postinstall": "npm run vendor",
-    "prepare": "git config core.hooksPath .githooks",
+    "prepare": "git config core.hooksPath .githooks || true",
     "erd": "mermaid-erd-cli --schema draft/erd.sql --format mermaid --out draft/erd.generated.mmd && mmdc -i draft/erd.generated.mmd -o draft/JobTrack_ERD_P3.png -b white -s 2"
   },
   "dependencies": {
@@ -42,5 +42,8 @@
     "mermaid-erd-cli": "^0.3.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: jobtrack
+    runtime: node
+    plan: free
+    region: singapore
+    branch: main
+    buildCommand: npm ci && npm run build
+    startCommand: npm run migrate && npm run seed && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: SESSION_SECRET
+        generateValue: true
+      # Neon connection string, e.g. postgresql://user:pw@host/db?sslmode=require
+      - key: DATABASE_URL
+        sync: false
+      # Optional: only used the first time `npm run seed` runs
+      - key: DEMO_ADMIN_PASSWORD
+        sync: false
+      - key: DEMO_USER_PASSWORD
+        sync: false

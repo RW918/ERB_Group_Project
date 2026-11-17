@@ -7,6 +7,8 @@ import { previewRouter } from "./routes/preview.js";
 
 export const app = express();
 
+// Render (and any reverse proxy) terminates TLS and forwards the real host.
+app.set("trust proxy", 1);
 app.set("views", config.viewsDir);
 app.set("view engine", "ejs");
 
