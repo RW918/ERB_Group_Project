@@ -1,8 +1,12 @@
 -- JobTrack schema — single source of truth for the ERD and the migrations.
--- PostgreSQL. Source for the DrawSQL diagram and for the Knex migrations.
+-- PostgreSQL. Source for the ERD PNG and for the Knex migrations.
 --
 -- Seed rule: the admin role carries both permissions; the user role carries neither.
 -- Exactly one admin account is seeded, so "who can grant" is answerable on day one.
+--
+-- Shape: companies 1—n jobs 1—n applications n—1 users.
+-- `applications` is the join table between users and jobs (m:n), carrying the
+-- per-user state (status, interview date, note). A posting is stored once.
 
 CREATE TABLE roles (
   id                        SERIAL PRIMARY KEY,
@@ -21,26 +25,37 @@ CREATE TABLE users (
 
 CREATE TABLE companies (
   id         SERIAL PRIMARY KEY,
-  name       VARCHAR(100) NOT NULL UNIQUE,                  -- find-or-create on application submit
+  name       VARCHAR(100) NOT NULL UNIQUE,                  -- find-or-create on job creation
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- The advert itself: shared, so two users applying to the same posting point at
+-- one row instead of duplicating its URL, salary and deadline.
+CREATE TABLE jobs (
+  id          SERIAL PRIMARY KEY,
+  company_id  INTEGER NOT NULL REFERENCES companies (id),
+  title       VARCHAR(100) NOT NULL,
+  posting_url TEXT NULL,                                    -- original job advert
+  location    VARCHAR(100) NULL,                            -- city / remote
+  salary      VARCHAR(100) NULL,                            -- free text, as advertised
+  deadline    DATE NULL,                                    -- submission deadline
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- One row per (user, job): the user's own track of that posting.
 CREATE TABLE applications (
   id             SERIAL PRIMARY KEY,
   user_id        INTEGER NOT NULL REFERENCES users (id) ON DELETE CASCADE,
-  company_id     INTEGER NOT NULL REFERENCES companies (id),
-  position       VARCHAR(100) NOT NULL,
+  job_id         INTEGER NOT NULL REFERENCES jobs (id) ON DELETE CASCADE,
   status         VARCHAR(20) NOT NULL DEFAULT 'applied'
                  CHECK (status IN ('applied', 'interviewing', 'offer', 'rejected')),
   interview_date DATE,
   note           TEXT,
-  posting_url    TEXT NULL,                                 -- original job advert
-  location       VARCHAR(100) NULL,                         -- city / remote
-  salary         VARCHAR(100) NULL,                         -- free text, as advertised
-  deadline       DATE NULL,                                 -- submission deadline
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (user_id, job_id)                                  -- apply once per posting
 );
 
+CREATE INDEX jobs_company_id_idx         ON jobs (company_id);
 CREATE INDEX applications_user_id_idx    ON applications (user_id);
-CREATE INDEX applications_company_id_idx ON applications (company_id);
+CREATE INDEX applications_job_id_idx     ON applications (job_id);
 CREATE INDEX applications_status_idx     ON applications (status);

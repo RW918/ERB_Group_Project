@@ -144,8 +144,10 @@ with a 45% ink scrim:
 
 Desktop uses a centred card — 720×660 for the form, 420×210 for the confirm.
 Mobile uses a bottom sheet for the form and a centred card for the confirm.
-Form fields match the data model: company, position, status, interview date,
-location, deadline, salary, posting URL, note; company and position are required.
+Form fields split across the two tables it now models: the advert half (company,
+title, posting URL, location, salary, deadline) writes to `jobs`, the personal
+half (status, interview date, note) writes to `applications`; company and title
+are required.
 
 ## Export checklist
 

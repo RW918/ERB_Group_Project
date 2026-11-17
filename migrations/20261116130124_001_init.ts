@@ -30,22 +30,31 @@ export const up = async (knex: Knex) => {
     t.timestamp("created_at", { useTz: true }).notNullable().defaultTo(knex.fn.now());
   });
 
-  await knex.schema.createTable("applications", (t) => {
+  await knex.schema.createTable("jobs", (t) => {
     t.increments("id").primary();
-    t.integer("user_id").notNullable().references("id").inTable("users").onDelete("CASCADE");
     t.integer("company_id").notNullable().references("id").inTable("companies");
-    t.string("position", 100).notNullable();
-    t.string("status", 20).notNullable().defaultTo("applied");
-    t.date("interview_date").nullable();
-    t.text("note").nullable();
+    t.string("title", 100).notNullable();
     t.text("posting_url").nullable();
     t.string("location", 100).nullable();
     t.string("salary", 100).nullable();
     t.date("deadline").nullable();
     t.timestamp("created_at", { useTz: true }).notNullable().defaultTo(knex.fn.now());
 
+    t.index(["company_id"], "jobs_company_id_idx");
+  });
+
+  await knex.schema.createTable("applications", (t) => {
+    t.increments("id").primary();
+    t.integer("user_id").notNullable().references("id").inTable("users").onDelete("CASCADE");
+    t.integer("job_id").notNullable().references("id").inTable("jobs").onDelete("CASCADE");
+    t.string("status", 20).notNullable().defaultTo("applied");
+    t.date("interview_date").nullable();
+    t.text("note").nullable();
+    t.timestamp("created_at", { useTz: true }).notNullable().defaultTo(knex.fn.now());
+
+    t.unique(["user_id", "job_id"], { indexName: "applications_user_job_unique" });
     t.index(["user_id"], "applications_user_id_idx");
-    t.index(["company_id"], "applications_company_id_idx");
+    t.index(["job_id"], "applications_job_id_idx");
     t.index(["status"], "applications_status_idx");
   });
 
@@ -62,6 +71,7 @@ export const up = async (knex: Knex) => {
  */
 export const down = async (knex: Knex) => {
   await knex.schema.dropTable("applications");
+  await knex.schema.dropTable("jobs");
   await knex.schema.dropTable("companies");
   await knex.schema.dropTable("users");
   await knex.schema.dropTable("roles");
