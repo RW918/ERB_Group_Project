@@ -169,8 +169,8 @@ implementation's `--faint` token moved to `#64748B` at the same time.
 
 The component **masters** live on the file's `Components` page (hidden in view
 mode); the screens page only carries instances. The `Components` page is laid
-out in labelled sections: `BUTTONS`, `SHELLS`, `INPUTS`, `NAV & BRAND`, and
-`ICONS`.
+out on a 1200px grid as labelled white panels: `BUTTONS`, `PAGE BUTTONS`,
+`SHELLS`, `INPUTS`, `NAV & BRAND`, `ICONS`, and `STATUS BADGES`.
 
 Badges are real components and every badge on every screen is an instance:
 
