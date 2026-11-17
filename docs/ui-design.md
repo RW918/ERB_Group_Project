@@ -127,7 +127,7 @@ export, so the overview and the individual boards cannot drift apart.
 
 ## Design tokens
 
-The Penpot file has a `JobTrack Core` token set (65 tokens, including 7 `typography`
+The Penpot file has a `JobTrack Core` token set (73 tokens, including 25 `color` and 7 `typography`
 composites: `type-h1/h2/title/body/body-medium/meta/meta-medium`) and matching
 library styles. Shape fills, font size/weight/family, radius, stroke width and
 spacing bind to these tokens, so a palette change propagates.
