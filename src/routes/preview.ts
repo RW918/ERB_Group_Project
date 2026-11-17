@@ -243,6 +243,10 @@ const users = [
   },
 ];
 
+previewRouter.get("/", (_req, res) => {
+  res.render("preview/index");
+});
+
 previewRouter.get("/login", (_req, res) => {
   res.render("preview/login");
 });

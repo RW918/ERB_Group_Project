@@ -1,0 +1,52 @@
+<%- include('../partials/head', { title: '设计预览' }) %>
+
+<div class="idx">
+  <div class="idx-inner">
+    <div class="idx-head">
+      <span class="idx-mark">J</span>
+      <h1 class="idx-title">JobTrack · 设计预览</h1>
+    </div>
+
+    <p class="idx-sub">
+      静态页面，用固定演示数据渲染，不读写数据库。桌面与手机是同一套响应式布局——
+      把窗口缩到 390px 宽就是手机版。可交互的线框图在 Penpot 源文件里。
+    </p>
+
+    <div class="idx-grid">
+      <a class="idx-card" href="/preview/login">
+        <span class="idx-kicker">01 · Login</span>
+        <h2>登录</h2>
+        <p>品牌侧栏 + 登录表单，附演示账号提示与错误态。</p>
+        <span class="idx-go">打开 →</span>
+      </a>
+
+      <a class="idx-card" href="/preview/dashboard">
+        <span class="idx-kicker">02 · Dashboard</span>
+        <h2>投递看板</h2>
+        <p>搜索、状态筛选（带计数）、投递卡片网格；右下角浮动新增按钮。</p>
+        <span class="idx-go">打开 →</span>
+      </a>
+
+      <a class="idx-card" href="/preview/dashboard?modal=1&mode=new">
+        <span class="idx-kicker">02b · Modal</span>
+        <h2>新增投递弹窗</h2>
+        <p>看板上的表单弹窗：公司、职位、状态、日期、备注。</p>
+        <span class="idx-go">打开 →</span>
+      </a>
+
+      <a class="idx-card" href="/preview/admin">
+        <span class="idx-kicker">04 · Admin</span>
+        <h2>用户与权限</h2>
+        <p>管理员可见的用户列表，角色与两项权限开关。</p>
+        <span class="idx-go">打开 →</span>
+      </a>
+    </div>
+
+    <div class="idx-foot">
+      <a href="https://github.com/RW918/ERB_Group_Project/tree/main/draft/design/penpot">画板导出 13 张</a>
+      <a href="https://github.com/RW918/ERB_Group_Project/blob/main/draft/JobTrack_ERD_P3.png">ERD</a>
+      <a href="https://design.penpot.app/?screen=viewer&amp;file-id=b4b906dd-9024-819c-8008-f4673c7ac5e7&amp;page-id=b4b906dd-9024-819c-8008-f4673c7ac5e8&amp;section=interactions&amp;index=0">Penpot 源文件</a>
+      <a href="https://github.com/RW918/ERB_Group_Project">仓库</a>
+    </div>
+  </div>
+</div>
