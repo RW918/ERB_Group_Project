@@ -50,11 +50,10 @@ both are idempotent.
 Step-by-step, environment variables and the free-tier caveats:
 [`docs/deploy.md`](docs/deploy.md).
 
-Deploys are **push-triggered by Render itself** (the service watches `main`), so
-no Actions workflow is needed. `.github/workflows/ci.yml` is CI only — it runs
-`npm ci && npm run build` on every push and PR. To route deploys through
-Actions instead, set the service's deploy hook as the `RENDER_DEPLOY_HOOK`
-secret and remove the `if: false` guard on the `deploy` job.
+Deploys run through **GitHub Actions**: a push to `main` builds, and only if
+that passes does the `deploy` job call Render's Deploy Hook
+(`RENDER_DEPLOY_HOOK` secret). Render's own auto-deploy stays `Off`. The
+workflow also runs a build-only check on pull requests.
 
 ## Scripts
 

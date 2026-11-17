@@ -67,16 +67,21 @@ safely: `migrate:latest` is a no-op once applied, seeds skip existing rows.
 
 ## 4. Deploys after the first one
 
-Render watches `main` on the connected repo: every push builds and deploys, no
-workflow needed. `.github/workflows/ci.yml` runs `npm ci && npm run build` on
-pushes and PRs as a gate; it does not deploy.
+**This project deploys through GitHub Actions**, not Render's own webhook:
+a push to `main` runs `npm ci && npm run build`, and only if that passes does the
+`deploy` job `curl` the service's Deploy Hook. Render's own **Auto-Deploy** is
+set to `Off` so a commit is never deployed twice.
 
-If you would rather deploy from Actions (for approvals, or to deploy only when
-CI passes), copy the service's **Deploy Hook** (Settings → Deploy Hook) into the
-repository secret `RENDER_DEPLOY_HOOK`. The `deploy` job in
-`.github/workflows/ci.yml` then fires on every push to `main`; with no secret it
-prints a notice and skips, so CI never fails for a missing hook. Turn Render's
-own **Auto-Deploy** to `Off` at the same time, otherwise a push deploys twice.
+```
+git push → Actions (build) → Actions (deploy job) → Deploy Hook → Render build
+```
+
+The setup: Render → Settings → **Deploy Hook** → copy the URL into the
+repository secret `RENDER_DEPLOY_HOOK`. Without that secret the deploy job
+prints a notice and skips, so CI never fails for a missing hook.
+
+`.github/workflows/ci.yml` also runs on pull requests, where only the build job
+runs.
 
 ## 5. Branches and environments
 
