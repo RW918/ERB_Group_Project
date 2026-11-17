@@ -62,6 +62,18 @@ Health check:    /health
 Migrations and seeds are **idempotent**, so every cold start re-runs them
 safely: `migrate:latest` is a no-op once applied, seeds skip existing rows.
 
+## 4. Deploys after the first one
+
+Render watches `main` on the connected repo: every push builds and deploys, no
+workflow needed. `.github/workflows/ci.yml` runs `npm ci && npm run build` on
+pushes and PRs as a gate; it does not deploy.
+
+If you would rather deploy from Actions (for approvals, or to deploy only when
+CI passes), copy the service's **Deploy Hook** (Settings → Deploy Hook) into the
+repository secret `RENDER_DEPLOY_HOOK` and drop the `if: false` guard in the
+workflow's `deploy` job. Disable Render's own auto-deploy at the same time so a
+push does not deploy twice.
+
 ## Notes and limits
 
 - **Free instances sleep** after 15 minutes idle; the next request takes

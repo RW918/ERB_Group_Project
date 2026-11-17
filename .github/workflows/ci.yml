@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Type-check and build
+        run: npm run build
+
+      # Tests land with the route work; `node --test` fails on an empty glob,
+      # so the step stays off until src/**/*.test.ts exists.
+      # - name: Tests
+      #   run: npm test
+
+  deploy:
+    # Render already auto-deploys every push to main when the service is
+    # connected to this repo. This job only runs if you prefer deploys to go
+    # through Actions instead: add the service's deploy hook as the
+    # RENDER_DEPLOY_HOOK repository secret and delete the `if` below.
+    if: false
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy
+        run: curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
