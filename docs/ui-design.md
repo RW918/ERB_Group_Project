@@ -8,7 +8,7 @@
 > **公开链接：** _待填 — 在查看视图点 `Share` → `Get link`_
 >
 > **画板导出 PNG：** [`draft/design/penpot/`](../draft/design/penpot)，12 张画板图
-> （1:1 实际尺寸：1440×900 / 390×844 / 882×522）+ 1 张组件库 + 1 张总览拼图。
+> （1:1 实际尺寸：1440×900 / 390×844 / 882×1242）+ 1 张总览板。
 
 This is the **design direction** for the preliminary report, not a finished
 product. Twelve boards cover every screen at both breakpoints (1440×900 desktop,
@@ -123,12 +123,13 @@ exported straight from the Penpot right-hand panel. The checked-in copies in
 
 ![13 Component Library](../draft/design/penpot/13-component-library.png)
 
-`13-component-library.png` · 882×522
+`13-component-library.png` · 882×1242
 
-`00-overview.png` (1388×3070) is a composite of the thirteen exports above —
-desktop 2×2, the two desktop dialogs, the mobile row, the two mobile dialogs,
-then the library — with Latin-only labels so it renders without a CJK font.
-It is generated from the Penpot exports, not drawn by hand.
+`00-overview.png` (1388×3440) is exported from the `00 Overview — All Boards`
+board itself: desktop 2×2, the two desktop dialogs, the mobile row, the two
+mobile dialogs, then the component library. Each cell is a linked image fill of
+the latest per-board export, so the overview and the individual boards cannot
+drift apart.
 
 ## Design tokens
 
