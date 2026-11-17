@@ -8,14 +8,15 @@
 > **公开链接：** _待填 — 在查看视图点 `Share` → `Get link`_
 >
 > **画板导出 PNG：** [`draft/design/penpot/`](../draft/design/penpot)，12 张画板图
-> （1:1 实际尺寸：1440×900 / 390×844 / 882×1242）+ 1 张总览板。
+> （1:1 实际尺寸：1440×900 / 390×844）+ 1 张总览板。
 
 This is the **design direction** for the preliminary report, not a finished
 product. Twelve boards cover every screen at both breakpoints (1440×900 desktop,
 390×844 mobile) plus the two dialogs, each at both sizes; the card grid reflows
 from 3 columns to one, the admin table becomes stacked user cards, and the
-detail page drops its right rail into a bottom action bar. A thirteenth frame,
-`13 Component Library`, documents the library.
+detail page drops its right rail into a bottom action bar. The component
+masters live on the file's `Components` page and are not duplicated on the
+screens page.
 
 ![JobTrack — all boards at a glance](../draft/design/penpot/00-overview.png)
 
@@ -119,21 +120,15 @@ exported straight from the Penpot right-hand panel. The checked-in copies in
 
 `12-delete-confirm-modal-mobile.png` · 390×844
 
-### 13 · Component Library
-
-![13 Component Library](../draft/design/penpot/13-component-library.png)
-
-`13-component-library.png` · 882×1242
-
-`00-overview.png` (1388×3440) is exported from the `00 Overview — All Boards`
-board itself: desktop 2×2, the two desktop dialogs, the mobile row, the two
-mobile dialogs, then the component library. Each cell is a linked image fill of
-the latest per-board export, so the overview and the individual boards cannot
-drift apart.
+`00-overview.png` (1388×2700) is exported from the `00 Overview — All Boards`
+board itself: desktop 2×2, the two desktop dialogs, the mobile row, then the
+two mobile dialogs. Each cell is a linked image fill of the latest per-board
+export, so the overview and the individual boards cannot drift apart.
 
 ## Design tokens
 
-The Penpot file has a `JobTrack Core` token set (58 tokens) and matching
+The Penpot file has a `JobTrack Core` token set (65 tokens, including 7 `typography`
+composites: `type-h1/h2/title/body/body-medium/meta/meta-medium`) and matching
 library styles. Shape fills, font size/weight/family, radius, stroke width and
 spacing bind to these tokens, so a palette change propagates.
 
@@ -142,13 +137,18 @@ spacing bind to these tokens, so a palette change propagates.
 | `canvas` | `#F8FAFC` |
 | `surface` | `#FFFFFF` |
 | `line` | `#E2E8F0` |
-| `ink` / `body` / `muted` / `faint` | `#0F172A` / `#475569` / `#64748B` / `#94A3B8` |
+| `ink` / `body` / `muted` / `faint` | `#0F172A` / `#475569` / `#64748B` / `#64748B` |
+
+Text and UI contrast was measured against WCAG AA: body `#475569` 7.6:1, muted/faint
+`#64748B` 4.8:1, white on brand `#2563EB` 5.2:1, white on danger `#DC2626` 4.8:1, and all
+four status pills 4.5–6.2:1. The former `#94A3B8` faint tone (2.6:1) was retired; the
+implementation's `--faint` token moved to `#64748B` at the same time.
 | `brand` / `brand-soft` | `#2563EB` / `#EFF6FF` |
 | applied | `#EFF6FF` / `#1D4ED8` |
 | interviewing | `#FEF3C7` / `#B45309` |
 | offer | `#D1FAE5` / `#047857` |
 | rejected | `#FEE2E2` / `#B91C1C` |
-| radius | 8 / 10 / 14 / pill |
+| radius | 6 / 10 / 12 / 16 / pill |
 | icon scale | 16 inline · 18 nav/input · 20 tab bar · 24 FAB |
 
 ## Screen notes
@@ -167,10 +167,10 @@ spacing bind to these tokens, so a palette change propagates.
 
 ## Component library
 
-`13 Component Library` on the screens page is the visual spec; the **masters**
-live in the file's component library (Assets panel), split between that frame
-(the four status badges) and a dedicated `Components` page (the rest), because
-Penpot cannot move layers across pages.
+The component **masters** live on the file's `Components` page (hidden in view
+mode); the screens page only carries instances. The `Components` page is laid
+out in labelled sections: `BUTTONS`, `SHELLS`, `INPUTS`, `NAV & BRAND`, and
+`ICONS`.
 
 Badges are real components and every badge on every screen is an instance:
 
@@ -197,7 +197,7 @@ are a real interactive variant set with `Variant` and `State` properties:
 | `drawer-shell` | mobile bottom sheet with grabber, rounded top and footer |
 | `app-icon` | shared briefcase + progress-check brand mark |
 
-That is 33 component sets in the file library: 19 icon components, 3 icon-button variant sets (9 states), and the badges, chips, fields, shells and app icon.
+That is 37 component sets in the file library: 19 icon components, 3 state-variant button sets (9 states), 3 single button components used by the pages (`btn-primary` / `btn-save` / `btn-danger`), and the badges, chips, fields, shells and app icon.
 Component boards on the `Components`
 page are marked "hide in view mode", so the viewer only shows screens and the
 two dialogs.
