@@ -14,6 +14,7 @@ the component library. The Penpot file is the editable source; the PNGs in
 ![JobTrack — all boards](draft/design/penpot/00-overview.png)
 
 - `docs/ui-design.md` — board-by-board walkthrough, tokens, components, prototype links
+- `docs/qa-pass.md` — every flow tested as each kind of visitor, with results (issue 25)
 - `docs/wireframe-spec.md` — the written spec each board follows
 - `docs/JobTrack.postman_collection.json` — a Postman collection exercising every route (import → set `baseUrl` → run)
 - `draft/design/penpot/` — one PNG per board
