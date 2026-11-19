@@ -56,6 +56,7 @@ CREATE TABLE applications (
   interview_date DATE,
   note           TEXT,
   created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),          -- refreshed on every UPDATE
   UNIQUE (user_id, job_id)                                  -- apply once per posting
 );
 

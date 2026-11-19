@@ -12,40 +12,33 @@
           <path d="m16.2 26 2.2 2.2 5.2-5.2" fill="none" stroke="#60A5FA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </span>
-      <h1 class="idx-title">JobTrack · 设计预览</h1>
+      <h1 class="idx-title">JobTrack · 待迁移页面</h1>
     </div>
 
     <p class="idx-sub">
-      静态页面，用固定演示数据渲染，不读写数据库。桌面与手机是同一套响应式布局——
-      把窗口缩到 390px 宽就是手机版。可交互的线框图在 Penpot 源文件里。
+      真实页面正在逐条 issue 迁移：登录与投递看板已是正式页面（数据来自数据库），
+      这里剩下的 screen 用固定演示数据渲染，迁移完成后整个预览路由会删除。
     </p>
 
     <div class="idx-grid">
-      <a class="idx-card" href="/preview/login">
+      <a class="idx-card" href="/login">
         <span class="idx-kicker">01 · Login</span>
         <h2>登录</h2>
-        <p>品牌侧栏 + 登录表单，附演示账号提示与错误态。</p>
+        <p>正式页面：Passport 登录、错误态、演示账号 chips。</p>
         <span class="idx-go">打开 →</span>
       </a>
 
-      <a class="idx-card" href="/preview/dashboard">
+      <a class="idx-card" href="/">
         <span class="idx-kicker">02 · Dashboard</span>
         <h2>投递看板</h2>
-        <p>搜索、状态筛选（带计数）、投递卡片网格；右下角浮动新增按钮。</p>
-        <span class="idx-go">打开 →</span>
-      </a>
-
-      <a class="idx-card" href="/preview/dashboard?modal=1&mode=new">
-        <span class="idx-kicker">02b · Modal</span>
-        <h2>新增投递弹窗</h2>
-        <p>看板上的表单弹窗：公司、职位、状态、日期、备注。</p>
+        <p>正式页面：数据库驱动的卡片网格、筛选、AJAX 删除。</p>
         <span class="idx-go">打开 →</span>
       </a>
 
       <a class="idx-card" href="/preview/admin">
         <span class="idx-kicker">04 · Admin</span>
         <h2>用户与权限</h2>
-        <p>管理员可见的用户列表，角色与两项权限开关。</p>
+        <p>预览稿：管理员可见的用户列表，角色与两项权限开关。</p>
         <span class="idx-go">打开 →</span>
       </a>
     </div>

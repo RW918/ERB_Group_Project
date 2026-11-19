@@ -4,9 +4,11 @@ import passport from "passport";
 import type { NextFunction, Request, Response } from "express";
 import { config } from "./config.js";
 import { previewRouter } from "./routes/preview.js";
+import { applicationsRouter } from "./routes/applications.js";
 import { configurePassport } from "./auth/passport.js";
 import { authRouter } from "./routes/auth.js";
 import { requireAuth } from "./middleware/auth.js";
+import { notFound } from "./controllers/not-found.js";
 
 export const app = express();
 
@@ -41,20 +43,16 @@ app.get("/health", (_req, res) => {
 
 app.use(authRouter);
 
-app.get("/", (_req, res) => {
-  res.render("hello");
-});
+// Every applications screen needs a session; signed-out visitors land on /login.
+app.use(requireAuth, applicationsRouter);
 
-// The design prototype router; gated behind login so the redirect flow works
-// end to end. Delete it once the real lane routers take over.
-app.use("/preview", requireAuth, previewRouter);
-
-// Lane 2 mounts here:  app.use("/applications", applicationsRouter);
 // Lane 1 mounts here:  app.use("/admin", adminRouter);
 
-app.use((_req: Request, res: Response) => {
-  res.status(404).send("Not found");
-});
+// Design prototype screens not rebuilt as real pages yet (login preview is a
+// screen list; admin lands with the admin branch). Gated behind login.
+app.use("/preview", requireAuth, previewRouter);
+
+app.use(notFound);
 
 app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
   console.error(err);

@@ -1,0 +1,118 @@
+<%- include('../partials/shell-top', { title: '投递详情', active: 'dashboard', user: user }) %>
+
+<div class="detail-top">
+  <a class="back-chip" href="/">
+    <svg class="ic"><use href="#i-arrow-left" /></svg>
+    返回看板
+  </a>
+</div>
+
+<div class="detail-head">
+  <div>
+    <h1 class="detail-company"><%= app.company_name %></h1>
+    <% if (app.posting_url) { %>
+    <a class="detail-role" href="<%= app.posting_url %>" target="_blank" rel="noopener">
+      <%= app.title %>
+      <svg class="ic"><use href="#i-arrow-ur" /></svg>
+    </a>
+    <% } else { %>
+    <span class="detail-role"><%= app.title %></span>
+    <% } %>
+  </div>
+  <span class="status <%= app.statusClass %>"><%= app.statusLabel %></span>
+</div>
+
+<div class="detail-grid">
+  <div class="detail-main">
+    <section class="detail-card">
+      <h2 class="detail-card-title">投递信息</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">地点</span>
+          <span class="info-value"><%= app.location ?? '—' %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">薪资</span>
+          <span class="info-value"><%= app.salary ?? '—' %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">截止日期</span>
+          <span class="info-value"><%= app.deadlineISO ?? '—' %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">面试日</span>
+          <span class="info-value"><%= app.interviewISO ?? '待安排' %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">投递日</span>
+          <span class="info-value"><%= app.createdLabel ?? '—' %></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">来源</span>
+          <span class="info-value"><%= app.sourceLabel %></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-card">
+      <h2 class="detail-card-title">备注</h2>
+      <p class="detail-note"><%= app.note || '没有备注。' %></p>
+    </section>
+  </div>
+
+  <div class="detail-rail">
+    <div class="rail-actions">
+      <a class="btn-jt btn-jt-block" href="/?modal=1&id=<%= app.id %>">
+        <svg class="ic"><use href="#i-edit" /></svg>
+        编辑投递
+      </a>
+      <% if (app.posting_url) { %>
+      <a class="btn-jt btn-jt-ghost btn-jt-block" href="<%= app.posting_url %>" target="_blank" rel="noopener">
+        <svg class="ic"><use href="#i-arrow-ur" /></svg>
+        查看原始职位
+      </a>
+      <% } %>
+      <% if (app.isOwner) { %>
+      <button class="btn-jt btn-jt-danger btn-jt-block js-delete" type="button" data-id="<%= app.id %>" data-company="<%= app.company_name %>" data-goto="/">
+        <svg class="ic"><use href="#i-trash" /></svg>
+        删除记录
+      </button>
+      <% } %>
+    </div>
+
+    <section class="detail-card">
+      <h2 class="detail-card-title">记录信息</h2>
+      <div class="record-list">
+        <div class="record-row">
+          <span class="info-label">投递人</span>
+          <span class="info-value"><%= app.owner_username %></span>
+        </div>
+        <div class="record-row">
+          <span class="info-label">创建时间</span>
+          <span class="info-value"><%= app.createdLabel ?? '—' %></span>
+        </div>
+        <div class="record-row">
+          <span class="info-label">最近更新</span>
+          <span class="info-value"><%= app.updatedLabel ?? '—' %></span>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<dialog class="confirm" id="confirm-dialog">
+  <div class="confirm-head">
+    <span class="confirm-icon"><svg class="ic"><use href="#i-alert" /></svg></span>
+    <h2>删除这条记录？</h2>
+  </div>
+  <p class="confirm-copy">删除后无法恢复，相关备注也会一并移除。</p>
+  <div class="confirm-foot">
+    <button class="btn-jt btn-jt-ghost" type="button" data-close>取消</button>
+    <button class="btn-jt btn-jt-danger" type="button" id="confirm-delete">
+      <svg class="ic"><use href="#i-trash" /></svg>
+      删除记录
+    </button>
+  </div>
+</dialog>
+
+<%- include('../partials/shell-bottom', { active: 'dashboard', tabbar: false }) %>

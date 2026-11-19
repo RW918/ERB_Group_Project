@@ -52,10 +52,15 @@ function toSessionUser(row: UserRow): SessionUser {
   };
 }
 
-/** Full user row by username — used by the local strategy before verification. */
+/** Full user row by username — used by the local strategy before verification.
+ *
+ *  Select explicit columns: an unqualified `select *` over this join returns
+ *  two `id` columns, and node-postgres lets the later (roles.id) overwrite the
+ *  users.id — which silently authenticated every account as id 1. */
 export async function findUserWithRole(username: string) {
   return db("users as u")
     .join("roles as r", "r.id", "u.role_id")
+    .select("u.id", "u.username", "u.password_hash")
     .where("u.username", username)
     .first();
 }

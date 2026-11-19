@@ -9,7 +9,7 @@ export const authRouter = Router();
 
 authRouter.get("/login", (req, res) => {
   // "already logged in → redirect" state from the wireframe spec.
-  if (req.isAuthenticated()) return res.redirect("/preview/dashboard");
+  if (req.isAuthenticated()) return res.redirect("/");
   return res.render("login", { error: req.query.error === "1" });
 });
 
@@ -17,8 +17,7 @@ authRouter.post(
   "/login",
   passport.authenticate("local", {
     failureRedirect: "/login?error=1",
-    // The real dashboard replaces the preview router; it will own "/".
-    successRedirect: "/preview/dashboard",
+    successRedirect: "/",
   }),
 );
 
