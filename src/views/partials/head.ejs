@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><%= title %> · JobTrack</title>
     <meta name="description" content="JobTrack —— 把每一次投递跟到底的求职看板：投递、面试、Offer，一页看清。" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      /* Theme before first paint: the stored override (light/dark) or the
+         system preference ("light dark"). This script exists only to prevent
+         a flash of the wrong scheme; everything else can load later. */
+      (function () {
+        try {
+          var scheme = localStorage.getItem("color-scheme");
+          if (scheme !== "light" && scheme !== "dark") scheme = "light dark";
+          document.querySelector('meta[name="color-scheme"]').content = scheme;
+        } catch (error) {
+          /* no storage: the meta above already follows the system */
+        }
+      })();
+    </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script>
       /* Theme before first paint: stored choice wins, otherwise the OS

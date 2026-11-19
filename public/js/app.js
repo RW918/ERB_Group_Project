@@ -5,21 +5,42 @@
 (function () {
   "use strict";
 
-  // Theme toggle: flips data-theme and remembers the choice. The head script
-  // applies it before first paint on the next visit.
+  // Theme toggle: tri-state per the dark-mode-toggle guide — "system"
+  // (no stored value) or a pinned literal. The target is the opposite of
+  // what is rendered right now; pinning stops when the target equals the
+  // system preference (the stored value is removed, never kept). Colors and
+  // color-scheme come from CSS/media queries off the <meta>, not from JS.
   var themeToggle = document.querySelector(".theme-toggle");
   if (themeToggle) {
     themeToggle.addEventListener("click", function () {
-      var root = document.documentElement;
-      var next = root.dataset.theme === "dark" ? "light" : "dark";
-      root.dataset.theme = next;
+      var meta = document.querySelector('meta[name="color-scheme"]');
+      var systemPref = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+      var stored = meta.content; // "light dark" | "light" | "dark"
+      var rendered = stored === "light dark" ? systemPref : stored;
+      var target = rendered === "dark" ? "light" : "dark";
       try {
-        localStorage.setItem("jt-theme", next);
+        if (target === systemPref) {
+          localStorage.removeItem("color-scheme"); // back to system
+          meta.content = "light dark";
+        } else {
+          localStorage.setItem("color-scheme", target);
+          meta.content = target;
+        }
       } catch (error) {
-        /* private mode: theme applies for this session only */
+        meta.content = target; // applies this session even if storage fails
       }
     });
   }
+
+  // A pinned scheme can be changed from another tab: stay in sync.
+  window.addEventListener("storage", function (event) {
+    if (event.key === "color-scheme") {
+      var meta = document.querySelector('meta[name="color-scheme"]');
+      meta.content = localStorage.getItem("color-scheme") ?? "light dark";
+    }
+  });
 
   // Forms marked data-fetch submit via fetch: validation errors re-render
   // inline with the typed values intact; success follows the redirect. The
@@ -114,10 +135,33 @@
       dialog.showModal();
       return;
     }
-    if (event.target.closest("[data-close]") || event.target === dialog) {
+    if (event.target.closest("[data-close]")) {
       dialog.close();
     }
   });
+
+  // closedby="any" is native in current Chromium/Firefox; where it is missing,
+  // light-dismiss degrades to Esc-only — add the manual fallback, testing the
+  // pointer position (the dialog is also the target for its own padding, so a
+  // target check would close on clicks inside the dialog's own gaps).
+  if (!("closedBy" in HTMLDialogElement.prototype)) {
+    for (const d of document.querySelectorAll('dialog[closedby="any"]')) {
+      let pressedOutside = false;
+      d.addEventListener("pointerdown", function (e) {
+        var r = d.getBoundingClientRect();
+        pressedOutside =
+          e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+      });
+      // Require the press AND the release outside, so a text-selection drag
+      // that ends on the backdrop does not dismiss.
+      d.addEventListener("pointerup", function (e) {
+        var r = d.getBoundingClientRect();
+        var outside =
+          e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+        if (pressedOutside && outside) d.close();
+      });
+    }
+  }
 
   confirmButton.addEventListener("click", function () {
     if (!pending) return;

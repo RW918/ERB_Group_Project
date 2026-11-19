@@ -1,18 +1,23 @@
 <%- include('partials/shell-top', { title: '页面不存在', active: 'dashboard', user: user }) %>
 
-<div class="page"></div>
+<main class="page"></main>
 
-<dialog class="confirm gate-dialog" id="not-found-dialog" open>
+<dialog class="confirm gate-dialog" id="not-found-dialog" aria-labelledby="not-found-title">
   <div class="confirm-head">
     <span class="confirm-icon"><svg class="ic"><use href="#i-search" /></svg></span>
-    <h2>页面不存在</h2>
+    <h2 id="not-found-title">页面不存在</h2>
   </div>
   <p class="confirm-copy">你要找的页面不在了，可能是链接有误，或这条投递已被删除。</p>
   <div class="confirm-foot">
-    <a class="btn-jt" href="/">返回看板</a>
+    <a class="btn-jt" href="/" autofocus>返回看板</a>
   </div>
 </dialog>
 
 <script>document.getElementById("not-found-dialog").showModal();</script>
+<noscript>
+  <div class="page">
+    <div class="alert-error" role="alert">页面不存在 —— 可能是链接有误，或这条投递已被删除。</div>
+  </div>
+</noscript>
 
 <%- include('partials/shell-bottom', { active: 'dashboard', tabbar: false }) %>

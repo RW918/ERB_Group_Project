@@ -44,14 +44,56 @@
   --font: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui,
     -apple-system, "Segoe UI", sans-serif;
 
-  color-scheme: light;
+  /* Follows the <meta name="color-scheme">: "light dark" = system. */
+  color-scheme: light dark;
+
+  &:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
+  }
+  &:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
 }
 
 /* The Dark theme — the exact 29-colour set the Penpot file defines
    (`docs/ui-design.md` carries the table). The sidebar and login brand panel
    stay #0F172A in both modes; only their secondary text is theme-independent
-   (`on-dark-muted`). Measured soft fills came off the dark boards. */
-:root[data-theme="dark"] {
+   (`on-dark-muted`). Measured soft fills came off the dark boards.
+   The block below is written twice on purpose: once for the system
+   preference (no override) and once for a pinned dark override, so colors
+   never depend on JS having run. Keep the two blocks identical. */
+@media (prefers-color-scheme: dark) {
+  :root:has(> head > meta[name="color-scheme"]:not([content="light"])) {
+    --ink: #f1f5f9;
+    --body: #cbd5e1;
+    --muted: #94a3b8;
+    --faint: #94a3b8;
+
+    --line: #1e2a44;
+    --line-strong: #334155;
+
+    --surface: #111a2e;
+    --canvas: #0b1220;
+    --elevated: #18233a;
+    --hover: #1b2740;
+    --soft: #0b1220;
+
+    --brand-soft: #172554;
+    --brand-text: #60a5fa;
+    --chip-active: #2563eb;
+
+    --ok: #34d399;
+    --ok-bg: #064e3b;
+    --warn: #fbbf24;
+    --warn-bg: #451a03;
+    --bad: #f87171;
+    --bad-bg: #450a0a;
+    --info: #93c5fd;
+    --info-bg: #172554;
+  }
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) {
   --ink: #f1f5f9;
   --body: #cbd5e1;
   --muted: #94a3b8;
@@ -78,8 +120,6 @@
   --bad-bg: #450a0a;
   --info: #93c5fd;
   --info-bg: #172554;
-
-  color-scheme: dark;
 }
 
 * {
@@ -1109,10 +1149,30 @@ h1.page-title {
   }
 }
 
-/* Theme toggle: show the icon for the theme you can switch TO. */
-:root[data-theme="light"] .ic-sun,
-:root[data-theme="dark"] .ic-moon {
+/* Theme toggle icons: both states live in the markup (geometry comes from the
+   generated Lucide sprite) and CSS hides the inactive one — the same meta
+   branches as the tokens, so no JS is involved. Rendered light shows the moon
+   (switch to dark); rendered dark shows the sun. */
+.ic-sun {
   display: none;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .ic-sun {
+  display: inline;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .ic-moon {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:has(> head > meta[name="color-scheme"]:not([content="light"])) .ic-sun {
+    display: inline;
+  }
+
+  :root:has(> head > meta[name="color-scheme"]:not([content="light"])) .ic-moon {
+    display: none;
+  }
 }
 
 /* The 403 gate keeps the app shell behind a modal dialog (deep-link visits). */
@@ -1132,6 +1192,18 @@ dialog.confirm {
   border-radius: 1rem;
   background: var(--elevated);
   box-shadow: 0 1.5rem 3rem rgba(15, 23, 42, 0.18);
+}
+
+/* Scroll containment: gestures inside the dialog must not scroll the page
+   behind it; ::backdrop is not a scroll container by default. Progressive
+   enhancement — no overflow:hidden/position:fixed fallbacks on html/body. */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
 }
 
 dialog.confirm::backdrop {

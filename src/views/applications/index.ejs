@@ -209,14 +209,14 @@
 </div>
 <% } %>
 
-<dialog class="confirm" id="confirm-dialog">
+<dialog class="confirm" id="confirm-dialog" closedby="any" aria-labelledby="confirm-title">
   <div class="confirm-head">
     <span class="confirm-icon"><svg class="ic"><use href="#i-alert" /></svg></span>
-    <h2>删除这条记录？</h2>
+    <h2 id="confirm-title">删除这条记录？</h2>
   </div>
   <p class="confirm-copy">删除后无法恢复，相关备注也会一并移除。</p>
   <div class="confirm-foot">
-    <button class="btn-jt btn-jt-ghost" type="button" data-close>取消</button>
+    <button class="btn-jt btn-jt-ghost" type="button" data-close autofocus>取消</button>
     <button class="btn-jt btn-jt-danger" type="button" id="confirm-delete">
       <svg class="ic"><use href="#i-trash" /></svg>
       删除记录
