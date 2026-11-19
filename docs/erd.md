@@ -22,7 +22,9 @@ erDiagram
         serial id PK
         varchar username UK
         text password_hash "scrypt$salt$key"
-        int role_id FK
+        int role_id FK "every user holds exactly one role"
+        boolean can_view_all_applications "per-user override, NULL = follow role"
+        boolean can_manage_users "per-user override, NULL = follow role"
         timestamptz created_at
     }
 
@@ -79,3 +81,8 @@ advert share its URL, salary and deadline but keep their own status and notes.
   `.status` back the filtered list, the join and the `GROUP BY status` counts.
 - **Seed rule:** `admin` gets both permissions, `user` gets neither, and exactly
   one `admin` account exists by default.
+- **Permissions are role-default with per-user override.** The role's booleans
+  are the defaults every account starts with; `/admin/users` can grant or
+  revoke either permission for one user, writing the two nullable override
+  columns on `users`. Guards read `COALESCE(user.col, role.col)`; clearing the
+  override returns the account to its role's default.
