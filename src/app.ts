@@ -4,6 +4,9 @@ import passport from "passport";
 import type { NextFunction, Request, Response } from "express";
 import { config } from "./config.js";
 import { previewRouter } from "./routes/preview.js";
+import { configurePassport } from "./auth/passport.js";
+import { authRouter } from "./routes/auth.js";
+import { requireAuth } from "./middleware/auth.js";
 
 export const app = express();
 
@@ -26,6 +29,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+configurePassport();
 
 app.get("/health", (_req, res) => {
   res.json({
@@ -35,14 +39,18 @@ app.get("/health", (_req, res) => {
   });
 });
 
+app.use(authRouter);
+
 app.get("/", (_req, res) => {
   res.render("hello");
 });
 
-app.use("/preview", previewRouter);
+// The design prototype router; gated behind login so the redirect flow works
+// end to end. Delete it once the real lane routers take over.
+app.use("/preview", requireAuth, previewRouter);
 
-// Lane 1 mounts here:  app.use("/", authRouter); app.use("/admin", adminRouter);
 // Lane 2 mounts here:  app.use("/applications", applicationsRouter);
+// Lane 1 mounts here:  app.use("/admin", adminRouter);
 
 app.use((_req: Request, res: Response) => {
   res.status(404).send("Not found");
