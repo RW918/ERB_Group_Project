@@ -21,10 +21,8 @@ jobs:
       - name: Type-check and build
         run: npm run build
 
-      # Tests land with the route work; `node --test` fails on an empty glob,
-      # so the step stays off until src/**/*.test.ts exists.
-      # - name: Tests
-      #   run: npm test
+      - name: Tests
+        run: npm test
 
   deploy:
     # Optional path: deploy via Render's Deploy Hook instead of Render's own

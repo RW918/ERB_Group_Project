@@ -20,7 +20,13 @@ function optionalText(value: unknown): string | null {
 
 function optionalDate(value: unknown): string | null {
   const iso = text(value);
-  return ISO_DATE.test(iso) ? iso : null;
+  if (!ISO_DATE.test(iso)) return null;
+  const [year, month, day] = iso.split("-").map(Number);
+  // Reject impossible calendar dates (2026-02-30) before they reach Postgres.
+  const date = new Date(year, month - 1, day);
+  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
+    ? iso
+    : null;
 }
 
 export type ParseResult =
