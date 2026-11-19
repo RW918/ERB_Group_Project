@@ -15,10 +15,15 @@
 
   --surface: #ffffff;
   --canvas: #f8fafc;
+  --elevated: #ffffff;
+  --hover: #f1f3fa;
+  --soft: #f5f6fb;
 
   --brand: #2563eb;
   --brand-600: #1d4ed8;
   --brand-soft: #eff6ff;
+  --brand-text: #2563eb;
+  --chip-active: #101828;
 
   --ok: #047857;
   --ok-bg: #d9fbe9;
@@ -38,6 +43,43 @@
 
   --font: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui,
     -apple-system, "Segoe UI", sans-serif;
+
+  color-scheme: light;
+}
+
+/* The Dark theme — the exact 29-colour set the Penpot file defines
+   (`docs/ui-design.md` carries the table). The sidebar and login brand panel
+   stay #0F172A in both modes; only their secondary text is theme-independent
+   (`on-dark-muted`). Measured soft fills came off the dark boards. */
+:root[data-theme="dark"] {
+  --ink: #f1f5f9;
+  --body: #cbd5e1;
+  --muted: #94a3b8;
+  --faint: #94a3b8;
+
+  --line: #1e2a44;
+  --line-strong: #334155;
+
+  --surface: #111a2e;
+  --canvas: #0b1220;
+  --elevated: #18233a;
+  --hover: #1b2740;
+  --soft: #0b1220;
+
+  --brand-soft: #172554;
+  --brand-text: #60a5fa;
+  --chip-active: #2563eb;
+
+  --ok: #34d399;
+  --ok-bg: #064e3b;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --bad: #f87171;
+  --bad-bg: #450a0a;
+  --info: #93c5fd;
+  --info-bg: #172554;
+
+  color-scheme: dark;
 }
 
 * {
@@ -59,7 +101,7 @@ body {
 }
 
 a {
-  color: var(--brand);
+  color: var(--brand-text);
   text-decoration: none;
 }
 
@@ -238,7 +280,7 @@ a {
 }
 
 .icon-btn:hover {
-  background: #f1f3fa;
+  background: var(--hover);
   color: var(--ink);
 }
 
@@ -340,15 +382,15 @@ h1.page-title {
 }
 
 .btn-jt-ghost {
-  background: #fff;
+  background: var(--surface);
   border-color: var(--line-strong);
   color: var(--body);
   box-shadow: var(--shadow-sm);
 }
 
 .btn-jt-ghost:hover {
-  background: #f8f9fe;
-  border-color: #c9d0e0;
+  background: var(--hover);
+  border-color: var(--line-strong);
   color: var(--ink);
 }
 
@@ -359,20 +401,20 @@ h1.page-title {
 }
 
 .btn-jt-quiet:hover {
-  background: #f1f3fa;
+  background: var(--hover);
   color: var(--ink);
 }
 
 .btn-jt-danger {
-  background: #fff;
-  border-color: #fecdca;
+  background: var(--surface);
+  border-color: color-mix(in srgb, var(--bad) 30%, transparent);
   color: var(--bad);
   box-shadow: var(--shadow-sm);
 }
 
 .btn-jt-danger:hover {
-  background: #fef3f2;
-  border-color: #fda29b;
+  background: var(--bad-bg);
+  border-color: color-mix(in srgb, var(--bad) 45%, transparent);
   color: var(--bad);
 }
 
@@ -411,7 +453,7 @@ h1.page-title {
   padding: 0 14px 0 36px;
   border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: #fff;
+  background: var(--surface);
   color: var(--ink);
   font-family: inherit;
   font-size: 13px;
@@ -432,88 +474,17 @@ h1.page-title {
    KPI cards
    -------------------------------------------------------------------------- */
 
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 26px;
-}
 
-.kpi {
-  position: relative;
-  padding: 18px 20px 17px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-}
 
-.kpi-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
-.kpi-label {
-  font-size: 12.5px;
-  font-weight: 550;
-  color: var(--muted);
-}
 
-.kpi-icon {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 11px;
-  font-size: 17px;
-  background: var(--tint, var(--brand-soft));
-  color: var(--accent, var(--brand));
-}
 
-.kpi-value {
-  margin-top: 6px;
-  font-size: 30px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-}
 
-.kpi-foot {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 9px;
-  font-size: 11.5px;
-  color: var(--faint);
-}
 
-.kpi-delta {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-weight: 600;
-  color: var(--ok);
-}
 
-.kpi-delta .ic {
-  font-size: 12px;
-}
 
-.kpi--warn {
-  --accent: var(--warn);
-  --tint: var(--warn-bg);
-}
 
-.kpi--ok {
-  --accent: var(--ok);
-  --tint: var(--ok-bg);
-}
 
-.kpi--bad {
-  --accent: var(--bad);
-  --tint: var(--bad-bg);
-}
 
 /* --------------------------------------------------------------------------
    Filter bar
@@ -542,7 +513,7 @@ h1.page-title {
   padding: 0 13px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: #fff;
+  background: var(--surface);
   color: var(--body);
   font-size: 12.5px;
   font-weight: 500;
@@ -555,8 +526,8 @@ h1.page-title {
 }
 
 .chip.is-active {
-  background: #101828;
-  border-color: #101828;
+  background: var(--chip-active);
+  border-color: var(--chip-active);
   color: #fff;
   box-shadow: 0 6px 16px rgba(16, 24, 40, 0.2);
 }
@@ -573,7 +544,7 @@ h1.page-title {
   padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: 9px;
-  background: #fff;
+  background: var(--surface);
   color: var(--body);
   font-size: 12.5px;
   box-shadow: var(--shadow-sm);
@@ -625,7 +596,7 @@ h1.page-title {
 
 .app-card:hover {
   transform: translateY(-2px);
-  border-color: #dbe0ee;
+  border-color: var(--line-strong);
   box-shadow: var(--shadow-md);
 }
 
@@ -673,7 +644,7 @@ h1.page-title {
   gap: 3px;
   margin-top: 3px;
   font-size: 12.5px;
-  color: var(--brand);
+  color: var(--brand-text);
 }
 
 .app-role .ic {
@@ -781,7 +752,7 @@ h1.page-title {
   gap: 6px;
   padding: 5px 9px;
   border-radius: 8px;
-  background: #f5f6fb;
+  background: var(--soft);
   font-size: 11.5px;
   font-weight: 500;
   color: var(--body);
@@ -810,7 +781,7 @@ h1.page-title {
   background: var(--brand-soft);
   font-size: 11px;
   font-weight: 600;
-  color: var(--brand);
+  color: var(--brand-text);
 }
 
 .danger:hover {
@@ -826,7 +797,7 @@ h1.page-title {
   padding: 64px 24px;
   border: 1px dashed var(--line-strong);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--surface);
   text-align: center;
 }
 
@@ -838,7 +809,7 @@ h1.page-title {
   margin: 0 auto 12px;
   border-radius: 14px;
   background: var(--brand-soft);
-  color: var(--brand);
+  color: var(--brand-text);
   font-size: 22px;
 }
 
@@ -859,7 +830,7 @@ h1.page-title {
    -------------------------------------------------------------------------- */
 
 .login-body {
-  background: #fff;
+  background: var(--surface);
 }
 
 .login {
@@ -1019,7 +990,7 @@ h1.page-title {
   padding: 0 13px;
   border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: #fcfcfe;
+  background: var(--surface);
   color: var(--ink);
   font-family: inherit;
   font-size: 13.5px;
@@ -1046,7 +1017,7 @@ h1.page-title {
 .control textarea:focus {
   outline: 0;
   border-color: #a5b4fc;
-  background: #fff;
+  background: var(--surface);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.14);
 }
 
@@ -1078,7 +1049,7 @@ h1.page-title {
   padding: 14px 15px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: #fafbff;
+  background: var(--soft);
 }
 
 .login-hint .title {
@@ -1101,7 +1072,7 @@ h1.page-title {
   padding: 5px 10px;
   border: 1px solid var(--line);
   border-radius: 7px;
-  background: #fff;
+  background: var(--surface);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 11.5px;
   color: var(--body);
@@ -1110,7 +1081,7 @@ h1.page-title {
 
 .account-chip:hover {
   border-color: var(--line-strong);
-  background: #f8fafc;
+  background: var(--canvas);
 }
 
 .account-chip b {
@@ -1131,9 +1102,9 @@ h1.page-title {
   gap: 8px;
   margin-bottom: 16px;
   padding: 10px 12px;
-  border: 1px solid #fecdca;
+  border: 1px solid var(--bad-bg);
   border-radius: 10px;
-  background: #fef3f2;
+  background: var(--bad-bg);
   color: var(--bad);
   font-size: 12.5px;
 }
@@ -1142,56 +1113,16 @@ h1.page-title {
   font-size: 15px;
 }
 
-/* --------------------------------------------------------------------------
-   Gate (403 没有权限 / 404)
-   -------------------------------------------------------------------------- */
-
-.gate {
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
-  padding: 24px;
-  background: #f8fafc;
+/* Theme toggle: show the icon for the theme you can switch TO. */
+:root[data-theme="light"] .ic-sun,
+:root[data-theme="dark"] .ic-moon {
+  display: none;
 }
 
-.gate-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  width: min(420px, 100%);
-  padding: 40px 32px 32px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: #fff;
-  text-align: center;
-  box-shadow: 0 1px 2px rgb(15 23 42 / 4%);
-}
-
-.gate-icon {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 8px;
-  border-radius: 12px;
-  background: #fef3f2;
-  color: var(--bad);
-  font-size: 20px;
-}
-
-.gate-card h1 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.gate-card p {
-  margin: 0 0 18px;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--body);
+/* The 403 gate keeps the app shell behind a modal dialog (deep-link visits). */
+.gate-dialog {
+  width: min(460px, calc(100vw - 32px));
+  padding: 22px 24px 20px;
 }
 
 /* --------------------------------------------------------------------------
@@ -1203,7 +1134,7 @@ dialog.confirm {
   padding: 22px 24px 20px;
   border: 1px solid var(--line);
   border-radius: 16px;
-  background: var(--surface);
+  background: var(--elevated);
   box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
 }
 
@@ -1302,7 +1233,7 @@ dialog.confirm::backdrop {
   margin-top: 5px;
   font-size: 13.5px;
   font-weight: 600;
-  color: var(--brand);
+  color: var(--brand-text);
 }
 
 .detail-role .ic {
@@ -1447,7 +1378,7 @@ dialog.confirm::backdrop {
   padding: 18px 20px;
   border: 1px solid #dfe3ff;
   border-radius: var(--radius);
-  background: linear-gradient(100deg, #f2f3ff 0%, #fafbff 70%);
+  background: var(--brand-soft);
 }
 
 .banner-icon {
@@ -1457,8 +1388,8 @@ dialog.confirm::backdrop {
   width: 38px;
   height: 38px;
   border-radius: 11px;
-  background: #fff;
-  color: var(--brand);
+  background: var(--surface);
+  color: var(--brand-text);
   font-size: 18px;
   box-shadow: var(--shadow-sm);
 }
@@ -1479,7 +1410,7 @@ dialog.confirm::backdrop {
 .banner code {
   padding: 1px 5px;
   border-radius: 5px;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid #e4e7f5;
   font-size: 11.5px;
   color: var(--brand-600);
@@ -1489,7 +1420,7 @@ dialog.confirm::backdrop {
   margin-top: 18px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--surface);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
 }
@@ -1540,7 +1471,7 @@ dialog.confirm::backdrop {
 }
 
 .user-row:hover {
-  background: #fbfcff;
+  background: var(--soft);
 }
 
 .user-cell {
@@ -1583,7 +1514,7 @@ dialog.confirm::backdrop {
   padding: 0 30px 0 12px;
   border: 1px solid var(--line-strong);
   border-radius: 9px;
-  background: #fcfcfe;
+  background: var(--surface);
   font-family: inherit;
   font-size: 12.5px;
   color: var(--ink);
@@ -1645,7 +1576,7 @@ dialog.confirm::backdrop {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--surface);
   box-shadow: 0 1px 3px rgba(16, 24, 40, 0.24);
   transition: transform 0.16s ease;
 }
@@ -1709,7 +1640,7 @@ dialog.confirm::backdrop {
   max-height: calc(100vh - 56px);
   overflow: auto;
   border-radius: 20px;
-  background: #fff;
+  background: var(--elevated);
   box-shadow: var(--shadow-lg);
 }
 
@@ -1753,11 +1684,11 @@ dialog.confirm::backdrop {
   gap: 10px;
   padding: 16px 26px;
   border-top: 1px solid var(--line);
-  background: #fbfcff;
+  background: var(--soft);
 }
 
 .req {
-  color: var(--brand);
+  color: var(--brand-text);
 }
 
 /* --------------------------------------------------------------------------
@@ -1779,10 +1710,6 @@ dialog.confirm::backdrop {
 
   .page {
     padding: 30px 28px 56px;
-  }
-
-  .kpi-grid {
-    gap: 14px;
   }
 }
 
@@ -1814,33 +1741,6 @@ dialog.confirm::backdrop {
 
   .page-actions .search {
     display: none;
-  }
-
-  .kpi-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  .kpi {
-    padding: 14px 15px;
-    border-radius: 14px;
-  }
-
-  .kpi-value {
-    font-size: 24px;
-  }
-
-  .kpi-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 9px;
-    font-size: 15px;
-  }
-
-  .kpi-foot {
-    margin-top: 7px;
-    font-size: 10.5px;
   }
 
   .toolbar {
@@ -1896,7 +1796,7 @@ dialog.confirm::backdrop {
     height: 72px;
     padding: 8px 22px 10px;
     border-top: 1px solid var(--line);
-    background: rgba(255, 255, 255, 0.92);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
     backdrop-filter: blur(14px);
   }
 
@@ -1917,7 +1817,7 @@ dialog.confirm::backdrop {
   }
 
   .tab.is-active {
-    color: var(--brand);
+    color: var(--brand-text);
   }
 
   .tab-fab {
@@ -1985,7 +1885,7 @@ dialog.confirm::backdrop {
     margin-bottom: 12px;
     border: 1px solid var(--line);
     border-radius: 14px;
-    background: #fff;
+    background: var(--surface);
     box-shadow: var(--shadow-sm);
   }
 
@@ -2109,26 +2009,3 @@ dialog.confirm::backdrop {
 /* ==========================================================================
    Preview index — lists the design reference screens. Not a product route.
    ========================================================================== */
-.idx { min-height: 100vh; background: var(--canvas); padding: 56px 24px 72px; }
-.idx-inner { max-width: 960px; margin: 0 auto; }
-.idx-head { display: flex; align-items: center; gap: 12px; }
-.idx-mark {
-  width: 40px; height: 40px; display: block; flex: 0 0 40px;
-}
-.idx-mark svg { display: block; width: 40px; height: 40px; }
-.idx-title { font-size: 26px; font-weight: 700; color: var(--ink); margin: 0; letter-spacing: -0.01em; }
-.idx-sub { color: var(--muted); font-size: 14px; line-height: 1.7; margin: 10px 0 32px; max-width: 640px; }
-.idx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-.idx-card {
-  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
-  padding: 20px; display: flex; flex-direction: column; gap: 8px;
-  text-decoration: none; color: inherit; transition: border-color .15s ease, box-shadow .15s ease;
-}
-.idx-card:hover { border-color: var(--line-strong); box-shadow: 0 6px 18px rgba(14, 21, 38, .06); }
-.idx-kicker { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); font-weight: 700; }
-.idx-card h2 { font-size: 17px; margin: 0; color: var(--ink); }
-.idx-card p { margin: 0; font-size: 13px; color: var(--body); line-height: 1.6; }
-.idx-go { margin-top: 6px; font-size: 13px; font-weight: 600; color: var(--brand); }
-.idx-foot { margin-top: 32px; display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
-.idx-foot a { color: var(--body); text-decoration: underline; text-underline-offset: 2px; }
-.idx-foot a:hover { color: var(--brand); }
