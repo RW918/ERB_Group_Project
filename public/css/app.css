@@ -394,17 +394,6 @@ h1.page-title {
   color: var(--ink);
 }
 
-.btn-jt-quiet {
-  background: transparent;
-  color: var(--body);
-  box-shadow: none;
-}
-
-.btn-jt-quiet:hover {
-  background: var(--hover);
-  color: var(--ink);
-}
-
 .btn-jt-danger {
   background: var(--surface);
   border-color: color-mix(in srgb, var(--bad) 30%, transparent);
@@ -1027,21 +1016,6 @@ h1.page-title {
   justify-content: space-between;
   margin: 6px 0 22px;
   font-size: 12.5px;
-}
-
-.check {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--body);
-  cursor: pointer;
-}
-
-.check input {
-  width: 15px;
-  height: 15px;
-  margin: 0;
-  accent-color: var(--brand);
 }
 
 .login-hint {
