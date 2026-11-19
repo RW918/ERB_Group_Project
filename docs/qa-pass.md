@@ -48,14 +48,40 @@ until the presentation; the last-known state follows the merges through #37.
 
 ## Views & responsive (issue 24, emulation part)
 
-390×844 mobile emulation (Edge, dpr 2) — real-device pass still to do with a
-phone before the presentation:
+Device-emulation sweep (DevTools, headless Edge), overflow + tap-target probe
+on every authenticated page at three widths — no horizontal overflow
+anywhere; the only "wide" elements are the intentionally scrollable chip row:
 
-- dashboard: top bar + brand/avatar, horizontally scrollable chips, single
-  column cards, bottom tab bar with centre FAB → modal ✅ (screenshot taken)
-- detail: stacked cards, fixed bottom action bar (编辑投递 / 查看原始职位 or 删除) ✅
-- admin: banner + stacked user rows + save bar ✅ (screenshot taken)
-- login: brand panel collapses, form full width ✅
+| Width | Page | overflowX | Tap targets < 40px |
+|---|---|---|---|
+| 390×844 | dashboard | 0 | icon-btn 32×32, chips h32 |
+| 390×844 | detail | 0 | icon-btn 32×32 |
+| 390×844 | admin | 0 | icon-btn 32×32 |
+| 375×667 | all four | 0 | same |
+| 414×896 | all three | 0 | same |
+
+`@media (pointer: coarse)` enlarges the icon buttons and card text-link hit
+areas to 40px on touch devices without changing the desktop design. A
+real-phone pass remains optional for the rehearsal (same Wi-Fi or the live
+URL).
+
+## Accessibility (Lighthouse, mobile)
+
+Dashboard/login audits after the fix pass: **accessibility 90** (was 80),
+best-practices 92, SEO 91. Remaining failed audits are injected by browser
+extensions in the test profile (豆包's `aria-label` div, Grammarly's float
+button image, ad-blocker console noise) — none originate from the app.
+Fixed along the way:
+
+- landmarks: `<main class="page">` (shell) / `<main class="login">` /
+  `<nav aria-label>` for the mobile tab bar
+- heading order: card titles h3 → h2 (no skipped level under the page h1)
+- active-chip counter contrast on the ink chip (0.6 → 0.78 alpha, ≥ 4.5:1)
+- `meta description` + SVG favicon (the Penpot app-icon geometry) — favicon
+  404 console error gone
+- form fields carry `maxlength` per the column limits (company/title/
+  location/salary 100)
+
 
 ## Known limitations (accepted for the course)
 

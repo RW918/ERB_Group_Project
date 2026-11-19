@@ -522,7 +522,7 @@ h1.page-title {
 }
 
 .chip.is-active b {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .sort {
@@ -1085,6 +1085,22 @@ h1.page-title {
 
 .alert-error .ic {
   font-size: 15px;
+}
+
+/* Touch: enlarge tap targets without changing the visual design. */
+@media (pointer: coarse) {
+  .app-company a,
+  .app-role {
+    padding: 8px 6px;
+    margin: -8px -6px;
+  }
+
+  .row-actions .icon-btn,
+  .theme-toggle,
+  .logout-form .icon-btn {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* Theme toggle: show the icon for the theme you can switch TO. */

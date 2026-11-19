@@ -1,8 +1,8 @@
-  </div>
+  </main>
 </div>
 
 <% if (typeof tabbar === 'undefined' || tabbar) { %>
-<nav class="tabbar d-lg-none">
+<nav class="tabbar d-lg-none" aria-label="页面导航">
   <a class="tab <%= active === 'dashboard' ? 'is-active' : '' %>" href="/">
     <svg class="ic"><use href="#i-grid" /></svg>
     <span>看板</span>
