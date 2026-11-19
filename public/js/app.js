@@ -5,6 +5,22 @@
 (function () {
   "use strict";
 
+  // Theme toggle: flips data-theme and remembers the choice. The head script
+  // applies it before first paint on the next visit.
+  var themeToggle = document.querySelector(".theme-toggle");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+      var root = document.documentElement;
+      var next = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem("jt-theme", next);
+      } catch (error) {
+        /* private mode: theme applies for this session only */
+      }
+    });
+  }
+
   var dialog = document.getElementById("confirm-dialog");
   var modalForm = document.querySelector(".overlay .modal-card form");
 

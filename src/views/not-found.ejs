@@ -1,13 +1,18 @@
-<%- include('partials/head', { title: '页面不存在' }) %>
-<%- include('partials/icons') %>
+<%- include('partials/shell-top', { title: '页面不存在', active: 'dashboard', user: user }) %>
 
-<main class="gate">
-  <div class="gate-card">
-    <span class="gate-icon"><svg class="ic"><use href="#i-search" /></svg></span>
-    <h1>页面不存在</h1>
-    <p>你要找的页面不在了，可能是链接有误，或这条投递已被删除。</p>
-    <a class="btn-jt btn-jt-ghost" href="/">返回看板</a>
+<div class="page"></div>
+
+<dialog class="confirm gate-dialog" id="not-found-dialog" open>
+  <div class="confirm-head">
+    <span class="confirm-icon"><svg class="ic"><use href="#i-search" /></svg></span>
+    <h2>页面不存在</h2>
   </div>
-</main>
+  <p class="confirm-copy">你要找的页面不在了，可能是链接有误，或这条投递已被删除。</p>
+  <div class="confirm-foot">
+    <a class="btn-jt" href="/">返回看板</a>
+  </div>
+</dialog>
 
-<%- include('partials/foot') %>
+<script>document.getElementById("not-found-dialog").showModal();</script>
+
+<%- include('partials/shell-bottom', { active: 'dashboard', tabbar: false }) %>

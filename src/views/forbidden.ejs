@@ -1,13 +1,18 @@
-<%- include('partials/head', { title: '没有权限' }) %>
-<%- include('partials/icons') %>
+<%- include('partials/shell-top', { title: '用户与权限', active: 'admin', user: user }) %>
 
-<main class="gate">
-  <div class="gate-card">
-    <span class="gate-icon"><svg class="ic"><use href="#i-shield" /></svg></span>
-    <h1>没有权限</h1>
-    <p>这个页面只对有「管理用户」权限的账号开放。<br />如果你需要访问，请让管理员在用户与权限页给你开通。</p>
-    <a class="btn-jt btn-jt-ghost" href="/">返回看板</a>
+<div class="page"></div>
+
+<dialog class="confirm gate-dialog" id="forbidden-dialog" open>
+  <div class="confirm-head">
+    <span class="confirm-icon"><svg class="ic"><use href="#i-shield" /></svg></span>
+    <h2>没有权限</h2>
   </div>
-</main>
+  <p class="confirm-copy">这个页面只对有「管理用户」权限的账号开放。如果你需要访问，请让管理员在用户与权限页给你开通。</p>
+  <div class="confirm-foot">
+    <a class="btn-jt" href="/">返回看板</a>
+  </div>
+</dialog>
 
-<%- include('partials/foot') %>
+<script>document.getElementById("forbidden-dialog").showModal();</script>
+
+<%- include('partials/shell-bottom', { active: 'admin', tabbar: false }) %>

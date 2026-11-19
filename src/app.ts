@@ -8,7 +8,6 @@ import { applicationsRouter } from "./routes/applications.js";
 import { adminRouter } from "./routes/admin.js";
 import { configurePassport } from "./auth/passport.js";
 import { authRouter } from "./routes/auth.js";
-import { requireAuth } from "./middleware/auth.js";
 import { notFound } from "./controllers/not-found.js";
 
 export const app = express();
@@ -47,8 +46,7 @@ app.get("/health", (_req, res) => {
 
 app.use(authRouter);
 
-// Every applications screen needs a session; signed-out visitors land on /login.
-app.use(requireAuth, applicationsRouter);
+app.use(applicationsRouter);
 
 app.use("/admin", adminRouter);
 

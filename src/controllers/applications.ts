@@ -142,7 +142,9 @@ export const show: RequestHandler = async (req, res, next) => {
       app: decorate(row, viewer),
     });
   } catch (error) {
-    if (error instanceof NotFoundError) return res.status(404).render("not-found");
+    if (error instanceof NotFoundError) {
+      return res.status(404).render("not-found", { user: req.user });
+    }
     next(error);
   }
 };

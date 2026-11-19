@@ -31,6 +31,10 @@
         <span class="side-user-name"><%= user.username %></span><br />
         <span class="side-user-role"><%= user.role === 'admin' ? '管理员' : '普通用户' %></span>
       </span>
+      <button class="icon-btn theme-toggle" type="button" title="切换主题" aria-label="切换主题">
+        <svg class="ic ic-sun"><use href="#i-sun" /></svg>
+        <svg class="ic ic-moon"><use href="#i-moon" /></svg>
+      </button>
       <form class="logout-form" method="post" action="/logout" style="margin-left:auto">
         <button class="icon-btn" type="submit" title="登出" aria-label="登出">
           <svg class="ic"><use href="#i-logout" /></svg>
@@ -47,5 +51,9 @@
         <span class="brand-mark"><svg class="ic"><use href="#i-briefcase" /></svg></span>
         <span class="brand-name">JobTrack</span>
       </a>
+      <button class="icon-btn theme-toggle" type="button" aria-label="切换主题">
+        <svg class="ic ic-sun"><use href="#i-sun" /></svg>
+        <svg class="ic ic-moon"><use href="#i-moon" /></svg>
+      </button>
       <span class="avatar"><%= user.initial %></span>
     </div>
