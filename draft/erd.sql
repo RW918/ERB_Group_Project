@@ -20,6 +20,10 @@ CREATE TABLE users (
   username      VARCHAR(50) NOT NULL UNIQUE,
   password_hash TEXT NOT NULL,                              -- crypto.scrypt
   role_id       INTEGER NOT NULL REFERENCES roles (id),     -- every user holds exactly one role
+  -- Per-user overrides (nullable): NULL falls back to the role's permission,
+  -- so /admin/users can grant or revoke per account without touching the role.
+  can_view_all_applications BOOLEAN NULL DEFAULT NULL,
+  can_manage_users          BOOLEAN NULL DEFAULT NULL,
   created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

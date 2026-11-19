@@ -1,19 +1,5 @@
-import { randomBytes, scrypt as scryptCallback } from "node:crypto";
-import { promisify } from "node:util";
 import type { Knex } from "knex";
-
-const scrypt = promisify(scryptCallback) as (
-  password: string,
-  salt: string,
-  keylen: number,
-) => Promise<Buffer>;
-
-// Must match src/auth/password.ts — format: scrypt$<saltHex>$<keyHex>
-async function hashPassword(password: string): Promise<string> {
-  const salt = randomBytes(16).toString("hex");
-  const key = await scrypt(password, salt, 64);
-  return `scrypt$${salt}$${key.toString("hex")}`;
-}
+import { hashPassword } from "../src/auth/password.js";
 
 /**
  * Demo accounts: one admin, two users. Passwords are printed in docs, not here.
