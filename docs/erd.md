@@ -52,7 +52,8 @@ erDiagram
         varchar status "applied | interviewing | offer | rejected"
         date interview_date "nullable"
         text note "nullable"
-        timestamptz created_at
+        timestamptz created_at "投递日"
+        timestamptz updated_at "最近更新 — refreshed on every UPDATE"
     }
 ```
 

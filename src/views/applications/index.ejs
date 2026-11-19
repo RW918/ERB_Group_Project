@@ -1,0 +1,227 @@
+<%- include('../partials/shell-top', { title: '投递看板', active: 'dashboard', user: user }) %>
+
+<div class="page-head">
+  <div>
+    <div class="eyebrow">2026 秋招 · 第 12 周</div>
+    <h1 class="page-title">投递看板</h1>
+    <p class="page-sub">共 <%= counts.total %> 条投递 · <%= counts.interviewing %> 个面试机会 · <%= counts.offer %> 个 Offer</p>
+  </div>
+  <div class="page-actions">
+    <form class="search" method="get" action="/">
+      <% if (filters.status) { %><input type="hidden" name="status" value="<%= filters.status %>" /><% } %>
+      <svg class="ic"><use href="#i-search" /></svg>
+      <input type="search" name="q" value="<%= filters.q ?? '' %>" placeholder="搜索公司或职位" aria-label="搜索" />
+    </form>
+    <a class="btn-jt" href="/?modal=1&mode=new">
+      <svg class="ic"><use href="#i-plus" /></svg>
+      新增投递
+    </a>
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="chips">
+    <a class="chip <%= !filters.status ? 'is-active' : '' %>" href="/<%= filters.sort ? `?sort=${filters.sort}` : '' %>">全部 <b><%= counts.total %></b></a>
+    <% ['applied', 'interviewing', 'offer', 'rejected'].forEach(function (s) { %>
+    <a class="chip <%= filters.status === s ? 'is-active' : '' %>" href="/?status=<%= s %><%= filters.q ? `&q=${encodeURIComponent(filters.q)}` : '' %><%= filters.sort ? `&sort=${filters.sort}` : '' %>">
+      <%= statusMeta[s].label %> <b><%= counts[s] %></b>
+    </a>
+    <% }); %>
+  </div>
+  <form class="sort-form" method="get" action="/">
+    <% if (filters.status) { %><input type="hidden" name="status" value="<%= filters.status %>" /><% } %>
+    <% if (filters.q) { %><input type="hidden" name="q" value="<%= filters.q %>" /><% } %>
+    <label class="sort">
+      <select name="sort" onchange="this.form.submit()" aria-label="排序">
+        <% sortOptions.forEach(function (o) { %>
+        <option value="<%= o.value %>" <%= (filters.sort ?? 'updated') === o.value ? 'selected' : '' %>><%= o.label %></option>
+        <% }); %>
+      </select>
+      <svg class="ic"><use href="#i-chevron" /></svg>
+    </label>
+  </form>
+</div>
+
+<% if (apps.length === 0) { %>
+<div class="empty">
+  <span class="empty-icon"><svg class="ic"><use href="#i-briefcase" /></svg></span>
+  <h3><%= filters.q || filters.status ? '没有匹配的投递' : '还没有投递记录' %></h3>
+  <p><%= filters.q || filters.status ? '换个筛选条件或搜索词试试。' : '点击右上角「新增投递」，把第一份申请记录进来。' %></p>
+</div>
+<% } else { %>
+<div class="app-grid">
+  <% apps.forEach(function (a) { %>
+  <article class="app-card">
+    <div class="app-top">
+      <span class="logo-tile" style="background: <%= a.tint %>; color: <%= a.tintInk %>"><%= a.initial %></span>
+      <div style="min-width: 0">
+        <h3 class="app-company"><a href="/applications/<%= a.id %>"><%= a.company_name %></a></h3>
+        <% if (a.posting_url) { %>
+        <a class="app-role" href="<%= a.posting_url %>" target="_blank" rel="noopener">
+          <%= a.title %>
+          <svg class="ic"><use href="#i-arrow-ur" /></svg>
+        </a>
+        <% } else { %>
+        <span class="app-role"><%= a.title %></span>
+        <% } %>
+      </div>
+      <span class="status <%= a.statusClass %>"><%= a.statusLabel %></span>
+    </div>
+
+    <div class="app-divider"></div>
+
+    <ul class="meta">
+      <li>
+        <svg class="ic"><use href="#i-pin" /></svg>
+        <span class="clip"><%= a.location ?? '—' %></span>
+      </li>
+      <li>
+        <svg class="ic"><use href="#i-wallet" /></svg>
+        <span class="clip"><%= a.salary ?? '—' %></span>
+      </li>
+      <li>
+        <svg class="ic"><use href="#i-clock" /></svg>
+        <span>截止 <%= a.deadlineLabel ?? '—' %></span>
+        <% if (a.daysLeft !== null) { %>
+        <span class="days"><%= a.daysLeft >= 0 ? '剩 ' + a.daysLeft + ' 天' : '已截止' %></span>
+        <% } %>
+      </li>
+    </ul>
+
+    <div class="app-foot">
+      <span class="interview-chip">
+        <svg class="ic"><use href="#i-calendar" /></svg>
+        <%= a.interviewLabel ? '面试 ' + a.interviewLabel : '面试待安排' %>
+      </span>
+      <% if (a.isOwner) { %>
+      <div class="row-actions">
+        <a class="icon-btn" href="/?modal=1&id=<%= a.id %>" title="编辑" aria-label="编辑">
+          <svg class="ic"><use href="#i-edit" /></svg>
+        </a>
+        <button class="icon-btn danger js-delete" type="button" data-id="<%= a.id %>" data-company="<%= a.company_name %>" title="删除" aria-label="删除">
+          <svg class="ic"><use href="#i-trash" /></svg>
+        </button>
+      </div>
+      <% } else { %>
+      <span class="app-owner"><%= a.owner_username %></span>
+      <% } %>
+    </div>
+  </article>
+  <% }); %>
+</div>
+<% } %>
+
+<% if (modal) { %>
+<div class="overlay" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h2><%= modal.editing ? '编辑投递' : '新增投递' %></h2>
+        <p><%= modal.editing ? modal.m.company_name + ' · ' + modal.m.title : '记录一条新的求职投递' %></p>
+      </div>
+      <a class="icon-btn" href="/" aria-label="关闭">
+        <svg class="ic"><use href="#i-x" /></svg>
+      </a>
+    </div>
+
+    <form method="post" action="<%= modal.editing ? '/applications/' + modal.m.id : '/applications' %>">
+      <div class="modal-body">
+        <% if (formError) { %>
+        <div class="alert-error span-2" role="alert">
+          <svg class="ic"><use href="#i-alert" /></svg>
+          <%= formError %>
+        </div>
+        <% } %>
+
+        <div class="field">
+          <label for="f-company">公司名称 <span class="req">*</span></label>
+          <div class="control">
+            <input id="f-company" name="company" required value="<%= modal.editing ? modal.m.company_name : '' %>" placeholder="例如：Example Ltd" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-title">职位名称 <span class="req">*</span></label>
+          <div class="control">
+            <input id="f-title" name="title" required value="<%= modal.editing ? modal.m.title : '' %>" placeholder="例如：Junior Developer" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-status">状态</label>
+          <div class="control">
+            <select id="f-status" name="status">
+              <% ['applied', 'interviewing', 'offer', 'rejected'].forEach(function (s) { %>
+              <option value="<%= s %>" <%= (modal.editing ? modal.m.status : 'applied') === s ? 'selected' : '' %>><%= statusMeta[s].label %></option>
+              <% }); %>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-interview">面试日期</label>
+          <div class="control">
+            <input id="f-interview" name="interview_date" type="date" value="<%= modal.editing ? (modal.m.interviewISO ?? '') : '' %>" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-location">地点</label>
+          <div class="control">
+            <input id="f-location" name="location" value="<%= modal.editing ? (modal.m.location ?? '') : '' %>" placeholder="例如：香港 · 混合办公" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-deadline">截止日期</label>
+          <div class="control">
+            <input id="f-deadline" name="deadline" type="date" value="<%= modal.editing ? (modal.m.deadlineISO ?? '') : '' %>" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-salary">薪资范围</label>
+          <div class="control">
+            <input id="f-salary" name="salary" value="<%= modal.editing ? (modal.m.salary ?? '') : '' %>" placeholder="例如：HKD 20k–25k / 月" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-url">投递链接</label>
+          <div class="control">
+            <input id="f-url" name="posting_url" value="<%= modal.editing ? (modal.m.posting_url ?? '') : '' %>" placeholder="https://" />
+          </div>
+        </div>
+
+        <div class="field span-2">
+          <label for="f-note">备注</label>
+          <div class="control">
+            <textarea id="f-note" name="note" placeholder="面试轮次、联系人、准备事项……"><%= modal.editing ? (modal.m.note ?? '') : '' %></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-foot">
+        <a class="btn-jt btn-jt-ghost" href="/">取消</a>
+        <button class="btn-jt" type="submit">
+          <svg class="ic"><use href="#i-check" /></svg>
+          <%= modal.editing ? '保存修改' : '保存投递' %>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<% } %>
+
+<dialog class="confirm" id="confirm-dialog">
+  <div class="confirm-head">
+    <span class="confirm-icon"><svg class="ic"><use href="#i-alert" /></svg></span>
+    <h2>删除这条记录？</h2>
+  </div>
+  <p class="confirm-copy">删除后无法恢复，相关备注也会一并移除。</p>
+  <div class="confirm-foot">
+    <button class="btn-jt btn-jt-ghost" type="button" data-close>取消</button>
+    <button class="btn-jt btn-jt-danger" type="button" id="confirm-delete">
+      <svg class="ic"><use href="#i-trash" /></svg>
+      删除记录
+    </button>
+  </div>
+</dialog>
+
+<%- include('../partials/shell-bottom', { active: 'dashboard' }) %>
