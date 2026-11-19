@@ -1,60 +1,97 @@
-import { STATUSES, type ApplicationInput, type Status } from "../types/domain.js";
+import { z } from "zod";
+import type { ApplicationInput, Status } from "../types/domain.js";
 
 /**
- * Application form validation — pure, no database access (unit-test target).
- * The form posts strings; this shapes them into an ApplicationInput or names
- * the first problem, which the view shows next to the dialog.
+ * Application form validation (issue: validate with zod) — pure, no database.
+ *
+ * The schema is the single source of the rules the controllers and the tests
+ * share. Raw form bodies arrive as strings; the preprocessors drop non-string
+ * values instead of coercing them (a number in a text field is missing data,
+ * not the string "42").
  */
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
-type Raw = Record<string, unknown>;
+/** A required text field: non-string values are missing data, empty after
+ *  trimming fails the check with the field's message. */
+const requiredText = (message: string) =>
+  z.preprocess(
+    (v) => (typeof v === "string" ? v : ""),
+    z.string().trim().min(1, message),
+  );
 
-function text(value: unknown): string {
-  return typeof value === "string" ? value.trim() : "";
-}
+/** An optional text field: trims, empty → undefined (stored as NULL). */
+const optionalText = z.preprocess(
+  (v) => (typeof v === "string" && v.trim() !== "" ? v : undefined),
+  z
+    .string()
+    .transform((v) => v.trim())
+    .optional(),
+);
 
-function optionalText(value: unknown): string | null {
-  return text(value) || null;
-}
+/** An optional date: real calendar dates only, so Postgres never rejects. */
+const optionalDate = z.preprocess(
+  (v) => (typeof v === "string" && ISO_DATE.test(v) ? v : undefined),
+  z
+    .string()
+    .refine(
+      (iso) => {
+        const [year, month, day] = iso.split("-").map(Number);
+        const date = new Date(year, month - 1, day);
+        return (
+          date.getFullYear() === year &&
+          date.getMonth() === month - 1 &&
+          date.getDate() === day
+        );
+      },
+      { message: "日期不存在" },
+    )
+    .optional(),
+);
 
-function optionalDate(value: unknown): string | null {
-  const iso = text(value);
-  if (!ISO_DATE.test(iso)) return null;
-  const [year, month, day] = iso.split("-").map(Number);
-  // Reject impossible calendar dates (2026-02-30) before they reach Postgres.
-  const date = new Date(year, month - 1, day);
-  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
-    ? iso
-    : null;
-}
+/** Status: unknown codes fall back to the default (the CHECK also guards). */
+const status = z.preprocess(
+  (v) => {
+    const value = typeof v === "string" ? v : undefined;
+    return ["applied", "interviewing", "offer", "rejected"].includes(value as string)
+      ? value
+      : undefined;
+  },
+  z.enum(["applied", "interviewing", "offer", "rejected"]).default("applied"),
+);
+
+const applicationSchema = z.object({
+  company: requiredText("请填写公司名称"),
+  title: requiredText("请填写职位名称"),
+  status,
+  interview_date: optionalDate,
+  note: optionalText,
+  posting_url: optionalText,
+  location: optionalText,
+  salary: optionalText,
+  deadline: optionalDate,
+});
 
 export type ParseResult =
   | { ok: true; value: ApplicationInput }
   | { ok: false; error: string };
 
-export function parseApplicationInput(body: Raw): ParseResult {
-  const company = text(body.company);
-  if (!company) return { ok: false, error: "请填写公司名称" };
-
-  const title = text(body.title);
-  if (!title) return { ok: false, error: "请填写职位名称" };
-
-  const statusInput = text(body.status) as Status;
-  const status: Status = STATUSES.includes(statusInput) ? statusInput : "applied";
-
-  return {
-    ok: true,
-    value: {
-      company,
-      title,
-      status,
-      interview_date: optionalDate(body.interview_date),
-      note: optionalText(body.note),
-      posting_url: optionalText(body.posting_url),
-      location: optionalText(body.location),
-      salary: optionalText(body.salary),
-      deadline: optionalDate(body.deadline),
-    },
-  };
+export function parseApplicationInput(body: unknown): ParseResult {
+  const result = applicationSchema.safeParse(body);
+  if (result.success) {
+    return {
+      ok: true,
+      value: {
+        ...result.data,
+        status: result.data.status as Status,
+        interview_date: result.data.interview_date ?? null,
+        note: result.data.note ?? null,
+        posting_url: result.data.posting_url ?? null,
+        location: result.data.location ?? null,
+        salary: result.data.salary ?? null,
+        deadline: result.data.deadline ?? null,
+      },
+    };
+  }
+  return { ok: false, error: result.error.issues[0]?.message ?? "表单校验失败" };
 }

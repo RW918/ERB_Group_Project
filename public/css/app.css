@@ -1070,6 +1070,12 @@ h1.page-title {
   color: var(--muted);
 }
 
+.control input:user-invalid,
+.control select:user-invalid,
+.control textarea:user-invalid {
+  border-color: color-mix(in srgb, var(--bad) 45%, transparent);
+}
+
 .alert-error {
   display: flex;
   align-items: center;

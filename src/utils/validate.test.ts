@@ -53,8 +53,10 @@ test("company and title are required", () => {
 
 test("dates must be real ISO yyyy-mm-dd or empty", () => {
   assert.equal(ok({ company: "A", title: "B", deadline: "15/12/2026" }).value.deadline, null);
-  assert.equal(ok({ company: "A", title: "B", deadline: "2026-13-01" }).value.deadline, null);
-  assert.equal(ok({ company: "A", title: "B", deadline: "2026-02-30" }).value.deadline, null);
+  const impossible = fail({ company: "A", title: "B", deadline: "2026-13-01" });
+  assert.match(impossible.error, /日期不存在/);
+  const feb30 = fail({ company: "A", title: "B", deadline: "2026-02-30" });
+  assert.match(feb30.error, /日期不存在/);
   assert.equal(
     ok({ company: "A", title: "B", interview_date: "2026-02-28" }).value.interview_date,
     "2026-02-28",
