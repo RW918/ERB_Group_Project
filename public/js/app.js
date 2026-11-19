@@ -21,51 +21,75 @@
     });
   }
 
-  var dialog = document.getElementById("confirm-dialog");
-  var modalForm = document.querySelector(".overlay .modal-card form");
+  // Forms marked data-fetch submit via fetch: validation errors re-render
+  // inline with the typed values intact; success follows the redirect. The
+  // native POST stays as the no-JS fallback.
+  function showError(form, message) {
+    var anchor = form.querySelector(".modal-body") || form;
+    var alert = anchor.querySelector(".alert-error");
+    if (!alert) {
+      alert = document.createElement("div");
+      alert.className = "alert-error span-2";
+      alert.setAttribute("role", "alert");
+      alert.innerHTML = '<svg class="ic"><use href="#i-alert" /></svg><span></span>';
+      anchor.prepend(alert);
+    }
+    alert.querySelector("span:last-child").textContent = message;
+  }
 
-  // The add/edit dialog is enhanced with fetch: validation errors re-render
-  // inside the dialog with the typed values intact; success navigates.
-  // Without JS the native POST + redirect still works.
-  if (modalForm) {
-    modalForm.addEventListener("submit", function (event) {
+  document.querySelectorAll("form[data-fetch]").forEach(function (form) {
+    form.addEventListener("submit", function (event) {
       event.preventDefault();
-      var button = modalForm.querySelector('button[type="submit"]');
+      var button = form.querySelector('button[type="submit"]');
       if (button) button.disabled = true;
 
-      fetch(modalForm.action, { method: "POST", body: new FormData(modalForm) })
+      var prepare = Promise.resolve();
+      // data-hash-field: the wire carries SHA-256(field) instead of the
+      // plaintext — the real password never leaves the browser; the server
+      // still applies its own scrypt to what it receives.
+      var hashField = form.dataset.hashField;
+      if (hashField) {
+        var input = form.elements[hashField];
+        prepare = window.crypto.subtle
+          .digest("SHA-256", new TextEncoder().encode(input.value))
+          .then(function (digest) {
+            input.value = [...new Uint8Array(digest)]
+              .map(function (b) { return b.toString(16).padStart(2, "0"); })
+              .join("");
+          });
+      }
+
+      prepare
+        .then(function () {
+          // urlencoded, not multipart: express.urlencoded parses this natively
+          return fetch(form.action, {
+            method: "POST",
+            body: new URLSearchParams(new FormData(form)),
+          });
+        })
         .then(function (response) {
-          // The server answers with a redirect: "/" on success, or the
-          // dashboard with ?modal=1&…&error=… after validation failed.
+          // The server answers with a redirect: the success target, or the
+          // same page carrying ?error=… (login failures carry ?error=1 and
+          // the wording comes from data-error-text).
           var url = new URL(response.url, window.location.origin);
           var message = url.searchParams.get("error");
           if (message) {
-            showError(message);
+            if (message === "1") message = form.dataset.errorText || message;
+            showError(form, message);
             return;
           }
           window.location.href = url.pathname + url.search;
         })
         .catch(function () {
-          showError("保存失败，请重试");
+          showError(form, "保存失败，请重试");
         })
         .finally(function () {
           if (button) button.disabled = false;
         });
     });
-  }
+  });
 
-  function showError(message) {
-    var body = modalForm.querySelector(".modal-body");
-    var alert = body.querySelector(".alert-error");
-    if (!alert) {
-      alert = document.createElement("div");
-      alert.className = "alert-error span-2";
-      alert.setAttribute("role", "alert");
-      alert.innerHTML = '<svg class="ic"><use href="#i-alert" /></svg>';
-      body.prepend(alert);
-    }
-    alert.lastChild.textContent = message;
-  }
+  var dialog = document.getElementById("confirm-dialog");
 
   if (!dialog) return;
 

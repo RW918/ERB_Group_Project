@@ -1,5 +1,16 @@
+import { createHash } from "node:crypto";
 import type { Knex } from "knex";
 import { hashPassword } from "../src/auth/password.js";
+
+/**
+ * The login form transmits SHA-256(password) — the real password never
+ * leaves the browser (the server may sit behind a TLS-terminating proxy, and
+ * a leaked derived value protects the user's password-reuse). The server
+ * still applies its own slow KDF: what lands in password_hash is
+ * scrypt(salt, sha256(password)). This helper mirrors the browser exactly.
+ */
+const wirePassword = (password: string) =>
+  createHash("sha256").update(password, "utf8").digest("hex");
 
 /**
  * Demo accounts: one admin, two users. Passwords are printed in docs, not here.
@@ -28,7 +39,7 @@ export const seed = async (knex: Knex) => {
     await knex("users")
       .insert({
         username: account.username,
-        password_hash: await hashPassword(account.password),
+        password_hash: await hashPassword(wirePassword(account.password)),
         role_id: roleId[account.role],
       })
       .onConflict("username")

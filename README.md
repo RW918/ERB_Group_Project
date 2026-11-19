@@ -30,7 +30,7 @@ the component library. The Penpot file is the editable source; the PNGs in
 | Language | TypeScript (ESM, `tsc` → `dist/`) |
 | Server | Express 5 |
 | Views | EJS + Bootstrap 5 |
-| Auth | Passport (local) + express-session, `crypto.scrypt` hashing |
+| Auth | Passport (local) + express-session; the login form transmits SHA-256(password) so the plaintext never leaves the browser, and the server applies `crypto.scrypt` to what it receives |
 | Data | Knex 3 + PostgreSQL |
 | Tests | `node:test` + `node:assert` |
 
