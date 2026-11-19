@@ -8,14 +8,15 @@
 > **公开链接：** _待填 — 在查看视图点 `Share` → `Get link`_
 >
 > **画板导出 PNG：** [`draft/design/penpot/`](../draft/design/penpot)，12 张画板图
-> （1:1 实际尺寸：1440×900 / 390×844 / 882×1242）+ 1 张总览板。
+> （1:1 实际尺寸：1440×900 / 390×844）+ 1 张总览板；`dark/` 下是同名的暗色一套。
 
 This is the **design direction** for the preliminary report, not a finished
 product. Twelve boards cover every screen at both breakpoints (1440×900 desktop,
 390×844 mobile) plus the two dialogs, each at both sizes; the card grid reflows
 from 3 columns to one, the admin table becomes stacked user cards, and the
-detail page drops its right rail into a bottom action bar. A thirteenth frame,
-`13 Component Library`, documents the library.
+detail page drops its right rail into a bottom action bar. The component
+masters live on the file's `Components` page and are not duplicated on the
+screens page.
 
 ![JobTrack — all boards at a glance](../draft/design/penpot/00-overview.png)
 
@@ -119,37 +120,126 @@ exported straight from the Penpot right-hand panel. The checked-in copies in
 
 `12-delete-confirm-modal-mobile.png` · 390×844
 
-### 13 · Component Library
-
-![13 Component Library](../draft/design/penpot/13-component-library.png)
-
-`13-component-library.png` · 882×1242
-
-`00-overview.png` (1388×3440) is exported from the `00 Overview — All Boards`
-board itself: desktop 2×2, the two desktop dialogs, the mobile row, the two
-mobile dialogs, then the component library. Each cell is a linked image fill of
-the latest per-board export, so the overview and the individual boards cannot
-drift apart.
+`00-overview.png` (1388×2700) is exported from the `00 Overview — All Boards`
+board itself: desktop 2×2, the two desktop dialogs, the mobile row, then the
+two mobile dialogs. Each cell is an image fill taken from the latest per-board
+export; refresh both overviews whenever a board changes. Its dark
+twin, `00 Overview — Dark`, carries the same 12 cells in the same positions and
+is exported to `dark/00-overview.png`.
 
 ## Design tokens
 
-The Penpot file has a `JobTrack Core` token set (58 tokens) and matching
-library styles. Shape fills, font size/weight/family, radius, stroke width and
-spacing bind to these tokens, so a palette change propagates.
+The Penpot file has a `JobTrack Core` token set plus two colour sets:
+
+```text
+JobTrack Core   50 shared tokens (typography, radius, spacing, sizing, weights, on-dark colours)
+Light           29 colour tokens (light values)
+Dark            29 colour tokens (dark values, same names)
+themes          Light = [Core, Light]   Dark = [Core, Dark]
+```
+
+Shapes bind **by token name** (e.g. `color-surface`), so switching the theme
+re-resolves every fill, stroke and text colour without duplicating boards.
+Typography composites: `type-h1/h2/title/body/body-medium/meta/meta-medium`.
 
 | Token | Value |
 |---|---|
 | `canvas` | `#F8FAFC` |
 | `surface` | `#FFFFFF` |
 | `line` | `#E2E8F0` |
-| `ink` / `body` / `muted` / `faint` | `#0F172A` / `#475569` / `#64748B` / `#94A3B8` |
+| `control-line` (input borders) | `#74839B` |
+| `switch-off` / `switch-knob` | `#74839B` / `#FFFFFF` |
+| `ink` / `body` / `muted` / `faint` | `#0F172A` / `#475569` / `#64748B` / `#64748B` |
 | `brand` / `brand-soft` | `#2563EB` / `#EFF6FF` |
 | applied | `#EFF6FF` / `#1D4ED8` |
 | interviewing | `#FEF3C7` / `#B45309` |
 | offer | `#D1FAE5` / `#047857` |
 | rejected | `#FEE2E2` / `#B91C1C` |
-| radius | 8 / 10 / 14 / pill |
+| radius | 6 / 10 / 12 / 16 / pill |
 | icon scale | 16 inline · 18 nav/input · 20 tab bar · 24 FAB |
+
+Two theme-independent colours sit in `JobTrack Core`, not in the colour sets,
+because the shell they cover never changes with the theme:
+
+| Token | Value | Used by |
+|---|---|---|
+| `on-dark` | `#F8FAFC` | active filter chip label + count |
+| `on-dark-muted` | `#94A3B8` | sidebar section label, Admin badge, user role, login pitch / stat labels, copyright |
+
+The shell's primary text (brand, active nav label, username, login headline and
+stat values) stays literal `#FFFFFF` at 17.85:1, and the idle nav label is
+`#CBD5E1` at 12.02:1 — both already clear AA without a token.
+
+Text and UI contrast was measured against WCAG AA: body `#475569` 7.6:1, muted/faint
+`#64748B` 4.8:1, white on brand `#2563EB` 5.2:1, white on danger `#DC2626` 4.8:1, and all
+four status pills 4.5–6.2:1. The former `#94A3B8` faint tone was retired from the light
+palette (2.6:1 on white) and survives only as `on-dark-muted` on the `#0F172A` shell,
+where it measures 6.96:1. Control borders (`#74839B`) and the switch off-track clear
+the 3:1 non-text minimum as well.
+
+## Dark mode
+
+`Light` dominates the deliverable; `dark/` holds the same 12 boards exported with
+the `Dark` theme active. The palettes are token values, so both sets come from the
+same boards:
+
+| Role | Light | Dark |
+|---|---|---|
+| canvas | `#F8FAFC` | `#0B1220` |
+| surface | `#FFFFFF` | `#111A2E` |
+| elevated (dialogs) | `#FFFFFF` | `#18233A` |
+| ink | `#0F172A` | `#F1F5F9` |
+| body | `#475569` | `#CBD5E1` |
+| muted | `#64748B` | `#94A3B8` |
+| line / line-strong | `#E2E8F0` / `#CBD5E1` | `#1E2A44` / `#334155` |
+| brand | `#2563EB` | `#2563EB` |
+| brand-text (links, roles) | `#2563EB` | `#60A5FA` |
+| control-line (input border) | `#74839B` | `#74839B` |
+| switch off-track / knob | `#74839B` / `#FFFFFF` | `#74839B` / `#FFFFFF` |
+| ok / warn / bad | `#047857` / `#B45309` / `#B91C1C` | `#34D399` / `#FBBF24` / `#F87171` |
+
+The sidebar and the login brand panel keep a fixed `#0F172A` background in both
+modes; only their secondary text swaps to the theme-independent `on-dark-muted`,
+because the theme's `muted` (`#64748B`) only reaches 3.75:1 on that navy — close
+enough to look intentional, far enough to fail AA at 11–14px.
+
+### Contrast
+
+Every text pair clears WCAG AA (4.5:1) and every control boundary clears the
+non-text minimum (3:1). Worst-case pairs, measured from the token values:
+
+| Pair | Light | Dark |
+|---|---|---|
+| ink on canvas / surface | 17.06 / 17.85 | 17.09 / 15.83 |
+| body on surface | 7.58 | 11.68 |
+| muted on surface | 4.76 | 6.76 |
+| white on brand | 5.17 | 5.17 |
+| white on danger | 4.83 | 4.83 |
+| link / role text on surface | 5.17 | 6.82 |
+| status text on its soft fill | 4.51–6.16 | 5.06–8.97 |
+| input border (`color-control-line`) | 3.84 | 4.51 |
+| switch off-track vs surface | 3.84 | 4.51 |
+| switch knob vs off-track | 3.84 | 3.84 |
+| switch on-track / knob | 5.17 | 5.17 |
+| sidebar secondary text (`on-dark-muted` on `#0F172A`) | 6.96 | 6.96 |
+| active chip label / count (`on-dark` on brand) | 4.94 | 4.94 |
+
+Five adjustments came out of this pass: links moved off `color-brand` onto a
+separate `color-brand-text` (dark `#60A5FA`, 6.82:1), the input border moved off
+`line` onto `color-control-line` `#74839B` (because `#E2E8F0` on white is 1.23:1
+and `#1E2A44` on the dark field is 1.25:1 — neither is a visible boundary), and
+switch knobs moved off `color-surface` onto a fixed `color-switch-knob`, which
+had turned the knob `#111A2E` on a `#334155` track (1.5:1) in dark mode. The
+active filter chip's label and count were still grey on blue (1.09:1) and now
+use `on-dark` (4.94:1), and the shell's secondary text moved onto
+`on-dark-muted` (3.75:1 → 6.96:1). Two fills were also corrected: the search
+field was bound to `color-line` (a grey block in light mode) and now uses
+`color-surface`, and the admin banner moved to `color-brand-soft` with
+`color-body` copy so its explanation is 7.58:1 instead of 3.86:1.
+
+`draft/design/penpot/dark/` mirrors the light exports, including its own
+`00-overview.png`; both overviews are generated by switching the theme and
+re-exporting, never by hand.
 
 ## Screen notes
 
@@ -167,10 +257,10 @@ spacing bind to these tokens, so a palette change propagates.
 
 ## Component library
 
-`13 Component Library` on the screens page is the visual spec; the **masters**
-live in the file's component library (Assets panel), split between that frame
-(the four status badges) and a dedicated `Components` page (the rest), because
-Penpot cannot move layers across pages.
+The component **masters** live on the file's `Components` page (hidden in view
+mode); the screens page only carries instances. The `Components` page is laid
+out on a 1200px grid as labelled white panels: `BUTTONS`, `PAGE BUTTONS`,
+`SHELLS`, `INPUTS`, `NAV & BRAND`, `ICONS`, and `STATUS BADGES`.
 
 Badges are real components and every badge on every screen is an instance:
 
@@ -197,7 +287,7 @@ are a real interactive variant set with `Variant` and `State` properties:
 | `drawer-shell` | mobile bottom sheet with grabber, rounded top and footer |
 | `app-icon` | shared briefcase + progress-check brand mark |
 
-That is 33 component sets in the file library: 19 icon components, 3 icon-button variant sets (9 states), and the badges, chips, fields, shells and app icon.
+That is 37 component sets in the file library: 19 icon components, 3 state-variant button sets (9 states), 3 single button components used by the pages (`btn-primary` / `btn-save` / `btn-danger`), and the badges, chips, fields, shells and app icon.
 Component boards on the `Components`
 page are marked "hide in view mode", so the viewer only shows screens and the
 two dialogs.
