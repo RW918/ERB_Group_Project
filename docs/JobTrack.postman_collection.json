@@ -5,10 +5,23 @@
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
-    { "key": "baseUrl", "value": "http://localhost:3000" },
-    { "key": "username", "value": "admin" },
-    { "key": "password", "value": "admin123" },
-    { "key": "applicationId", "value": "1" }
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "username",
+      "value": "admin"
+    },
+    {
+      "key": "passwordSha256",
+      "value": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "description": "SHA-256 of the demo password — the wire carries this, not the plaintext (the browser hashes it the same way)."
+    },
+    {
+      "key": "applicationId",
+      "value": "1"
+    }
   ],
   "item": [
     {
@@ -18,13 +31,32 @@
           "name": "Login — wrong password",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
-            "url": { "raw": "{{baseUrl}}/login", "host": ["{{baseUrl}}"], "path": ["login"] },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            },
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
-                { "key": "username", "value": "{{username}}" },
-                { "key": "password", "value": "not-the-password" }
+                {
+                  "key": "username",
+                  "value": "{{username}}"
+                },
+                {
+                  "key": "password",
+                  "value": "0000000000000000000000000000000000000000000000000000000000000000"
+                }
               ]
             },
             "description": "Passport redirects back to /login?error=1 — the wireframe's error state."
@@ -48,13 +80,32 @@
           "name": "Login — demo admin",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
-            "url": { "raw": "{{baseUrl}}/login", "host": ["{{baseUrl}}"], "path": ["login"] },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            },
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
-                { "key": "username", "value": "{{username}}" },
-                { "key": "password", "value": "{{password}}" }
+                {
+                  "key": "username",
+                  "value": "{{username}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{passwordSha256}}"
+                }
               ]
             },
             "description": "Seeded admin account. Sets the session cookie Postman reuses for the rest of the collection."
@@ -81,8 +132,21 @@
           "name": "Logout",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
-            "url": { "raw": "{{baseUrl}}/logout", "host": ["{{baseUrl}}"], "path": ["logout"] },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            },
             "description": "POST on purpose: a GET logout could be triggered by prefetching."
           },
           "event": [
@@ -111,12 +175,30 @@
             "method": "GET",
             "url": {
               "raw": "{{baseUrl}}/?status=interviewing&sort=deadline",
-              "host": ["{{baseUrl}}"],
-              "path": ["", ""],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "",
+                ""
+              ],
               "query": [
-                { "key": "status", "value": "interviewing", "description": "applied | interviewing | offer | rejected — omit for all" },
-                { "key": "q", "value": "", "description": "company/title substring search", "disabled": true },
-                { "key": "sort", "value": "deadline", "description": "updated | deadline | company" }
+                {
+                  "key": "status",
+                  "value": "interviewing",
+                  "description": "applied | interviewing | offer | rejected — omit for all"
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "description": "company/title substring search",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "deadline",
+                  "description": "updated | deadline | company"
+                }
               ]
             },
             "description": "The rendered dashboard — the JOIN list behind it is what the cards show."
@@ -140,20 +222,60 @@
           "name": "Create application",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
-            "url": { "raw": "{{baseUrl}}/applications", "host": ["{{baseUrl}}"], "path": ["applications"] },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/applications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "applications"
+              ]
+            },
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
-                { "key": "company", "value": "Example Ltd" },
-                { "key": "title", "value": "Junior Developer" },
-                { "key": "status", "value": "applied" },
-                { "key": "location", "value": "香港 · 混合办公" },
-                { "key": "salary", "value": "HKD 20k–25k / 月" },
-                { "key": "deadline", "value": "2026-12-15" },
-                { "key": "posting_url", "value": "https://example.com/jobs/42" },
-                { "key": "interview_date", "value": "" },
-                { "key": "note", "value": "Created from Postman." }
+                {
+                  "key": "company",
+                  "value": "Example Ltd"
+                },
+                {
+                  "key": "title",
+                  "value": "Junior Developer"
+                },
+                {
+                  "key": "status",
+                  "value": "applied"
+                },
+                {
+                  "key": "location",
+                  "value": "香港 · 混合办公"
+                },
+                {
+                  "key": "salary",
+                  "value": "HKD 20k–25k / 月"
+                },
+                {
+                  "key": "deadline",
+                  "value": "2026-12-15"
+                },
+                {
+                  "key": "posting_url",
+                  "value": "https://example.com/jobs/42"
+                },
+                {
+                  "key": "interview_date",
+                  "value": ""
+                },
+                {
+                  "key": "note",
+                  "value": "Created from Postman."
+                }
               ]
             },
             "description": "Company is found or created; a (user, job) pair can exist only once — a second submit redirects back with the duplicate error."
@@ -177,7 +299,16 @@
           "name": "Detail",
           "request": {
             "method": "GET",
-            "url": { "raw": "{{baseUrl}}/applications/{{applicationId}}", "host": ["{{baseUrl}}"], "path": ["applications", "{{applicationId}}"] },
+            "url": {
+              "raw": "{{baseUrl}}/applications/{{applicationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "applications",
+                "{{applicationId}}"
+              ]
+            },
             "description": "The joined detail screen (boards 07/08). Set `applicationId` from a real row first."
           },
           "event": [
@@ -199,16 +330,45 @@
           "name": "Update application",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
-            "url": { "raw": "{{baseUrl}}/applications/{{applicationId}}", "host": ["{{baseUrl}}"], "path": ["applications", "{{applicationId}}"] },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/applications/{{applicationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "applications",
+                "{{applicationId}}"
+              ]
+            },
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
-                { "key": "company", "value": "Example Ltd" },
-                { "key": "title", "value": "Junior Developer" },
-                { "key": "status", "value": "interviewing" },
-                { "key": "interview_date", "value": "2026-11-30" },
-                { "key": "note", "value": "Updated from Postman." }
+                {
+                  "key": "company",
+                  "value": "Example Ltd"
+                },
+                {
+                  "key": "title",
+                  "value": "Junior Developer"
+                },
+                {
+                  "key": "status",
+                  "value": "interviewing"
+                },
+                {
+                  "key": "interview_date",
+                  "value": "2026-11-30"
+                },
+                {
+                  "key": "note",
+                  "value": "Updated from Postman."
+                }
               ]
             },
             "description": "Ownership-based: the admin passes the read check but the write still needs the record to be their own."
@@ -231,7 +391,16 @@
           "name": "Delete (AJAX endpoint)",
           "request": {
             "method": "DELETE",
-            "url": { "raw": "{{baseUrl}}/applications/{{applicationId}}", "host": ["{{baseUrl}}"], "path": ["applications", "{{applicationId}}"] },
+            "url": {
+              "raw": "{{baseUrl}}/applications/{{applicationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "applications",
+                "{{applicationId}}"
+              ]
+            },
             "description": "What the confirm dialog calls — JSON, no HTML redirect."
           },
           "event": [
@@ -253,12 +422,28 @@
           "name": "Validation — missing company",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
-            "url": { "raw": "{{baseUrl}}/applications", "host": ["{{baseUrl}}"], "path": ["applications"] },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/applications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "applications"
+              ]
+            },
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
-                { "key": "title", "value": "No company given" }
+                {
+                  "key": "title",
+                  "value": "No company given"
+                }
               ]
             }
           },
@@ -286,7 +471,16 @@
           "name": "Users page",
           "request": {
             "method": "GET",
-            "url": { "raw": "{{baseUrl}}/admin/users", "host": ["{{baseUrl}}"], "path": ["admin", "users"] }
+            "url": {
+              "raw": "{{baseUrl}}/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "users"
+              ]
+            }
           },
           "event": [
             {
@@ -307,22 +501,69 @@
           "name": "Save permissions",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
-            "url": { "raw": "{{baseUrl}}/admin/users", "host": ["{{baseUrl}}"], "path": ["admin", "users"] },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "users"
+              ]
+            },
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
-                { "key": "role[u1]", "value": "admin" },
-                { "key": "has_view[u1]", "value": "1" },
-                { "key": "can_view[u1]", "value": "on" },
-                { "key": "has_manage[u1]", "value": "1" },
-                { "key": "can_manage[u1]", "value": "on" },
-                { "key": "role[u2]", "value": "user" },
-                { "key": "has_view[u2]", "value": "1" },
-                { "key": "has_manage[u2]", "value": "1" },
-                { "key": "role[u3]", "value": "user" },
-                { "key": "has_view[u3]", "value": "1" },
-                { "key": "has_manage[u3]", "value": "1" }
+                {
+                  "key": "role[u1]",
+                  "value": "admin"
+                },
+                {
+                  "key": "has_view[u1]",
+                  "value": "1"
+                },
+                {
+                  "key": "can_view[u1]",
+                  "value": "on"
+                },
+                {
+                  "key": "has_manage[u1]",
+                  "value": "1"
+                },
+                {
+                  "key": "can_manage[u1]",
+                  "value": "on"
+                },
+                {
+                  "key": "role[u2]",
+                  "value": "user"
+                },
+                {
+                  "key": "has_view[u2]",
+                  "value": "1"
+                },
+                {
+                  "key": "has_manage[u2]",
+                  "value": "1"
+                },
+                {
+                  "key": "role[u3]",
+                  "value": "user"
+                },
+                {
+                  "key": "has_view[u3]",
+                  "value": "1"
+                },
+                {
+                  "key": "has_manage[u3]",
+                  "value": "1"
+                }
               ]
             },
             "description": "One save applies every row. The u-prefix keeps ids out of qs's numeric-array folding; has_* marks a shown switch so unchecked stays unchecked."
@@ -351,7 +592,16 @@
           "name": "Delete while logged out",
           "request": {
             "method": "DELETE",
-            "url": { "raw": "{{baseUrl}}/applications/1", "host": ["{{baseUrl}}"], "path": ["applications", "1"] },
+            "url": {
+              "raw": "{{baseUrl}}/applications/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "applications",
+                "1"
+              ]
+            },
             "description": "Run with cookies cleared (Postman: right-click collection → Clear cookies). The per-route guard bounces to /login."
           },
           "event": [
@@ -373,7 +623,16 @@
           "name": "Admin page as a normal user",
           "request": {
             "method": "GET",
-            "url": { "raw": "{{baseUrl}}/admin/users", "host": ["{{baseUrl}}"], "path": ["admin", "users"] },
+            "url": {
+              "raw": "{{baseUrl}}/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "users"
+              ]
+            },
             "description": "Log in as alice/user123 first (switch the {{username}}/{{password}} variables), clear cookies, then run this — the requirePermission guard answers 403 with the 没有权限 dialog."
           },
           "event": [

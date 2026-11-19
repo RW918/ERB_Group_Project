@@ -21,7 +21,7 @@ erDiagram
     USERS {
         serial id PK
         varchar username UK
-        text password_hash "scrypt$salt$key"
+        text password_hash "scrypt$salt$key over SHA-256(password)"
         int role_id FK "every user holds exactly one role"
         boolean can_view_all_applications "per-user override, NULL = follow role"
         boolean can_manage_users "per-user override, NULL = follow role"

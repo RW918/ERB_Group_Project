@@ -124,7 +124,7 @@
       </a>
     </div>
 
-    <form method="post" action="<%= modal.editing ? '/applications/' + modal.m.id : '/applications' %>">
+    <form method="post" action="<%= modal.editing ? '/applications/' + modal.m.id : '/applications' %>" data-fetch>
       <div class="modal-body">
         <% if (formError) { %>
         <div class="alert-error span-2" role="alert">
