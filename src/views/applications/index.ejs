@@ -45,7 +45,7 @@
 <% if (apps.length === 0) { %>
 <div class="empty">
   <span class="empty-icon"><svg class="ic"><use href="#i-briefcase" /></svg></span>
-  <h3><%= filters.q || filters.status ? '没有匹配的投递' : '还没有投递记录' %></h3>
+  <h2><%= filters.q || filters.status ? '没有匹配的投递' : '还没有投递记录' %></h2>
   <p><%= filters.q || filters.status ? '换个筛选条件或搜索词试试。' : '点击右上角「新增投递」，把第一份申请记录进来。' %></p>
 </div>
 <% } else { %>
@@ -55,7 +55,7 @@
     <div class="app-top">
       <span class="logo-tile" style="background: <%= a.tint %>; color: <%= a.tintInk %>"><%= a.initial %></span>
       <div style="min-width: 0">
-        <h3 class="app-company"><a href="/applications/<%= a.id %>"><%= a.company_name %></a></h3>
+        <h2 class="app-company"><a href="/applications/<%= a.id %>"><%= a.company_name %></a></h2>
         <% if (a.posting_url) { %>
         <a class="app-role" href="<%= a.posting_url %>" target="_blank" rel="noopener">
           <%= a.title %>
@@ -136,13 +136,13 @@
         <div class="field">
           <label for="f-company">公司名称 <span class="req">*</span></label>
           <div class="control">
-            <input id="f-company" name="company" required value="<%= modal.editing ? modal.m.company_name : '' %>" placeholder="例如：Example Ltd" />
+            <input id="f-company" name="company" maxlength="100" required value="<%= modal.editing ? modal.m.company_name : '' %>" placeholder="例如：Example Ltd" />
           </div>
         </div>
         <div class="field">
           <label for="f-title">职位名称 <span class="req">*</span></label>
           <div class="control">
-            <input id="f-title" name="title" required value="<%= modal.editing ? modal.m.title : '' %>" placeholder="例如：Junior Developer" />
+            <input id="f-title" name="title" maxlength="100" required value="<%= modal.editing ? modal.m.title : '' %>" placeholder="例如：Junior Developer" />
           </div>
         </div>
 
@@ -166,7 +166,7 @@
         <div class="field">
           <label for="f-location">地点</label>
           <div class="control">
-            <input id="f-location" name="location" value="<%= modal.editing ? (modal.m.location ?? '') : '' %>" placeholder="例如：香港 · 混合办公" />
+            <input id="f-location" name="location" maxlength="100" value="<%= modal.editing ? (modal.m.location ?? '') : '' %>" placeholder="例如：香港 · 混合办公" />
           </div>
         </div>
         <div class="field">
@@ -179,7 +179,7 @@
         <div class="field">
           <label for="f-salary">薪资范围</label>
           <div class="control">
-            <input id="f-salary" name="salary" value="<%= modal.editing ? (modal.m.salary ?? '') : '' %>" placeholder="例如：HKD 20k–25k / 月" />
+            <input id="f-salary" name="salary" maxlength="100" value="<%= modal.editing ? (modal.m.salary ?? '') : '' %>" placeholder="例如：HKD 20k–25k / 月" />
           </div>
         </div>
         <div class="field">
@@ -192,7 +192,7 @@
         <div class="field span-2">
           <label for="f-note">备注</label>
           <div class="control">
-            <textarea id="f-note" name="note" placeholder="面试轮次、联系人、准备事项……"><%= modal.editing ? (modal.m.note ?? '') : '' %></textarea>
+            <textarea id="f-note" name="note" rows="3" placeholder="面试轮次、联系人、准备事项……"><%= modal.editing ? (modal.m.note ?? '') : '' %></textarea>
           </div>
         </div>
       </div>
