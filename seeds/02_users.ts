@@ -19,14 +19,19 @@ export const seed = async (knex: Knex) => {
     { username: "bob", password: userPassword, role: "user" },
   ];
 
+  // The three demo accounts are upserted on every boot: a deployed environment
+  // always matches whatever its DEMO_*_PASSWORD env (or the documented
+  // defaults) promise, so a stale hash from an older seed can't lock the
+  // documented accounts out. Only these three usernames are touched; any
+  // non-demo account in the table is never re-hashed here.
   for (const account of accounts) {
-    const existing = await knex("users").where({ username: account.username }).first();
-    if (existing) continue;
-
-    await knex("users").insert({
-      username: account.username,
-      password_hash: await hashPassword(account.password),
-      role_id: roleId[account.role],
-    });
+    await knex("users")
+      .insert({
+        username: account.username,
+        password_hash: await hashPassword(account.password),
+        role_id: roleId[account.role],
+      })
+      .onConflict("username")
+      .merge(["password_hash"]);
   }
 };
