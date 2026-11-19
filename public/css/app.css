@@ -1053,6 +1053,12 @@ h1.page-title {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 11.5px;
   color: var(--body);
+  cursor: pointer;
+}
+
+.account-chip:hover {
+  border-color: var(--line-strong);
+  background: #f8fafc;
 }
 
 .account-chip b {
@@ -1082,6 +1088,58 @@ h1.page-title {
 
 .alert-error .ic {
   font-size: 15px;
+}
+
+/* --------------------------------------------------------------------------
+   Gate (403 没有权限)
+   -------------------------------------------------------------------------- */
+
+.gate {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: #f8fafc;
+}
+
+.gate-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: min(420px, 100%);
+  padding: 40px 32px 32px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 4%);
+}
+
+.gate-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  background: #fef3f2;
+  color: var(--bad);
+  font-size: 20px;
+}
+
+.gate-card h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.gate-card p {
+  margin: 0 0 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--body);
 }
 
 /* --------------------------------------------------------------------------

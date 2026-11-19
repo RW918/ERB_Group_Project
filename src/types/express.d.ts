@@ -1,11 +1,10 @@
-import type { Role, User as Account } from "./domain.js";
+import type { SessionUser } from "../auth/session.js";
 
 declare global {
   namespace Express {
-    // Passport attaches the deserialized row; the guard middleware adds its role.
-    interface User extends Account {
-      role?: Role;
-    }
+    // Passport attaches the deserialized session user: effective permissions
+    // already coalesced (override first, role default otherwise).
+    interface User extends SessionUser {}
   }
 }
 

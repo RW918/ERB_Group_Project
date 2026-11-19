@@ -10,7 +10,7 @@
     "test": "tsx --test src/**/*.test.ts",
     "build": "tsc && rm -rf dist/views && cp -r src/views dist/views",
     "dev": "tsx watch src/server.ts",
-    "start": "node dist/server.js",
+    "start": "node --env-file-if-exists=.env dist/server.js",
     "migrate": "node --import tsx --env-file-if-exists=.env ./node_modules/knex/bin/cli.js migrate:latest",
     "migrate:make": "node --import tsx ./node_modules/knex/bin/cli.js migrate:make",
     "migrate:rollback": "node --import tsx --env-file-if-exists=.env ./node_modules/knex/bin/cli.js migrate:rollback",
