@@ -34,12 +34,12 @@
   --info: #1d4ed8;
   --info-bg: #e8f0ff;
 
-  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
-  --shadow-md: 0 12px 28px rgba(16, 24, 40, 0.08);
-  --shadow-lg: 0 24px 60px rgba(11, 18, 32, 0.28);
+  --shadow-sm: 0 1px 0.125rem rgba(16, 24, 40, 0.05);
+  --shadow-md: 0 0.75rem 1.75rem rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 1.5rem 3.75rem rgba(11, 18, 32, 0.28);
 
-  --radius: 16px;
-  --sidebar: 248px;
+  --radius: 1rem;
+  --sidebar: 15.5rem;
 
   --font: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui,
     -apple-system, "Segoe UI", sans-serif;
@@ -96,7 +96,7 @@ body {
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 
@@ -127,7 +127,7 @@ a {
   width: var(--sidebar);
   display: flex;
   flex-direction: column;
-  padding: 22px 16px 18px;
+  padding: 1.375rem 1rem 1.125rem;
   background: radial-gradient(120% 60% at 0% 0%, #1b2350 0%, transparent 55%),
     linear-gradient(180deg, #0b1220 0%, #0d1528 100%);
   color: rgba(255, 255, 255, 0.72);
@@ -136,39 +136,39 @@ a {
 .brand {
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 0 8px;
+  gap: 0.6875rem;
+  padding: 0 0.5rem;
   color: #fff;
 }
 
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 11px;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.6875rem;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.38);
+  box-shadow: 0 0.5rem 1.25rem rgba(99, 102, 241, 0.38);
   color: #fff;
-  font-size: 19px;
+  font-size: 1.1875rem;
 }
 
 .brand-name {
-  font-size: 16.5px;
+  font-size: 1.0312rem;
   font-weight: 650;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
 
 .brand-sub {
-  font-size: 10.5px;
+  font-size: 0.6562rem;
   letter-spacing: 0.08em;
   color: rgba(255, 255, 255, 0.42);
 }
 
 .nav-section {
-  margin: 30px 10px 8px;
-  font-size: 10.5px;
+  margin: 1.875rem 0.625rem 0.5rem;
+  font-size: 0.6562rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   color: rgba(255, 255, 255, 0.34);
@@ -177,22 +177,22 @@ a {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 11px;
-  height: 42px;
-  padding: 0 12px;
-  border-radius: 10px;
+  gap: 0.6875rem;
+  height: 2.625rem;
+  padding: 0 0.75rem;
+  border-radius: 0.625rem;
   color: rgba(255, 255, 255, 0.64);
-  font-size: 13.5px;
+  font-size: 0.8438rem;
   font-weight: 500;
   transition: background 0.15s ease, color 0.15s ease;
 }
 
 .nav-item + .nav-item {
-  margin-top: 2px;
+  margin-top: 0.125rem;
 }
 
 .nav-item .ic {
-  font-size: 17px;
+  font-size: 1.0625rem;
   opacity: 0.85;
 }
 
@@ -218,10 +218,10 @@ a {
 
 .nav-badge {
   margin-left: auto;
-  padding: 1px 7px;
-  border-radius: 999px;
+  padding: 1px 0.4375rem;
+  border-radius: 62.4375rem;
   background: rgba(255, 255, 255, 0.08);
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.55);
@@ -229,52 +229,52 @@ a {
 
 .sidebar-foot {
   margin-top: auto;
-  padding-top: 16px;
+  padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .side-user {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 8px;
+  gap: 0.625rem;
+  padding: 0.375rem 0.5rem;
 }
 
 .avatar {
   display: grid;
   place-items: center;
   flex: none;
-  width: 34px;
-  height: 34px;
+  width: 2.125rem;
+  height: 2.125rem;
   border-radius: 50%;
   background: linear-gradient(135deg, #818cf8, #6366f1);
   color: #fff;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
 }
 
 .side-user-name {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: #fff;
   line-height: 1.2;
 }
 
 .side-user-role {
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: rgba(255, 255, 255, 0.45);
 }
 
 .icon-btn {
   display: inline-grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   border: 0;
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   background: transparent;
   color: var(--muted);
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
@@ -304,21 +304,21 @@ a {
 
 .page {
   width: 100%;
-  max-width: 1280px;
+  max-width: 80rem;
   margin: 0 auto;
-  padding: 34px 40px 60px;
+  padding: 2.125rem 2.5rem 3.75rem;
 }
 
 .page-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 24px;
+  gap: 1.5rem;
 }
 
 .eyebrow {
-  margin-bottom: 7px;
-  font-size: 11px;
+  margin-bottom: 0.4375rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   color: var(--faint);
@@ -326,22 +326,22 @@ a {
 
 h1.page-title {
   margin: 0;
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 1.2;
 }
 
 .page-sub {
-  margin: 7px 0 0;
-  font-size: 13px;
+  margin: 0.4375rem 0 0;
+  font-size: 0.8125rem;
   color: var(--muted);
 }
 
 .page-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -352,19 +352,19 @@ h1.page-title {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  height: 40px;
-  padding: 0 15px;
+  gap: 0.4375rem;
+  height: 2.5rem;
+  padding: 0 0.9375rem;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   background: var(--brand);
   color: #fff;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  box-shadow: 0 6px 14px rgba(79, 70, 229, 0.24);
+  box-shadow: 0 0.375rem 0.875rem rgba(79, 70, 229, 0.24);
   transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
 }
 
@@ -378,7 +378,7 @@ h1.page-title {
 }
 
 .btn-jt .ic {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .btn-jt-ghost {
@@ -408,10 +408,10 @@ h1.page-title {
 }
 
 .btn-jt-sm {
-  height: 34px;
-  padding: 0 12px;
-  font-size: 12.5px;
-  border-radius: 9px;
+  height: 2.125rem;
+  padding: 0 0.75rem;
+  font-size: 0.7812rem;
+  border-radius: 0.5625rem;
 }
 
 .btn-jt-block {
@@ -428,24 +428,24 @@ h1.page-title {
 
 .search .ic {
   position: absolute;
-  left: 12px;
+  left: 0.75rem;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--faint);
   pointer-events: none;
 }
 
 .search input {
-  width: 248px;
-  height: 40px;
-  padding: 0 14px 0 36px;
+  width: 15.5rem;
+  height: 2.5rem;
+  padding: 0 0.875rem 0 2.25rem;
   border: 1px solid var(--line-strong);
-  border-radius: 10px;
+  border-radius: 0.625rem;
   background: var(--surface);
   color: var(--ink);
   font-family: inherit;
-  font-size: 13px;
+  font-size: 0.8125rem;
   box-shadow: var(--shadow-sm);
 }
 
@@ -456,7 +456,7 @@ h1.page-title {
 .search input:focus {
   outline: 0;
   border-color: #a5b4fc;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.14);
+  box-shadow: 0 0 0 0.1875rem rgba(99, 102, 241, 0.14);
 }
 
 /* --------------------------------------------------------------------------
@@ -483,28 +483,28 @@ h1.page-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin: 26px 0 16px;
+  gap: 1rem;
+  margin: 1.625rem 0 1rem;
 }
 
 .chips {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
   flex-wrap: wrap;
 }
 
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  height: 34px;
-  padding: 0 13px;
+  gap: 0.4375rem;
+  height: 2.125rem;
+  padding: 0 0.8125rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 62.4375rem;
   background: var(--surface);
   color: var(--body);
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   font-weight: 500;
   box-shadow: var(--shadow-sm);
 }
@@ -518,7 +518,7 @@ h1.page-title {
   background: var(--chip-active);
   border-color: var(--chip-active);
   color: #fff;
-  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.2);
+  box-shadow: 0 0.375rem 1rem rgba(16, 24, 40, 0.2);
 }
 
 .chip.is-active b {
@@ -528,14 +528,14 @@ h1.page-title {
 .sort {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  height: 34px;
-  padding: 0 12px;
+  gap: 0.4375rem;
+  height: 2.125rem;
+  padding: 0 0.75rem;
   border: 1px solid var(--line);
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   background: var(--surface);
   color: var(--body);
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   box-shadow: var(--shadow-sm);
 }
 
@@ -544,7 +544,7 @@ h1.page-title {
   background: transparent;
   color: var(--body);
   font-family: inherit;
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   cursor: pointer;
 }
 
@@ -557,7 +557,7 @@ h1.page-title {
 }
 
 .sort .ic {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--faint);
 }
 
@@ -568,13 +568,13 @@ h1.page-title {
 .app-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 1rem;
 }
 
 .app-card {
   display: flex;
   flex-direction: column;
-  padding: 18px;
+  padding: 1.125rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -584,7 +584,7 @@ h1.page-title {
 }
 
 .app-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem);
   border-color: var(--line-strong);
   box-shadow: var(--shadow-md);
 }
@@ -592,24 +592,24 @@ h1.page-title {
 .app-top {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .logo-tile {
   display: grid;
   place-items: center;
   flex: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  font-size: 16px;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .app-company {
   margin: 1px 0 0;
-  font-size: 14.5px;
+  font-size: 0.9062rem;
   font-weight: 650;
   letter-spacing: -0.01em;
   line-height: 1.25;
@@ -624,39 +624,39 @@ h1.page-title {
 .app-company a:hover {
   text-decoration: underline;
   text-decoration-color: var(--line-strong);
-  text-underline-offset: 3px;
+  text-underline-offset: 0.1875rem;
 }
 
 .app-role {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  margin-top: 3px;
-  font-size: 12.5px;
+  gap: 0.1875rem;
+  margin-top: 0.1875rem;
+  font-size: 0.7812rem;
   color: var(--brand-text);
 }
 
 .app-role .ic {
-  font-size: 12px;
+  font-size: 0.75rem;
   opacity: 0.7;
 }
 
 .status {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
   margin-left: auto;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11.5px;
+  padding: 0.25rem 0.625rem;
+  border-radius: 62.4375rem;
+  font-size: 0.7188rem;
   font-weight: 600;
   white-space: nowrap;
 }
 
 .status::before {
   content: "";
-  width: 5px;
-  height: 5px;
+  width: 0.3125rem;
+  height: 0.3125rem;
   border-radius: 50%;
   background: currentColor;
 }
@@ -683,13 +683,13 @@ h1.page-title {
 
 .app-divider {
   height: 1px;
-  margin: 14px 0 12px;
+  margin: 0.875rem 0 0.75rem;
   background: var(--line);
 }
 
 .meta {
   display: grid;
-  gap: 7px;
+  gap: 0.4375rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -698,14 +698,14 @@ h1.page-title {
 .meta li {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   min-width: 0;
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--body);
 }
 
 .meta .ic {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--faint);
 }
 
@@ -717,11 +717,11 @@ h1.page-title {
 
 .days {
   margin-left: auto;
-  padding: 2px 7px;
-  border-radius: 6px;
+  padding: 0.125rem 0.4375rem;
+  border-radius: 0.375rem;
   background: var(--warn-bg);
   color: var(--warn);
-  font-size: 10.5px;
+  font-size: 0.6562rem;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -730,45 +730,45 @@ h1.page-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 0.625rem;
   margin-top: auto;
-  padding-top: 13px;
+  padding-top: 0.8125rem;
 }
 
 .interview-chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 9px;
-  border-radius: 8px;
+  gap: 0.375rem;
+  padding: 0.3125rem 0.5625rem;
+  border-radius: 0.5rem;
   background: var(--soft);
-  font-size: 11.5px;
+  font-size: 0.7188rem;
   font-weight: 500;
   color: var(--body);
 }
 
 .interview-chip .ic {
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--faint);
 }
 
 .row-actions {
   display: flex;
-  gap: 2px;
+  gap: 0.125rem;
 }
 
 .row-actions .icon-btn {
-  width: 30px;
-  height: 30px;
-  font-size: 14px;
+  width: 1.875rem;
+  height: 1.875rem;
+  font-size: 0.875rem;
 }
 
 /* Admin cards show the owner instead of the actions: writes stay owner-only. */
 .app-owner {
-  padding: 5px 9px;
-  border-radius: 8px;
+  padding: 0.3125rem 0.5625rem;
+  border-radius: 0.5rem;
   background: var(--brand-soft);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 600;
   color: var(--brand-text);
 }
@@ -783,7 +783,7 @@ h1.page-title {
    -------------------------------------------------------------------------- */
 
 .empty {
-  padding: 64px 24px;
+  padding: 4rem 1.5rem;
   border: 1px dashed var(--line-strong);
   border-radius: var(--radius);
   background: var(--surface);
@@ -793,24 +793,24 @@ h1.page-title {
 .empty-icon {
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 12px;
-  border-radius: 14px;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 0.75rem;
+  border-radius: 0.875rem;
   background: var(--brand-soft);
   color: var(--brand-text);
-  font-size: 22px;
+  font-size: 1.375rem;
 }
 
 .empty h3 {
-  margin: 0 0 4px;
-  font-size: 15px;
+  margin: 0 0 0.25rem;
+  font-size: 0.9375rem;
   font-weight: 600;
 }
 
 .empty p {
-  margin: 0 0 16px;
-  font-size: 12.5px;
+  margin: 0 0 1rem;
+  font-size: 0.7812rem;
   color: var(--muted);
 }
 
@@ -833,7 +833,7 @@ h1.page-title {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: 48px 56px 40px;
+  padding: 3rem 3.5rem 2.5rem;
   background: radial-gradient(80% 60% at 15% 0%, #312e81 0%, transparent 60%),
     radial-gradient(70% 50% at 100% 100%, #4c1d95 0%, transparent 55%),
     linear-gradient(160deg, #0b1220 0%, #101a33 100%);
@@ -848,7 +848,7 @@ h1.page-title {
     rgba(255, 255, 255, 0.07) 1px,
     transparent 1px
   );
-  background-size: 22px 22px;
+  background-size: 1.375rem 1.375rem;
   mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
   pointer-events: none;
 }
@@ -863,12 +863,12 @@ h1.page-title {
   position: relative;
   z-index: 1;
   margin: auto 0;
-  max-width: 460px;
+  max-width: 28.75rem;
 }
 
 .login-pitch h1 {
   margin: 0;
-  font-size: 42px;
+  font-size: 2.625rem;
   font-weight: 700;
   letter-spacing: -0.035em;
   line-height: 1.16;
@@ -883,9 +883,9 @@ h1.page-title {
 }
 
 .login-pitch p {
-  margin: 18px 0 0;
-  max-width: 380px;
-  font-size: 14.5px;
+  margin: 1.125rem 0 0;
+  max-width: 23.75rem;
+  font-size: 0.9062rem;
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.58);
 }
@@ -895,28 +895,28 @@ h1.page-title {
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 34px;
-  padding-top: 28px;
+  gap: 2.125rem;
+  padding-top: 1.75rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .login-stat b {
   display: block;
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .login-stat span {
-  font-size: 11.5px;
+  font-size: 0.7188rem;
   color: rgba(255, 255, 255, 0.45);
 }
 
 .login-copy {
   position: relative;
   z-index: 1;
-  margin-top: 34px;
-  font-size: 11px;
+  margin-top: 2.125rem;
+  font-size: 0.6875rem;
   color: rgba(255, 255, 255, 0.3);
 }
 
@@ -924,35 +924,35 @@ h1.page-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px 32px;
+  padding: 3rem 2rem;
 }
 
 .login-form {
   width: 100%;
-  max-width: 372px;
+  max-width: 23.25rem;
 }
 
 .login-form h2 {
   margin: 0;
-  font-size: 26px;
+  font-size: 1.625rem;
   font-weight: 700;
   letter-spacing: -0.025em;
 }
 
 .login-form .lead {
-  margin: 7px 0 30px;
-  font-size: 13.5px;
+  margin: 0.4375rem 0 1.875rem;
+  font-size: 0.8438rem;
   color: var(--muted);
 }
 
 .field {
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .field label {
   display: block;
-  margin-bottom: 6px;
-  font-size: 12px;
+  margin-bottom: 0.375rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--body);
 }
@@ -963,10 +963,10 @@ h1.page-title {
 
 .control > .ic {
   position: absolute;
-  left: 13px;
+  left: 0.8125rem;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--faint);
   pointer-events: none;
 }
@@ -975,24 +975,24 @@ h1.page-title {
 .control select,
 .control textarea {
   width: 100%;
-  height: 44px;
-  padding: 0 13px;
+  height: 2.75rem;
+  padding: 0 0.8125rem;
   border: 1px solid var(--line-strong);
-  border-radius: 10px;
+  border-radius: 0.625rem;
   background: var(--surface);
   color: var(--ink);
   font-family: inherit;
-  font-size: 13.5px;
+  font-size: 0.8438rem;
 }
 
 .control.has-icon input {
-  padding-left: 38px;
+  padding-left: 2.375rem;
 }
 
 .control textarea {
   height: auto;
-  min-height: 84px;
-  padding: 10px 13px;
+  min-height: 5.25rem;
+  padding: 0.625rem 0.8125rem;
   resize: vertical;
 }
 
@@ -1007,27 +1007,27 @@ h1.page-title {
   outline: 0;
   border-color: #a5b4fc;
   background: var(--surface);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.14);
+  box-shadow: 0 0 0 0.1875rem rgba(99, 102, 241, 0.14);
 }
 
 .login-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 6px 0 22px;
-  font-size: 12.5px;
+  margin: 0.375rem 0 1.375rem;
+  font-size: 0.7812rem;
 }
 
 .login-hint {
-  margin-top: 22px;
-  padding: 14px 15px;
+  margin-top: 1.375rem;
+  padding: 0.875rem 0.9375rem;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   background: var(--soft);
 }
 
 .login-hint .title {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--faint);
@@ -1035,20 +1035,20 @@ h1.page-title {
 
 .login-hint .accounts {
   display: flex;
-  gap: 8px;
-  margin-top: 9px;
+  gap: 0.5rem;
+  margin-top: 0.5625rem;
 }
 
 .account-chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 10px;
+  gap: 0.375rem;
+  padding: 0.3125rem 0.625rem;
   border: 1px solid var(--line);
-  border-radius: 7px;
+  border-radius: 0.4375rem;
   background: var(--surface);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 11.5px;
+  font-size: 0.7188rem;
   color: var(--body);
   cursor: pointer;
 }
@@ -1064,42 +1064,42 @@ h1.page-title {
 }
 
 .login-foot {
-  margin: 26px 0 0;
+  margin: 1.625rem 0 0;
   text-align: center;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 
 .alert-error {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-  padding: 10px 12px;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.625rem 0.75rem;
   border: 1px solid var(--bad-bg);
-  border-radius: 10px;
+  border-radius: 0.625rem;
   background: var(--bad-bg);
   color: var(--bad);
-  font-size: 12.5px;
+  font-size: 0.7812rem;
 }
 
 .alert-error .ic {
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 /* Touch: enlarge tap targets without changing the visual design. */
 @media (pointer: coarse) {
   .app-company a,
   .app-role {
-    padding: 8px 6px;
-    margin: -8px -6px;
+    padding: 0.5rem 0.375rem;
+    margin: -0.5rem -0.375rem;
   }
 
   .row-actions .icon-btn,
   .theme-toggle,
   .logout-form .icon-btn {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }
 
@@ -1111,8 +1111,8 @@ h1.page-title {
 
 /* The 403 gate keeps the app shell behind a modal dialog (deep-link visits). */
 .gate-dialog {
-  width: min(460px, calc(100vw - 32px));
-  padding: 22px 24px 20px;
+  width: min(28.75rem, calc(100vw - 2rem));
+  padding: 1.375rem 1.5rem 1.25rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -1120,12 +1120,12 @@ h1.page-title {
    -------------------------------------------------------------------------- */
 
 dialog.confirm {
-  width: min(420px, calc(100vw - 32px));
-  padding: 22px 24px 20px;
+  width: min(26.25rem, calc(100vw - 2rem));
+  padding: 1.375rem 1.5rem 1.25rem;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 1rem;
   background: var(--elevated);
-  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 1.5rem 3rem rgba(15, 23, 42, 0.18);
 }
 
 dialog.confirm::backdrop {
@@ -1135,42 +1135,42 @@ dialog.confirm::backdrop {
 .confirm-head {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .confirm-icon {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 2.125rem;
+  height: 2.125rem;
   border-radius: 50%;
   background: var(--bad-bg);
   color: var(--bad);
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .confirm-head h2 {
   margin: 0;
-  font-size: 15.5px;
+  font-size: 0.9688rem;
   font-weight: 700;
   color: var(--ink);
 }
 
 .confirm-copy {
-  margin: 10px 0 0;
-  font-size: 12.5px;
+  margin: 0.625rem 0 0;
+  font-size: 0.7812rem;
   color: var(--body);
 }
 
 .confirm-foot {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 0.625rem;
+  margin-top: 1.25rem;
 }
 
 .confirm-foot .btn-jt-ghost {
-  height: 38px;
+  height: 2.375rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -1178,19 +1178,19 @@ dialog.confirm::backdrop {
    -------------------------------------------------------------------------- */
 
 .detail-top {
-  margin: 26px 0 14px;
+  margin: 1.625rem 0 0.875rem;
 }
 
 .back-chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  height: 34px;
-  padding: 0 14px;
+  gap: 0.5rem;
+  height: 2.125rem;
+  padding: 0 0.875rem;
   border: 1px solid var(--line);
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   background: var(--surface);
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--body);
   box-shadow: var(--shadow-sm);
 }
@@ -1204,13 +1204,13 @@ dialog.confirm::backdrop {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
+  gap: 1rem;
+  margin-bottom: 1.125rem;
 }
 
 .detail-company {
   margin: 0;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -1219,37 +1219,37 @@ dialog.confirm::backdrop {
 .detail-role {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 5px;
-  font-size: 13.5px;
+  gap: 0.375rem;
+  margin-top: 0.3125rem;
+  font-size: 0.8438rem;
   font-weight: 600;
   color: var(--brand-text);
 }
 
 .detail-role .ic {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .detail-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 392px;
-  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) 24.5rem;
+  gap: 1rem;
   align-items: start;
-  padding-bottom: 40px;
+  padding-bottom: 2.5rem;
 }
 
 .detail-main {
   display: grid;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .detail-rail {
   display: grid;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .detail-card {
-  padding: 20px;
+  padding: 1.25rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -1257,8 +1257,8 @@ dialog.confirm::backdrop {
 }
 
 .detail-card-title {
-  margin: 0 0 16px;
-  font-size: 12.5px;
+  margin: 0 0 1rem;
+  font-size: 0.7812rem;
   font-weight: 600;
   color: var(--muted);
 }
@@ -1266,50 +1266,50 @@ dialog.confirm::backdrop {
 .info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px 24px;
+  gap: 0.875rem 1.5rem;
 }
 
 .info-item {
   display: grid;
-  gap: 3px;
+  gap: 0.1875rem;
 }
 
 .info-label {
-  font-size: 11.5px;
+  font-size: 0.7188rem;
   color: var(--faint);
 }
 
 .info-value {
-  font-size: 13.5px;
+  font-size: 0.8438rem;
   color: var(--ink);
 }
 
 .detail-note {
   margin: 0;
-  font-size: 13.5px;
+  font-size: 0.8438rem;
   line-height: 1.75;
   color: var(--body);
 }
 
 .rail-actions {
   display: grid;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .rail-actions .btn-jt {
-  height: 46px;
+  height: 2.875rem;
 }
 
 .record-list {
   display: grid;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .record-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .record-row .info-value {
@@ -1328,11 +1328,11 @@ dialog.confirm::backdrop {
   }
 
   .detail-head {
-    margin-top: 18px;
+    margin-top: 1.125rem;
   }
 
   .detail-grid {
-    padding-bottom: 120px;
+    padding-bottom: 7.5rem;
   }
 
   .rail-actions {
@@ -1340,20 +1340,20 @@ dialog.confirm::backdrop {
     inset: auto 0 0 0;
     z-index: 40;
     display: flex;
-    gap: 10px;
-    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    gap: 0.625rem;
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
     border-top: 1px solid var(--line);
     background: var(--surface);
-    box-shadow: 0 -8px 24px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 -0.5rem 1.5rem rgba(15, 23, 42, 0.08);
   }
 
   .rail-actions .btn-jt {
     flex: 1;
-    height: 44px;
+    height: 2.75rem;
   }
 
   .rail-actions ~ .detail-card {
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -1363,9 +1363,9 @@ dialog.confirm::backdrop {
 
 .banner {
   display: flex;
-  gap: 14px;
-  margin-top: 24px;
-  padding: 18px 20px;
+  gap: 0.875rem;
+  margin-top: 1.5rem;
+  padding: 1.125rem 1.25rem;
   border: 1px solid #dfe3ff;
   border-radius: var(--radius);
   background: var(--brand-soft);
@@ -1375,39 +1375,39 @@ dialog.confirm::backdrop {
   display: grid;
   place-items: center;
   flex: none;
-  width: 38px;
-  height: 38px;
-  border-radius: 11px;
+  width: 2.375rem;
+  height: 2.375rem;
+  border-radius: 0.6875rem;
   background: var(--surface);
   color: var(--brand-text);
-  font-size: 18px;
+  font-size: 1.125rem;
   box-shadow: var(--shadow-sm);
 }
 
 .banner h3 {
-  margin: 1px 0 3px;
-  font-size: 13.5px;
+  margin: 1px 0 0.1875rem;
+  font-size: 0.8438rem;
   font-weight: 650;
 }
 
 .banner p {
   margin: 0;
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   line-height: 1.6;
   color: var(--muted);
 }
 
 .banner code {
-  padding: 1px 5px;
-  border-radius: 5px;
+  padding: 1px 0.3125rem;
+  border-radius: 0.3125rem;
   background: var(--surface);
   border: 1px solid #e4e7f5;
-  font-size: 11.5px;
+  font-size: 0.7188rem;
   color: var(--brand-600);
 }
 
 .user-panel {
-  margin-top: 18px;
+  margin-top: 1.125rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -1418,10 +1418,10 @@ dialog.confirm::backdrop {
 .user-head,
 .user-row {
   display: grid;
-  grid-template-columns: minmax(220px, 1.6fr) 1fr 1fr 1fr;
+  grid-template-columns: minmax(13.75rem, 1.6fr) 1fr 1fr 1fr;
   align-items: center;
-  gap: 20px;
-  padding: 0 24px;
+  gap: 1.25rem;
+  padding: 0 1.5rem;
 }
 
 .cell {
@@ -1441,17 +1441,17 @@ dialog.confirm::backdrop {
 }
 
 .user-head {
-  height: 44px;
+  height: 2.75rem;
   border-bottom: 1px solid var(--line);
   background: #fafbfe;
-  font-size: 10.5px;
+  font-size: 0.6562rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--faint);
 }
 
 .user-row {
-  min-height: 78px;
+  min-height: 4.875rem;
   border-bottom: 1px solid var(--line);
   transition: background 0.15s ease;
 }
@@ -1467,24 +1467,24 @@ dialog.confirm::backdrop {
 .user-cell {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 0.6875rem;
   min-width: 0;
 }
 
 .user-cell .avatar {
-  width: 36px;
-  height: 36px;
-  font-size: 13px;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 0.8125rem;
 }
 
 .user-name {
-  font-size: 13.5px;
+  font-size: 0.8438rem;
   font-weight: 600;
   line-height: 1.25;
 }
 
 .user-mail {
-  font-size: 11.5px;
+  font-size: 0.7188rem;
   color: var(--faint);
 }
 
@@ -1499,14 +1499,14 @@ dialog.confirm::backdrop {
   appearance: none;
   display: inline-flex;
   align-items: center;
-  width: 132px;
-  height: 36px;
-  padding: 0 30px 0 12px;
+  width: 8.25rem;
+  height: 2.25rem;
+  padding: 0 1.875rem 0 0.75rem;
   border: 1px solid var(--line-strong);
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   background: var(--surface);
   font-family: inherit;
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   color: var(--ink);
   cursor: pointer;
 }
@@ -1514,22 +1514,22 @@ dialog.confirm::backdrop {
 .role-select:focus {
   outline: 0;
   border-color: #a5b4fc;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.14);
+  box-shadow: 0 0 0 0.1875rem rgba(99, 102, 241, 0.14);
 }
 
 .role-select-wrap .ic {
   position: absolute;
-  right: 9px;
-  font-size: 13px;
+  right: 0.5625rem;
+  font-size: 0.8125rem;
   color: var(--faint);
   pointer-events: none;
 }
 
 .role-tag {
-  padding: 2px 7px;
-  border-radius: 6px;
+  padding: 0.125rem 0.4375rem;
+  border-radius: 0.375rem;
   background: var(--brand-soft);
-  font-size: 10.5px;
+  font-size: 0.6562rem;
   font-weight: 600;
   color: var(--brand-600);
 }
@@ -1538,7 +1538,7 @@ dialog.confirm::backdrop {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 0.5625rem;
   cursor: pointer;
 }
 
@@ -1551,9 +1551,9 @@ dialog.confirm::backdrop {
 
 .switch-track {
   position: relative;
-  width: 38px;
-  height: 22px;
-  border-radius: 999px;
+  width: 2.375rem;
+  height: 1.375rem;
+  border-radius: 62.4375rem;
   background: #dfe3ee;
   transition: background 0.16s ease;
 }
@@ -1561,13 +1561,13 @@ dialog.confirm::backdrop {
 .switch-track::after {
   content: "";
   position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 16px;
-  height: 16px;
+  top: 0.1875rem;
+  left: 0.1875rem;
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
   background: var(--surface);
-  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.24);
+  box-shadow: 0 1px 0.1875rem rgba(16, 24, 40, 0.24);
   transition: transform 0.16s ease;
 }
 
@@ -1576,15 +1576,15 @@ dialog.confirm::backdrop {
 }
 
 .switch input:checked + .switch-track::after {
-  transform: translateX(16px);
+  transform: translateX(1rem);
 }
 
 .switch input:focus-visible + .switch-track {
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+  box-shadow: 0 0 0 0.1875rem rgba(99, 102, 241, 0.18);
 }
 
 .switch-label {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 
@@ -1596,15 +1596,15 @@ dialog.confirm::backdrop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 16px 24px;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
   border-top: 1px solid var(--line);
   background: #fafbfe;
 }
 
 .user-foot p {
   margin: 0;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 
@@ -1619,17 +1619,17 @@ dialog.confirm::backdrop {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 28px;
+  padding: 1.75rem;
   background: rgba(11, 18, 32, 0.55);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(0.3125rem);
 }
 
 .modal-card {
   width: 100%;
-  max-width: 660px;
-  max-height: calc(100vh - 56px);
+  max-width: 41.25rem;
+  max-height: calc(100vh - 3.5rem);
   overflow: auto;
-  border-radius: 20px;
+  border-radius: 1.25rem;
   background: var(--elevated);
   box-shadow: var(--shadow-lg);
 }
@@ -1638,29 +1638,29 @@ dialog.confirm::backdrop {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  padding: 22px 26px 18px;
+  gap: 1rem;
+  padding: 1.375rem 1.625rem 1.125rem;
   border-bottom: 1px solid var(--line);
 }
 
 .modal-head h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .modal-head p {
-  margin: 4px 0 0;
-  font-size: 12.5px;
+  margin: 0.25rem 0 0;
+  font-size: 0.7812rem;
   color: var(--muted);
 }
 
 .modal-body {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px 18px;
-  padding: 22px 26px;
+  gap: 0.9375rem 1.125rem;
+  padding: 1.375rem 1.625rem;
 }
 
 .span-2 {
@@ -1671,8 +1671,8 @@ dialog.confirm::backdrop {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 10px;
-  padding: 16px 26px;
+  gap: 0.625rem;
+  padding: 1rem 1.625rem;
   border-top: 1px solid var(--line);
   background: var(--soft);
 }
@@ -1699,13 +1699,13 @@ dialog.confirm::backdrop {
   }
 
   .page {
-    padding: 30px 28px 56px;
+    padding: 1.875rem 1.75rem 3.5rem;
   }
 }
 
 @media (max-width: 991.98px) {
   :root {
-    --sidebar: 0px;
+    --sidebar: 0rem;
   }
 
   .sidebar {
@@ -1714,11 +1714,11 @@ dialog.confirm::backdrop {
 
   .shell {
     margin-left: 0;
-    padding-bottom: 84px;
+    padding-bottom: 5.25rem;
   }
 
   .page {
-    padding: 22px 18px 32px;
+    padding: 1.375rem 1.125rem 2rem;
   }
 
   .page-head {
@@ -1726,7 +1726,7 @@ dialog.confirm::backdrop {
   }
 
   h1.page-title {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .page-actions .search {
@@ -1736,14 +1736,14 @@ dialog.confirm::backdrop {
   .toolbar {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
-    margin: 20px 0 14px;
+    gap: 0.625rem;
+    margin: 1.25rem 0 0.875rem;
   }
 
   .chips {
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 2px;
+    padding-bottom: 0.125rem;
     scrollbar-width: none;
   }
 
@@ -1753,8 +1753,8 @@ dialog.confirm::backdrop {
 
   .chip {
     flex: none;
-    height: 32px;
-    font-size: 12px;
+    height: 2rem;
+    font-size: 0.75rem;
   }
 
   .sort {
@@ -1763,12 +1763,12 @@ dialog.confirm::backdrop {
 
   .app-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 0.75rem;
   }
 
   .app-card {
-    padding: 16px;
-    border-radius: 14px;
+    padding: 1rem;
+    border-radius: 0.875rem;
   }
 
   .app-card:hover {
@@ -1783,27 +1783,27 @@ dialog.confirm::backdrop {
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
-    height: 72px;
-    padding: 8px 22px 10px;
+    height: 4.5rem;
+    padding: 0.5rem 1.375rem 0.625rem;
     border-top: 1px solid var(--line);
     background: color-mix(in srgb, var(--surface) 92%, transparent);
-    backdrop-filter: blur(14px);
+    backdrop-filter: blur(0.875rem);
   }
 
   .tab {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    width: 64px;
-    padding: 6px 0;
+    gap: 0.25rem;
+    width: 4rem;
+    padding: 0.375rem 0;
     color: var(--faint);
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 500;
   }
 
   .tab .ic {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .tab.is-active {
@@ -1813,21 +1813,21 @@ dialog.confirm::backdrop {
   .tab-fab {
     display: grid;
     place-items: center;
-    width: 50px;
-    height: 50px;
-    margin-top: -22px;
+    width: 3.125rem;
+    height: 3.125rem;
+    margin-top: -1.375rem;
     border-radius: 50%;
     background: linear-gradient(135deg, #6366f1, #7c3aed);
     color: #fff;
-    font-size: 23px;
-    box-shadow: 0 10px 22px rgba(99, 102, 241, 0.42);
+    font-size: 1.4375rem;
+    box-shadow: 0 0.625rem 1.375rem rgba(99, 102, 241, 0.42);
   }
 
   .mobile-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 18px;
+    margin-bottom: 1.125rem;
   }
 
   .mobile-head .brand {
@@ -1836,26 +1836,26 @@ dialog.confirm::backdrop {
   }
 
   .mobile-head .brand-mark {
-    width: 32px;
-    height: 32px;
-    border-radius: 10px;
-    font-size: 17px;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.625rem;
+    font-size: 1.0625rem;
   }
 
   .mobile-head .brand-name {
     color: var(--ink);
-    font-size: 15px;
+    font-size: 0.9375rem;
   }
 
   .mobile-head .avatar {
-    width: 32px;
-    height: 32px;
-    font-size: 12px;
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.75rem;
   }
 
   .banner {
-    margin-top: 18px;
-    padding: 15px 16px;
+    margin-top: 1.125rem;
+    padding: 0.9375rem 1rem;
   }
 
   .user-head {
@@ -1871,10 +1871,10 @@ dialog.confirm::backdrop {
 
   .user-row {
     display: block;
-    padding: 16px;
-    margin-bottom: 12px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
     border: 1px solid var(--line);
-    border-radius: 14px;
+    border-radius: 0.875rem;
     background: var(--surface);
     box-shadow: var(--shadow-sm);
   }
@@ -1885,36 +1885,36 @@ dialog.confirm::backdrop {
 
   .user-row .cell {
     justify-content: space-between;
-    margin-top: 12px;
-    padding-top: 12px;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
     border-top: 1px dashed var(--line);
   }
 
   .cell-label {
     display: inline;
-    font-size: 12.5px;
+    font-size: 0.7812rem;
     color: var(--body);
   }
 
   .user-row .role-select {
-    width: 150px;
+    width: 9.375rem;
   }
 
   .switch-label {
-    font-size: 12.5px;
+    font-size: 0.7812rem;
     color: var(--body);
   }
 
   .user-row .row-actions {
     justify-content: flex-end;
-    margin-top: 12px;
+    margin-top: 0.75rem;
   }
 
   .user-foot {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
-    padding: 14px 4px;
+    gap: 0.75rem;
+    padding: 0.875rem 0.25rem;
     border: 0;
     background: transparent;
   }
@@ -1927,16 +1927,16 @@ dialog.confirm::backdrop {
   }
 
   .login-brand {
-    padding: 24px 22px 26px;
-    border-radius: 0 0 24px 24px;
+    padding: 1.5rem 1.375rem 1.625rem;
+    border-radius: 0 0 1.5rem 1.5rem;
   }
 
   .login-pitch {
-    margin: 22px 0 0;
+    margin: 1.375rem 0 0;
   }
 
   .login-pitch h1 {
-    font-size: 26px;
+    font-size: 1.625rem;
   }
 
   .login-pitch p,
@@ -1946,7 +1946,7 @@ dialog.confirm::backdrop {
   }
 
   .login-panel {
-    padding: 28px 22px 36px;
+    padding: 1.75rem 1.375rem 2.25rem;
   }
 
   .login-form {
@@ -1954,11 +1954,11 @@ dialog.confirm::backdrop {
   }
 
   .login-form h2 {
-    font-size: 22px;
+    font-size: 1.375rem;
   }
 
   .login-form .lead {
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -1978,7 +1978,7 @@ dialog.confirm::backdrop {
 
   .modal-card {
     max-width: none;
-    border-radius: 20px 20px 0 0;
+    border-radius: 1.25rem 1.25rem 0 0;
     max-height: 92vh;
   }
 }
@@ -1989,7 +1989,7 @@ dialog.confirm::backdrop {
   width: 1px;
   height: 1px;
   padding: 0;
-  margin: -1px;
+  margin: -0.0625rem;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
