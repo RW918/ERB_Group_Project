@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+set -e
+
+# Conventional Commits — type(scope): subject
+#   feat fix docs style refactor perf test build ci chore
+# Direct-to-main hotfixes especially need this: the subject is the whole
+# history entry (there is no PR title to lean on).
+if ! grep -qE '^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?!?: .{1,72}$' "$1"; then
+  echo "commit-msg: not Conventional Commits — use 'type(scope): subject' (≤72)" >&2
+  echo "  e.g.  fix(auth): re-align demo password hashes on seed" >&2
+  exit 1
+fi

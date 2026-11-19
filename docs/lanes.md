@@ -21,6 +21,11 @@ two people never edit the same one.
 - **Branches**: `<lane>/<topic>` — `auth/admin-users`, `apps/find-or-create-company`,
   `views/responsive-list`. Merge by PR into `main`, at least one merged PR per lane
   per working session, so the history shows merges rather than three long branches.
+- **Commits**: Conventional Commits — `type(scope): subject` with the standard types
+  (`feat fix docs style refactor perf test build ci chore`); the `commit-msg` hook
+  enforces it. Direct-to-main hotfixes are allowed for small, urgent fixes — run
+  `npm run build` + `npm test` green before pushing, and lean on the commit message
+  as the whole history entry (there is no PR title to lean on).
 - **Presentation**: one section per lane, ~3 minutes each, plus one person opening
   (problem → demo) and one closing (schema → what's next).
 
