@@ -1,5 +1,9 @@
 # JobTrack
 
+**Live: <https://jobtrack.yuen-network.top>** — deployed from `main` on every
+push. Demo accounts: `admin / admin123`（管理员）and `alice / user123`（普通用户）;
+`bob / user123` has an empty list. Sign in and click around before reading on.
+
 A job-application tracker. Each user keeps their own applications through a
 submission → interview → offer/rejected pipeline; a privileged role can see every
 user's applications and manage who holds which role.
