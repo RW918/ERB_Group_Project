@@ -1,0 +1,94 @@
+<%- include('../partials/shell-top', { title: '用户与权限', active: 'admin', user: user }) %>
+
+<div class="page-head">
+  <div>
+    <div class="eyebrow">仅管理员可见</div>
+    <h1 class="page-title">用户与权限</h1>
+    <p class="page-sub"><%= users.length %> 位成员 · 权限改动在下一个请求生效</p>
+  </div>
+</div>
+
+<div class="banner">
+  <span class="banner-icon"><svg class="ic"><use href="#i-shield" /></svg></span>
+  <div>
+    <h3>守卫检查权限，而不是角色名</h3>
+    <p>
+      角色只是默认权限的模板，真正生效的是 <code>can_view_all_applications</code> 与
+      <code>can_manage_users</code> 两个布尔字段。撤销「管理用户」后，该账号下一次请求就会被挡在
+      <code>/admin/users</code> 之外。
+    </p>
+  </div>
+</div>
+
+<% if (error) { %>
+<div class="alert-error" role="alert">
+  <svg class="ic"><use href="#i-alert" /></svg>
+  <%= error %>
+</div>
+<% } %>
+
+<form method="post" action="/admin/users">
+  <div class="user-panel">
+    <div class="user-head">
+      <span>用户</span>
+      <span>角色</span>
+      <span>查看全部投递</span>
+      <span>管理用户</span>
+    </div>
+
+    <% users.forEach(function (u) { %>
+    <div class="user-row">
+      <div class="user-cell">
+        <span class="avatar"><%= u.initial %></span>
+        <span style="min-width: 0">
+          <span class="user-name"><%= u.username %></span>
+          <% if (u.self) { %><span class="role-tag" style="margin-left: 6px">你</span><% } %>
+          <br />
+          <span class="user-mail">加入于 <%= u.created %></span>
+        </span>
+      </div>
+
+      <div class="cell">
+        <span class="cell-label">角色</span>
+        <span class="role-select-wrap">
+          <select class="role-select" name="role[u<%= u.id %>]" aria-label="角色">
+            <option value="admin" <%= u.role === 'admin' ? 'selected' : '' %>>管理员</option>
+            <option value="user" <%= u.role === 'user' ? 'selected' : '' %>>普通用户</option>
+          </select>
+          <svg class="ic"><use href="#i-chevron" /></svg>
+        </span>
+      </div>
+
+      <div class="cell">
+        <span class="cell-label">查看全部投递</span>
+        <label class="switch">
+          <input type="hidden" name="has_view[u<%= u.id %>]" value="1" />
+          <input type="checkbox" name="can_view[u<%= u.id %>]" <%= u.effective_view_all ? 'checked' : '' %> aria-label="查看全部投递" />
+          <span class="switch-track"></span>
+          <span class="switch-label"><%= u.effective_view_all ? '允许' : '关闭' %></span>
+        </label>
+      </div>
+
+      <div class="cell">
+        <span class="cell-label">管理用户</span>
+        <label class="switch">
+          <input type="hidden" name="has_manage[u<%= u.id %>]" value="1" />
+          <input type="checkbox" name="can_manage[u<%= u.id %>]" <%= u.effective_manage_users ? 'checked' : '' %> aria-label="管理用户" />
+          <span class="switch-track"></span>
+          <span class="switch-label"><%= u.effective_manage_users ? '允许' : '关闭' %></span>
+        </label>
+      </div>
+    </div>
+    <% }); %>
+
+    <div class="user-foot">
+      <p>权限变更立即写入数据库，已在线的会话下一次请求生效。</p>
+      <button class="btn-jt" type="submit">
+        <svg class="ic"><use href="#i-check" /></svg>
+        保存更改
+      </button>
+    </div>
+  </div>
+</form>
+
+<%- include('../partials/shell-bottom', { active: 'admin', tabbar: false }) %>

@@ -21,8 +21,11 @@ authRouter.post(
   }),
 );
 
-// The sidebar logout is an icon link, so logout is a GET (no form in the shell).
-authRouter.get("/logout", (req, res, next) => {
+// Logout mutates the session, so it is a POST (no prefetch/CSRF-GET logout).
+// The sidebar renders it as a small form around the icon button — works
+// without JS; SameSite=lax already keeps cross-site POSTs from carrying the
+// session cookie.
+authRouter.post("/logout", (req, res, next) => {
   req.logout((error) => {
     if (error) return next(error);
     return res.redirect("/login");
