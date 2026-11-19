@@ -6,6 +6,51 @@
   "use strict";
 
   var dialog = document.getElementById("confirm-dialog");
+  var modalForm = document.querySelector(".overlay .modal-card form");
+
+  // The add/edit dialog is enhanced with fetch: validation errors re-render
+  // inside the dialog with the typed values intact; success navigates.
+  // Without JS the native POST + redirect still works.
+  if (modalForm) {
+    modalForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var button = modalForm.querySelector('button[type="submit"]');
+      if (button) button.disabled = true;
+
+      fetch(modalForm.action, { method: "POST", body: new FormData(modalForm) })
+        .then(function (response) {
+          // The server answers with a redirect: "/" on success, or the
+          // dashboard with ?modal=1&…&error=… after validation failed.
+          var url = new URL(response.url, window.location.origin);
+          var message = url.searchParams.get("error");
+          if (message) {
+            showError(message);
+            return;
+          }
+          window.location.href = url.pathname + url.search;
+        })
+        .catch(function () {
+          showError("保存失败，请重试");
+        })
+        .finally(function () {
+          if (button) button.disabled = false;
+        });
+    });
+  }
+
+  function showError(message) {
+    var body = modalForm.querySelector(".modal-body");
+    var alert = body.querySelector(".alert-error");
+    if (!alert) {
+      alert = document.createElement("div");
+      alert.className = "alert-error span-2";
+      alert.setAttribute("role", "alert");
+      alert.innerHTML = '<svg class="ic"><use href="#i-alert" /></svg>';
+      body.prepend(alert);
+    }
+    alert.lastChild.textContent = message;
+  }
+
   if (!dialog) return;
 
   var pending = null; // {id, card, goto}

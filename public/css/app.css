@@ -1567,25 +1567,41 @@ dialog.confirm::backdrop {
   color: var(--faint);
 }
 
-.role-select {
+/* Role picker: a native select inside a chevron wrapper (boards 04/05). */
+.role-select-wrap {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+}
+
+.role-select {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
   width: 132px;
   height: 36px;
-  padding: 0 10px 0 12px;
+  padding: 0 30px 0 12px;
   border: 1px solid var(--line-strong);
   border-radius: 9px;
   background: #fcfcfe;
+  font-family: inherit;
   font-size: 12.5px;
   color: var(--ink);
   cursor: pointer;
 }
 
-.role-select .ic {
+.role-select:focus {
+  outline: 0;
+  border-color: #a5b4fc;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.14);
+}
+
+.role-select-wrap .ic {
+  position: absolute;
+  right: 9px;
   font-size: 13px;
   color: var(--faint);
+  pointer-events: none;
 }
 
 .role-tag {

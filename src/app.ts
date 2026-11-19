@@ -3,8 +3,9 @@ import session from "express-session";
 import passport from "passport";
 import type { NextFunction, Request, Response } from "express";
 import { config } from "./config.js";
-import { previewRouter } from "./routes/preview.js";
+import compression from "compression";
 import { applicationsRouter } from "./routes/applications.js";
+import { adminRouter } from "./routes/admin.js";
 import { configurePassport } from "./auth/passport.js";
 import { authRouter } from "./routes/auth.js";
 import { requireAuth } from "./middleware/auth.js";
@@ -17,8 +18,11 @@ app.set("trust proxy", 1);
 app.set("views", config.viewsDir);
 app.set("view engine", "ejs");
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// gzip for rendered views and static assets; Render's free tier has a slow
+// first byte, so shipping app.css (40 KB → ~8 KB) is worth the middleware.
+app.use(compression());
 app.use(express.static(config.publicDir));
 
 app.use(
@@ -46,11 +50,7 @@ app.use(authRouter);
 // Every applications screen needs a session; signed-out visitors land on /login.
 app.use(requireAuth, applicationsRouter);
 
-// Lane 1 mounts here:  app.use("/admin", adminRouter);
-
-// Design prototype screens not rebuilt as real pages yet (login preview is a
-// screen list; admin lands with the admin branch). Gated behind login.
-app.use("/preview", requireAuth, previewRouter);
+app.use("/admin", adminRouter);
 
 app.use(notFound);
 

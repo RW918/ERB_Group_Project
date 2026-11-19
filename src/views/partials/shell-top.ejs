@@ -31,9 +31,11 @@
         <span class="side-user-name"><%= user.username %></span><br />
         <span class="side-user-role"><%= user.role === 'admin' ? '管理员' : '普通用户' %></span>
       </span>
-      <a class="icon-btn" href="/logout" title="登出" aria-label="登出" style="margin-left:auto">
-        <svg class="ic"><use href="#i-logout" /></svg>
-      </a>
+      <form class="logout-form" method="post" action="/logout" style="margin-left:auto">
+        <button class="icon-btn" type="submit" title="登出" aria-label="登出">
+          <svg class="ic"><use href="#i-logout" /></svg>
+        </button>
+      </form>
     </div>
   </div>
 </aside>
