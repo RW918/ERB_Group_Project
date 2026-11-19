@@ -15,6 +15,8 @@ erDiagram
         VARCHAR(50) username  ""
         TEXT password_hash  ""
         INTEGER role_id FK ""
+        BOOLEAN can_view_all_applications  ""
+        BOOLEAN can_manage_users  ""
         TIMESTAMPTZ created_at  ""
     }
 
@@ -49,6 +51,7 @@ erDiagram
         DATE interview_date  ""
         TEXT note  ""
         TIMESTAMPTZ created_at  ""
+        TIMESTAMPTZ updated_at  ""
     }
 
     roles ||--o{ users : "has_many: users, belongs_to: role"
