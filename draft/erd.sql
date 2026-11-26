@@ -1,5 +1,13 @@
--- JobTrack schema — single source of truth for the ERD and the migrations.
--- PostgreSQL. Source for the ERD PNG and for the Knex migrations.
+-- JobTrack schema — readable DDL mirror of the Knex migrations.
+-- PostgreSQL. Source for the ERD PNG; the executable source is migrations/.
+--
+-- Verified 2026-11-26: both this file and `npm run migrate` were applied to
+-- fresh databases and introspected with DBX. Column types, nullability,
+-- defaults, PK/FK/UNIQUE/CHECK and the index set match. The remaining
+-- differences are cosmetic: the migrations append users' override columns
+-- after created_at (this file groups them with the permission fields), the
+-- migration adds COMMENT ON metadata, and constraint/index names differ
+-- (`*_foreign`/`*_unique` vs Postgres' `*_fkey`/`*_key` defaults).
 --
 -- Seed rule: the admin role carries both permissions; the user role carries neither.
 -- Exactly one admin account is seeded, so "who can grant" is answerable on day one.

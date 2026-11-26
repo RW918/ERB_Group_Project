@@ -1,8 +1,10 @@
 # ERD — JobTrack
 
-The executable source is [`draft/erd.sql`](../draft/erd.sql); this file is the
-readable version. GitHub renders the block below as a diagram, and
-`npm run erd` renders the same schema to `draft/JobTrack_ERD_P3.png`.
+The **executable source** is the three Knex migrations in
+[`migrations/`](../migrations); [`draft/erd.sql`](../draft/erd.sql) is the
+readable DDL mirror, and this file is the prose version. GitHub renders the
+block below as a diagram, and `npm run erd` renders the mirror to
+`draft/JobTrack_ERD_P3.png`.
 
 ```mermaid
 erDiagram
@@ -61,6 +63,25 @@ erDiagram
 (user, job) pair, `UNIQUE (user_id, job_id)`. A posting is stored once in `jobs`
 and every user tracking it points at that row — two people applying to the same
 advert share its URL, salary and deadline but keep their own status and notes.
+
+## Verified against the migrations
+
+On 2026-11-26 both DDL paths were applied to fresh PostgreSQL 18 databases
+(`npm run migrate` on one, `draft/erd.sql` on the other) and introspected with
+DBX. The comparison covered every column's type, length, nullability and
+default, all PK/FK/UNIQUE/CHECK definitions, and the full index set — they
+match.
+
+The only differences are cosmetic and do not change behaviour:
+
+- **Constraint/index names** — the migrations name FKs `*_foreign` and unique
+  indexes `*_unique`; the inline `REFERENCES`/`UNIQUE` in `erd.sql` gets
+  PostgreSQL's `*_fkey`/`*_key` defaults.
+- **`users` column order** — migration 002 appends the two override columns
+  after `created_at`; `erd.sql` groups them with the other permission fields.
+- **`COMMENT ON COLUMN` metadata** exists only in the migrations.
+- `CURRENT_TIMESTAMP` (Knex `knex.fn.now()`) and `now()` (`erd.sql`) are the
+  same PostgreSQL function, so the default expressions are equivalent.
 
 ## Rules the diagram doesn't show
 
