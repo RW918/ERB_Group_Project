@@ -1,4 +1,4 @@
-# 23/11 presentation — demo script (issues 21/29)
+# Presentation — demo script (issues 21/29)
 
 Target runtime: ~10 minutes demo + Q&A. Every member speaks (rubric J).
 Run from **main** with the seeded database (`npm run dev` locally, or the
@@ -47,11 +47,11 @@ Fallback: the exported boards in `draft/design/penpot/` are the screenshots
 
 1. 侧栏「用户与权限」→ `/admin/users`。
 2. 指出横幅：守卫检查的是**权限布尔**，角色只是默认模板。
-3. 给 alice 打开「查看全部投递」→ 保存。
-4. 登出，用 alice 登录 → 她立刻能看到 13 张卡（含 admin 的，带 owner 标签）
+3. 给 bob 打开「查看全部投递」→ 保存。
+4. 登出，用 bob 登录 → 他立刻从空列表变成 12 张卡（全是 alice 的，带 owner 标签）
    ——**下一个请求即生效**，不用重新登录。
-5. 直接输 `/admin/users` 的 URL 会怎样？alice 看到 403 弹窗。
-6. 收尾：撤销 alice 的覆盖，恢复原状（或演示改角色 → 覆盖列清空回落模板）。
+5. 直接输 `/admin/users` 的 URL 会怎样？bob 看到 403 弹窗。
+6. 收尾：撤销 bob 的覆盖，恢复原状（或演示改角色 → 覆盖列清空回落模板）。
 
 ## Phone view (1.5 min, member 3)
 

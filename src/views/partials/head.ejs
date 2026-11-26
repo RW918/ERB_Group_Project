@@ -21,23 +21,6 @@
       })();
     </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script>
-      /* Theme before first paint: stored choice wins, otherwise the OS
-         preference. data-theme drives the :root[data-theme="dark"] tokens. */
-      (function () {
-        try {
-          var theme = localStorage.getItem("jt-theme");
-          if (theme !== "light" && theme !== "dark") {
-            theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
-          }
-          document.documentElement.dataset.theme = theme;
-        } catch (error) {
-          document.documentElement.dataset.theme = "light";
-        }
-      })();
-    </script>
     <link rel="stylesheet" href="/vendor/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/app.css" />
     <script src="/js/app.js" defer></script>
