@@ -5,18 +5,24 @@
 > **直接打开（查看视图）：**
 > <https://design.penpot.app/?screen=viewer&file-id=b4b906dd-9024-819c-8008-f4673c7ac5e7&page-id=b4b906dd-9024-819c-8008-f4673c7ac5e8&section=interactions&index=0>
 >
-> **公开链接：** _待填 — 在查看视图点 `Share` → `Get link`_
+> **公开链接：** 提交以本目录导出的 PNG 为准（无需账号）；在线查看用上面的 viewer 链接。
 >
 > **画板导出 PNG：** [`draft/design/penpot/`](../draft/design/penpot)，12 张画板图
 > （1:1 实际尺寸：1440×900 / 390×844）+ 1 张总览板；`dark/` 下是同名的暗色一套。
 
-This is the **design direction** for the preliminary report, not a finished
-product. Twelve boards cover every screen at both breakpoints (1440×900 desktop,
-390×844 mobile) plus the two dialogs, each at both sizes; the card grid reflows
-from 3 columns to one, the admin table becomes stacked user cards, and the
-detail page drops its right rail into a bottom action bar. The component
-masters live on the file's `Components` page and are not duplicated on the
-screens page.
+This is the **final UI design** for JobTrack, as shipped. Twelve boards cover
+every screen at both breakpoints (1440×900 desktop, 390×844 mobile) including
+the two dialogs, each at both sizes; the card grid reflows from 3 columns to
+one, the admin table becomes stacked user cards, and the detail page drops its
+right rail into a bottom action bar. The component masters live on the file's
+`Components` page and are not duplicated on the screens page.
+
+The shipped app follows these boards. Two deliberate additions landed after the
+boards were drawn: a tri-state theme toggle in the shell (system / light /
+dark — the `dark/` set above is the pinned-dark rendering), and rem-based
+sizing (477 px tokens ÷16) so the layout scales with the user's root font size
+instead of only zooming. Dialogs use native `<dialog>` with light dismiss
+(`closedby`), focus on the safe action (取消), and overscroll containment.
 
 ![JobTrack — all boards at a glance](../draft/design/penpot/00-overview.png)
 
