@@ -345,7 +345,9 @@ a {
 .page {
   width: 100%;
   max-width: 80rem;
-  margin: 0 auto;
+  /* Left-align the capped column: centring it inside the shell leaves a huge
+     empty gutter between the fixed sidebar and the content on wide screens. */
+  margin: 0;
   padding: 2.125rem 2.5rem 3.75rem;
 }
 
