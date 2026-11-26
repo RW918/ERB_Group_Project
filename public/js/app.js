@@ -10,8 +10,11 @@
   // what is rendered right now; pinning stops when the target equals the
   // system preference (the stored value is removed, never kept). Colors and
   // color-scheme come from CSS/media queries off the <meta>, not from JS.
-  var themeToggle = document.querySelector(".theme-toggle");
-  if (themeToggle) {
+  
+  // var themeToggle = document.querySelector(".theme-toggle");
+  // if (themeToggle) {
+  //   themeToggle.addEventListener("click", function () {                        //EDITED
+  document.querySelectorAll(".theme-toggle").forEach(function (themeToggle) {
     themeToggle.addEventListener("click", function () {
       var meta = document.querySelector('meta[name="color-scheme"]');
       var systemPref = window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -32,7 +35,7 @@
         meta.content = target; // applies this session even if storage fails
       }
     });
-  }
+  });
 
   // A pinned scheme can be changed from another tab: stay in sync.
   window.addEventListener("storage", function (event) {
