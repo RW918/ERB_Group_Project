@@ -126,6 +126,9 @@ export const dashboard: RequestHandler = async (req, res, next) => {
       formError: typeof req.query.error === "string" ? req.query.error : null,
     });
   } catch (error) {
+     if (error instanceof NotFoundError) {
+      return res.status(404).render("not-found", { user: req.user });
+    }
     next(error);
   }
 };
@@ -184,6 +187,9 @@ export const update: RequestHandler = async (req, res, next) => {
     try {
       await updateApplication(id, viewer, parsed.value);
     } catch (serviceError) {
+      if (serviceError instanceof NotFoundError) {
+        return res.status(404).render("not-found", { user: viewer });
+      }
       if (serviceError instanceof ForbiddenError) {
         return res.status(403).render("forbidden", { user: viewer });
       }
