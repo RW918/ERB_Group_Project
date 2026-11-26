@@ -16,6 +16,10 @@ export const app = express();
 app.set("trust proxy", 1);
 app.set("views", config.viewsDir);
 app.set("view engine", "ejs");
+// Cache-bust static assets per deploy: Render injects the commit, so a new
+// deployment references a new URL and neither Cloudflare nor the browser can
+// keep serving the previous app.css/app.js.
+app.locals.assetVersion = process.env.RENDER_GIT_COMMIT?.slice(0, 7) ?? "dev";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
