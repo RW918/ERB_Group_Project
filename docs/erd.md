@@ -25,9 +25,9 @@ erDiagram
         varchar username UK
         text password_hash "scrypt$salt$key over SHA-256(password)"
         int role_id FK "every user holds exactly one role"
+        timestamptz created_at
         boolean can_view_all_applications "per-user override, NULL = follow role"
         boolean can_manage_users "per-user override, NULL = follow role"
-        timestamptz created_at
     }
 
     COMPANIES {
@@ -72,16 +72,10 @@ DBX. The comparison covered every column's type, length, nullability and
 default, all PK/FK/UNIQUE/CHECK definitions, and the full index set — they
 match.
 
-The only differences are cosmetic and do not change behaviour:
-
-- **Constraint/index names** — the migrations name FKs `*_foreign` and unique
-  indexes `*_unique`; the inline `REFERENCES`/`UNIQUE` in `erd.sql` gets
-  PostgreSQL's `*_fkey`/`*_key` defaults.
-- **`users` column order** — migration 002 appends the two override columns
-  after `created_at`; `erd.sql` groups them with the other permission fields.
-- **`COMMENT ON COLUMN` metadata** exists only in the migrations.
-- `CURRENT_TIMESTAMP` (Knex `knex.fn.now()`) and `now()` (`erd.sql`) are the
-  same PostgreSQL function, so the default expressions are equivalent.
+The only remaining difference is metadata: the migrations set three
+`COMMENT ON COLUMN` descriptions (the two user permission overrides and
+`applications.updated_at`); `erd.sql` leaves that prose as SQL comments.
+Constraint and index names, column order, and default expressions all match.
 
 ## Rules the diagram doesn't show
 

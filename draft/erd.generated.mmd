@@ -15,9 +15,9 @@ erDiagram
         VARCHAR(50) username  ""
         TEXT password_hash  ""
         INTEGER role_id FK ""
+        TIMESTAMPTZ created_at  ""
         BOOLEAN can_view_all_applications  ""
         BOOLEAN can_manage_users  ""
-        TIMESTAMPTZ created_at  ""
     }
 
     %% table name: companies
