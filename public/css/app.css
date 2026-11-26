@@ -1449,7 +1449,7 @@ dialog.confirm::backdrop {
   gap: 0.875rem;
   margin-top: 1.5rem;
   padding: 1.125rem 1.25rem;
-  border: 1px solid #dfe3ff;
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--brand-soft);
 }
@@ -1483,10 +1483,10 @@ dialog.confirm::backdrop {
 .banner code {
   padding: 1px 0.3125rem;
   border-radius: 0.3125rem;
-  background: var(--surface);
-  border: 1px solid #e4e7f5;
+  background: var(--line);
+  border: 1px solid var(--line-strong);
   font-size: 0.7188rem;
-  color: var(--brand-600);
+  color: var(--ink);
 }
 
 .user-panel {
