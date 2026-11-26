@@ -8,7 +8,7 @@
 --
 -- Constraint and index names are written explicitly so this file never needs
 -- a rename step; they match the Knex migrations' `*_unique` / `*_foreign`
--- names. The ERD generator renders PK/FK markers from the inline keys.
+-- names. The ERD generator renders PK/FK markers from the key definitions.
 --
 -- Seed rule: the admin role carries both permissions; the user role carries neither.
 -- Exactly one admin account is seeded, so "who can grant" is answerable on day one.
