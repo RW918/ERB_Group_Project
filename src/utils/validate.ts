@@ -66,7 +66,10 @@ const applicationSchema = z.object({
   status,
   interview_date: optionalDate,
   note: optionalText,
-  posting_url: optionalText,
+  posting_url: optionalText.refine(
+    (url) => url === undefined || /^https?:\/\//i.test(url),
+    { message: "请输入以 http:// 或 https:// 开头的链接" },
+  )
   location: optionalText,
   salary: optionalText,
   deadline: optionalDate,
