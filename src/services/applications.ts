@@ -100,7 +100,12 @@ export async function countByStatus(viewer: SessionUser) {
   return counts;
 }
 
+function isValidId(id: number): boolean {
+  return Number.isInteger(id) && id > 0 && id <= 2147483647;
+}
+
 export async function getApplication(id: number, viewer: SessionUser) {
+  if (!isValidId(id)) throw new NotFoundError("投递记录不存在");
   const row = await visibleTo(viewer).select(ROW_FIELDS).where("a.id", id).first();
   if (!row) throw new NotFoundError("投递记录不存在");
   return row as ApplicationRow;
@@ -145,6 +150,7 @@ async function findOrCreateJob(
 }
 
 async function ownedApplication(id: number, viewer: SessionUser) {
+  if (!isValidId(id)) throw new NotFoundError("投递记录不存在");
   const row = await db("applications").where({ id }).first();
   if (!row) throw new NotFoundError("投递记录不存在");
   if (row.user_id !== viewer.id) throw new ForbiddenError("只能修改自己的投递记录");
