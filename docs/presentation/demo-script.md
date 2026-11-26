@@ -16,7 +16,7 @@ Fallback: the exported boards in `draft/design/penpot/` are the screenshots
 
 - 问题：求职投递记录散落在备忘录和邮箱里，状态靠记忆。
 - JobTrack：一张看板看清所有投递的进度；管理员可以看到全组数据并管理权限。
-- 展示仓库：12+ 张设计板、5 张表的 ERD、8 条 squash 合并的 PR、15 个单元
+- 展示仓库：12+ 张设计板、5 张表的 ERD、8 条 squash 合并的 PR、22 个单元
   测试、13 个请求的 Postman collection——每一步都走 issue → branch → PR。
 
 ## Login + sessions (1.5 min, member 1)
@@ -66,7 +66,7 @@ Fallback: the exported boards in `draft/design/penpot/` are the screenshots
 - 回答预案：
   - **为什么不 JWT？** 课程讲 session + Passport；服务端会话让「权限下一个请求生效」免费拿到。
   - **谁能编辑别人的记录？** 没有人——读看权限，写永远 owner-only（连 admin 也不行）。
-  - **测试测什么？** 纯函数（密码、校验、格式化）——node:test，15 个用例，CI 跑。
+  - **测试测什么？** 纯函数（密码、校验、格式化、id、排序）——node:test，22 个用例，CI 跑。
   - **部署**：Render + Neon，push main → Actions build → deploy hook。
 
 ## Rehearsal notes (issue 29)
