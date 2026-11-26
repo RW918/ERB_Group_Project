@@ -56,6 +56,12 @@
         <svg class="ic ic-sun"><use href="#i-sun" /></svg>
         <svg class="ic ic-moon"><use href="#i-moon" /></svg>
       </button>
-      </button>
-      <span class="avatar"><%= user.initial %></span>
+      <div style="display:flex;align-items:center;gap:0.5rem">
+        <span class="avatar"><%= user.initial %></span>
+        <form class="logout-form" method="post" action="/logout">
+          <button class="icon-btn" type="submit" title="登出" aria-label="登出">
+            <svg class="ic"><use href="#i-logout" /></svg>
+          </button>
+        </form>
+      </div>
     </div>
