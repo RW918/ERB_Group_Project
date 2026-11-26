@@ -3,6 +3,7 @@ import { STATUSES, type ApplicationRow, type Status } from "../types/domain.js";
 import type { SessionUser } from "../auth/session.js";
 import type { ApplicationInput } from "../types/domain.js";
 import { isValidId } from "../utils/ids.js";
+import { resolveApplicationSort } from "../utils/sort.js";
 
 /**
  * Application queries — the JOIN list, the GROUP BY counts, and ownership-based
@@ -50,12 +51,6 @@ export interface ListFilters {
   sort?: string;
 }
 
-const SORTS: Record<string, { column: string; order: "asc" | "desc" }> = {
-  updated: { column: "a.updated_at", order: "desc" },
-  deadline: { column: "j.deadline", order: "asc" },
-  company: { column: "c.name", order: "asc" },
-};
-
 /** The dashboard list — user sees their own, view-all sees everyone's. */
 export async function listApplications(
   viewer: SessionUser,
@@ -73,7 +68,7 @@ export async function listApplications(
     );
   }
 
-  const sort = SORTS[filters.sort ?? "updated"] ?? SORTS.updated;
+  const sort = resolveApplicationSort(filters.sort);
   query.orderBy(sort.column, sort.order);
 
   return query;

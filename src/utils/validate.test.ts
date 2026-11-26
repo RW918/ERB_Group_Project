@@ -67,3 +67,24 @@ test("non-string values are ignored, not coerced", () => {
   const value = ok({ company: "A", title: "B", note: 42 });
   assert.equal(value.value.note, null);
 });
+
+test("text fields respect the varchar(100) columns", () => {
+  const max = "x".repeat(100);
+  const value = ok({ company: max, title: max, location: max, salary: max });
+  assert.equal(value.value.company.length, 100);
+  assert.equal(value.value.title.length, 100);
+  assert.equal(value.value.location, max);
+  assert.equal(value.value.salary, max);
+
+  const over = "x".repeat(101);
+  assert.match(fail({ company: over, title: "T" }).error, /公司名称最多 100/);
+  assert.match(fail({ company: "C", title: over }).error, /职位名称最多 100/);
+  assert.match(
+    fail({ company: "C", title: "T", location: over }).error,
+    /工作地点最多 100/,
+  );
+  assert.match(
+    fail({ company: "C", title: "T", salary: over }).error,
+    /薪资最多 100/,
+  );
+});

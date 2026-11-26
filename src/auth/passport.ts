@@ -13,6 +13,11 @@ import { verifyPassword } from "./password.js";
 export function configurePassport() {
   passport.use(
     new LocalStrategy(async (username, password, done) => {
+      // express.urlencoded turns repeated fields into arrays/objects; malformed
+      // credentials must fail the login, never reach scrypt and throw a 500.
+      if (typeof username !== "string" || typeof password !== "string") {
+        return done(null, false);
+      }
       try {
         const row = await findUserWithRole(username);
         if (!row || !(await verifyPassword(password, row.password_hash))) {

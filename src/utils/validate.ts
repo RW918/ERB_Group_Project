@@ -12,22 +12,31 @@ import type { ApplicationInput, Status } from "../types/domain.js";
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
+/** Longest text a varchar(100) column accepts (companies.name, jobs.title…). */
+const SHORT_TEXT_MAX = 100;
+
 /** A required text field: non-string values are missing data, empty after
  *  trimming fails the check with the field's message. */
-const requiredText = (message: string) =>
+const requiredText = (label: string) =>
   z.preprocess(
     (v) => (typeof v === "string" ? v : ""),
-    z.string().trim().min(1, message),
+    z
+      .string()
+      .trim()
+      .min(1, `请填写${label}`)
+      .max(SHORT_TEXT_MAX, `${label}最多 ${SHORT_TEXT_MAX} 个字符`),
   );
 
-/** An optional text field: trims, empty → undefined (stored as NULL). */
-const optionalText = z.preprocess(
-  (v) => (typeof v === "string" && v.trim() !== "" ? v : undefined),
-  z
-    .string()
-    .transform((v) => v.trim())
-    .optional(),
-);
+/** An optional text field: trims, empty → undefined (stored as NULL). The
+ *  optional `max` mirrors the destination column's width so oversized input
+ *  is a form error, never a database error. */
+const optionalText = (label: string, max?: number) => {
+  const text = z.string().trim();
+  return z.preprocess(
+    (v) => (typeof v === "string" && v.trim() !== "" ? v : undefined),
+    (max === undefined ? text : text.max(max, `${label}最多 ${max} 个字符`)).optional(),
+  );
+};
 
 /** An optional date: real calendar dates only, so Postgres never rejects. */
 const optionalDate = z.preprocess(
@@ -61,17 +70,17 @@ const status = z.preprocess(
 );
 
 const applicationSchema = z.object({
-  company: requiredText("请填写公司名称"),
-  title: requiredText("请填写职位名称"),
+  company: requiredText("公司名称"),
+  title: requiredText("职位名称"),
   status,
   interview_date: optionalDate,
-  note: optionalText,
-  posting_url: optionalText.refine(
+  note: optionalText("备注"),
+  posting_url: optionalText("链接").refine(
     (url) => url === undefined || /^https?:\/\//i.test(url),
     { message: "请输入以 http:// 或 https:// 开头的链接" },
   ),
-  location: optionalText,
-  salary: optionalText,
+  location: optionalText("工作地点", SHORT_TEXT_MAX),
+  salary: optionalText("薪资", SHORT_TEXT_MAX),
   deadline: optionalDate,
 });
 

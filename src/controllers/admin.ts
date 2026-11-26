@@ -1,5 +1,6 @@
 import type { RequestHandler } from "express";
 import { db } from "../db/client.js";
+import { isValidId } from "../utils/ids.js";
 import type { Role } from "../types/domain.js";
 
 /**
@@ -94,8 +95,9 @@ export const save: RequestHandler = async (req, res, next) => {
     const canManage = (body.can_manage ?? {}) as FieldMap;
 
     const ids = Object.keys(roles)
+      .filter((key) => /^u\d+$/.test(key))
       .map((key) => Number(key.slice(1)))
-      .filter((id) => Number.isInteger(id) && id > 0);
+      .filter(isValidId);
     if (ids.length === 0) return res.redirect("/admin/users");
 
     await db.transaction(async (trx) => {
