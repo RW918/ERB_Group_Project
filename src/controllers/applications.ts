@@ -11,6 +11,7 @@ import {
   ValidationError,
 } from "../services/applications.js";
 import { parseApplicationInput } from "../utils/validate.js";
+import { parseId } from "../utils/ids.js";
 import {
   companyTint,
   daysLeft,
@@ -102,15 +103,22 @@ export const dashboard: RequestHandler = async (req, res, next) => {
     ]);
 
     // The add/edit modal is opened with ?modal=1 (new) or ?modal=1&id=N (edit).
+    // An id that is present but malformed is a bad URL (404), not "new" (issue 54).
     let modal: { editing: boolean; m: Decorated | null } | null = null;
     if (req.query.modal === "1") {
-      const editId = Number(req.query.id);
-      const editing = Number.isInteger(editId) && editId > 0;
-      const m = editing ? decorate(await getApplication(editId, viewer), viewer) : null;
-      if (editing && m && !m.isOwner) {
-        return res.status(403).render("forbidden", { user: viewer });
+      if (req.query.id === undefined) {
+        modal = { editing: false, m: null };
+      } else {
+        const editId = parseId(req.query.id);
+        if (editId === null) {
+          return res.status(404).render("not-found", { user: viewer });
+        }
+        const m = decorate(await getApplication(editId, viewer), viewer);
+        if (!m.isOwner) {
+          return res.status(403).render("forbidden", { user: viewer });
+        }
+        modal = { editing: true, m };
       }
-      modal = { editing, m };
     }
 
     res.render("applications/index", {
@@ -126,7 +134,7 @@ export const dashboard: RequestHandler = async (req, res, next) => {
       formError: typeof req.query.error === "string" ? req.query.error : null,
     });
   } catch (error) {
-     if (error instanceof NotFoundError) {
+    if (error instanceof NotFoundError) {
       return res.status(404).render("not-found", { user: req.user });
     }
     next(error);
@@ -137,7 +145,11 @@ export const dashboard: RequestHandler = async (req, res, next) => {
 export const show: RequestHandler = async (req, res, next) => {
   try {
     const viewer = req.user!;
-    const row = await getApplication(Number(req.params.id), viewer);
+    const id = parseId(req.params.id);
+    if (id === null) {
+      return res.status(404).render("not-found", { user: viewer });
+    }
+    const row = await getApplication(id, viewer);
     res.render("applications/detail", {
       title: "投递详情",
       active: "dashboard",
@@ -179,7 +191,10 @@ export const create: RequestHandler = async (req, res, next) => {
 export const update: RequestHandler = async (req, res, next) => {
   try {
     const viewer = req.user!;
-    const id = Number(req.params.id);
+    const id = parseId(req.params.id);
+    if (id === null) {
+      return res.status(404).render("not-found", { user: viewer });
+    }
     const parsed = parseApplicationInput(req.body as Record<string, unknown>);
     if (!parsed.ok) {
       return res.redirect(`/?modal=1&id=${id}&error=${encodeURIComponent(parsed.error)}`);
@@ -209,7 +224,9 @@ export const update: RequestHandler = async (req, res, next) => {
 export const destroy: RequestHandler = async (req, res, next) => {
   try {
     const viewer = req.user!;
-    await deleteApplication(Number(req.params.id), viewer);
+    const id = parseId(req.params.id);
+    if (id === null) return res.status(404).json({ ok: false, error: "投递记录不存在" });
+    await deleteApplication(id, viewer);
     res.json({ ok: true });
   } catch (error) {
     if (error instanceof NotFoundError) return res.status(404).json({ ok: false, error: "投递记录不存在" });

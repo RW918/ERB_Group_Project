@@ -2,6 +2,7 @@ import { db } from "../db/client.js";
 import { STATUSES, type ApplicationRow, type Status } from "../types/domain.js";
 import type { SessionUser } from "../auth/session.js";
 import type { ApplicationInput } from "../types/domain.js";
+import { isValidId } from "../utils/ids.js";
 
 /**
  * Application queries — the JOIN list, the GROUP BY counts, and ownership-based
@@ -98,10 +99,6 @@ export async function countByStatus(viewer: SessionUser) {
     counts.total += n;
   }
   return counts;
-}
-
-function isValidId(id: number): boolean {
-  return Number.isInteger(id) && id > 0 && id <= 2147483647;
 }
 
 export async function getApplication(id: number, viewer: SessionUser) {
